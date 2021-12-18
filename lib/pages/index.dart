@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../globals.dart' as globals;
+
+import '../components/bottom_bar.dart';
 import '../components/drawer_app_bar.dart';
 
 class Index extends StatefulWidget {
@@ -109,11 +111,11 @@ class _IndexState extends State<Index> {
                                 color: Color(0xFFECECEC), width: 0.0),
                           ),
                           filled: true,
-                          fillColor: Color(0xFFF3F7FA),
+                          fillColor: globals.inputColor,
                           hintText: 'Специалист или услуга',
                           hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                         ),
-                        style: TextStyle(color: Color(0xFFF3F7FA)),
+                        style: TextStyle(color: globals.inputColor),
                       ),
                     ))
               ],
@@ -277,8 +279,8 @@ class _IndexState extends State<Index> {
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF3F7FA),
+                      decoration: BoxDecoration(
+                        color: globals.inputColor,
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
                       child: Stack(
@@ -347,32 +349,7 @@ class _IndexState extends State<Index> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          // showSelectedLabels: false,
-          // showUnselectedLabels: false,
-          currentIndex: 0,
-          backgroundColor: globals.white,
-          selectedItemColor: globals.black,
-          selectedIconTheme: IconThemeData(color: globals.black),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: 'Главная',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_outlined,
-                    color: Color(0xFF828282)),
-                label: 'Мои заказы'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: Color(0xFF828282)),
-                label: 'Профиль'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.headset_mic, color: Color(0xFF828282)),
-                label: 'Поддержка'),
-          ]),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }

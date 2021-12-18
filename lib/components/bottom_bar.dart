@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../globals.dart' as globals;
 
 class BottomBar extends StatefulWidget {
@@ -9,12 +10,43 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
+  int active = 0;
+
+  onItemTab(int index) {
+    print(index);
+    // if (index != widget.active) {
+    setState(() {
+      active = index;
+    });
+
+    switch (index) {
+      case 0:
+        Get.offAllNamed('/');
+        break;
+      case 1:
+        Get.offAllNamed(
+          '/orders',
+        );
+        break;
+      case 2:
+        Get.offAllNamed('/profile');
+        break;
+      case 3:
+        Get.offAllNamed(
+          '/support',
+        );
+        break;
+    }
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         // showSelectedLabels: false,
         // showUnselectedLabels: false,
+        onTap: onItemTab,
         currentIndex: 0,
         backgroundColor: globals.white,
         selectedItemColor: globals.black,
@@ -27,8 +59,7 @@ class _BottomBarState extends State<BottomBar> {
             label: 'Главная',
           ),
           BottomNavigationBarItem(
-              icon:
-                  Icon(Icons.shopping_cart_outlined, color: Color(0xFF828282)),
+              icon: Icon(Icons.list_alt, color: Color(0xFF828282)),
               label: 'Мои заказы'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person, color: Color(0xFF828282)),

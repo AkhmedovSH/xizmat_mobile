@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
 
-class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key}) : super(key: key);
+class Button extends StatefulWidget {
+  String? text;
+  Function? onClick;
+  Button({Key? key, this.text, this.onClick}) : super(key: key);
 
   @override
-  _BottomBarState createState() => _BottomBarState();
+  _ButtonState createState() => _ButtonState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      margin: EdgeInsets.all(0),
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          widget.onClick!();
+        },
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          '${widget.text}',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+        ),
+      ),
+    );
   }
 }

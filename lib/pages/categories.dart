@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../globals.dart' as globals;
 
+import '../components/simple_app_bar.dart';
+
 class Categories extends StatefulWidget {
   const Categories({Key? key}) : super(key: key);
 
@@ -13,25 +15,7 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text(
-          'Категории услуг',
-          style: TextStyle(
-            color: globals.black,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: globals.black,
-            )),
-      ),
+      appBar: SimpleAppBar(title: 'Категории услуг', appBar: AppBar(),),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

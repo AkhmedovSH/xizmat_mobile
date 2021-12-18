@@ -68,34 +68,39 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                     margin: EdgeInsets.only(top: 20),
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 20),
-                          child: CircleAvatar(
-                            radius: 30.0,
-                            child: Icon(
-                              Icons.person,
-                              color: globals.red,
-                            ),
-                            // backgroundImage: NetworkImage(
-                            //   'https://via.placeholder.com/150',
-                            // ),
-                            backgroundColor: Color(0xFFF8F8F8),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 14),
-                          child: Text(
-                            'Войти',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/register');
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 20),
+                            child: CircleAvatar(
+                              radius: 30.0,
+                              child: Icon(
+                                Icons.person,
+                                color: globals.red,
+                              ),
+                              // backgroundImage: NetworkImage(
+                              //   'https://via.placeholder.com/150',
+                              // ),
+                              backgroundColor: Color(0xFFF8F8F8),
                             ),
                           ),
-                        ),
-                        Icon(Icons.arrow_forward),
-                      ],
+                          Container(
+                            margin: EdgeInsets.only(right: 14),
+                            child: Text(
+                              'Войти',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward),
+                        ],
+                      ),
                     ),
                   ),
                   Positioned(
@@ -131,7 +136,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                 context,
                 'Мои заказы',
                 Icons.list_alt,
-                '/filters',
+                '/orders',
               ),
               buildListTile(
                 context,

@@ -32,19 +32,20 @@ class _FastSearchState extends State<FastSearch> {
                       },
                       icon: Icon(Icons.arrow_back)),
                   suffixIcon: Icon(
-                    Icons.close,
+                    Icons.cancel_sharp,
                     color: globals.red,
+                    size: 20,
                   ),
-                  contentPadding: EdgeInsets.all(18.0),
+                  contentPadding: EdgeInsets.all(12.0),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(10.0),
                     borderSide:
-                        BorderSide(color: Color(0xFFECECEC), width: 0.0),
+                        BorderSide(color: Colors.transparent, width: 0.0),
                   ),
                   filled: true,
-                  fillColor: Color(0xFFF3F7FA),
+                  fillColor: Color(0xFFF7F7F7),
                   hintText: 'Специалист или услуга',
-                  hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                  hintStyle: TextStyle(color: globals.ligtGrey),
                 ),
               ),
             ),
@@ -58,7 +59,7 @@ class _FastSearchState extends State<FastSearch> {
                 },
                 labelColor: globals.black,
                 indicatorColor: globals.orange,
-                indicatorWeight: 3,
+                indicatorWeight: 2,
                 labelStyle: TextStyle(
                     fontSize: 16.0,
                     color: Color(0xFF272727),
@@ -78,27 +79,32 @@ class _FastSearchState extends State<FastSearch> {
             ),
             Column(
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  padding: EdgeInsets.only(bottom: 15),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Репетитор',
-                        style: TextStyle(color: globals.black, fontSize: 18),
-                      ),
-                      Icon(Icons.arrow_forward, color: globals.black)
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/tutor');
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(vertical: 21),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 1, color: Color(0xFFF2F2F2)))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Репетитор',
+                          style: TextStyle(color: globals.black, fontSize: 18),
+                        ),
+                        Icon(Icons.arrow_forward, color: globals.black)
+                      ],
+                    ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  padding: EdgeInsets.only(bottom: 15),
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  padding: EdgeInsets.symmetric(vertical: 21),
                   decoration: BoxDecoration(
                       border: Border(
                           bottom:
@@ -115,8 +121,8 @@ class _FastSearchState extends State<FastSearch> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  padding: EdgeInsets.only(bottom: 15),
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  padding: EdgeInsets.symmetric(vertical: 21),
                   decoration: BoxDecoration(
                       border: Border(
                           bottom:
