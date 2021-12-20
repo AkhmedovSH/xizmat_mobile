@@ -17,12 +17,14 @@ class _FastSearchState extends State<FastSearch> {
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
+          child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              margin: EdgeInsets.symmetric(vertical: 12),
               width: double.infinity,
               child: TextField(
                 decoration: InputDecoration(
@@ -45,7 +47,7 @@ class _FastSearchState extends State<FastSearch> {
                   filled: true,
                   fillColor: Color(0xFFF7F7F7),
                   hintText: 'Специалист или услуга',
-                  hintStyle: TextStyle(color: globals.ligtGrey),
+                  hintStyle: TextStyle(color: globals.ligtGrey), 
                 ),
               ),
             ),
@@ -84,7 +86,6 @@ class _FastSearchState extends State<FastSearch> {
                     Get.toNamed('/tutor');
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 12),
                     padding: EdgeInsets.symmetric(vertical: 21),
                     decoration: BoxDecoration(
                         border: Border(
@@ -103,7 +104,6 @@ class _FastSearchState extends State<FastSearch> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12),
                   padding: EdgeInsets.symmetric(vertical: 21),
                   decoration: BoxDecoration(
                       border: Border(
@@ -121,7 +121,6 @@ class _FastSearchState extends State<FastSearch> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12),
                   padding: EdgeInsets.symmetric(vertical: 21),
                   decoration: BoxDecoration(
                       border: Border(
@@ -142,7 +141,7 @@ class _FastSearchState extends State<FastSearch> {
             )
           ],
         ),
-      ),
+      )),
     ));
   }
 }

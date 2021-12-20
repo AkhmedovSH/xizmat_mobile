@@ -9,9 +9,13 @@ import 'pages/fast_search.dart';
 import 'pages/tutor.dart';
 import 'pages/register.dart';
 import 'pages/orders.dart';
+import 'pages/support.dart';
 
 import 'pages/Steps/step_1.dart';
 import 'pages/Steps/step_2.dart';
+import 'pages/Steps/step_3.dart';
+import 'pages/Steps/google_map.dart';
+import 'pages/Steps/search_result.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/',
+      initialRoute: '/', 
       getPages: [
         GetPage(name: '/', page: () => Index()),
         GetPage(name: '/categories', page: () => Categories()),
@@ -48,9 +52,13 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/tutor', page: () => Tutor()),
         GetPage(name: '/register', page: () => Register()),
         GetPage(name: '/orders', page: () => Orders()),
+        GetPage(name: '/support', page: () => Support()),
 
         GetPage(name: '/step-1', page: () => Step1()),
         GetPage(name: '/step-2', page: () => Step2()),
+        GetPage(name: '/step-3', page: () => Step3()),
+        GetPage(name: '/google-map', page: () => Map()),
+        GetPage(name: '/search-result', page: () => SearchResult(), transition: Transition.downToUp),
       ],
       // home: Index(),
     );

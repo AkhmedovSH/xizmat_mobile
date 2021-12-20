@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../globals.dart' as globals;
+import '../widgets.dart' as widgets;
 
-import '../../components/simple_app_bar.dart';
+import '../components/simple_app_bar.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);

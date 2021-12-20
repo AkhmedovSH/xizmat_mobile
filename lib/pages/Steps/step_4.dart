@@ -7,14 +7,14 @@ import '../../widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
-class Step2 extends StatefulWidget {
-  const Step2({Key? key}) : super(key: key);
+class Step4 extends StatefulWidget {
+  const Step4({Key? key}) : super(key: key);
 
   @override
-  _Step2State createState() => _Step2State();
+  _Step4State createState() => _Step4State();
 }
 
-class _Step2State extends State<Step2> {
+class _Step4State extends State<Step4> {
   dynamic character = 1;
 
   @override
@@ -36,7 +36,7 @@ class _Step2State extends State<Step2> {
                 animation: true,
                 lineHeight: 6.0,
                 animationDuration: 500,
-                percent: 0.4,
+                percent: 0.8,
                 linearStrokeCap: LinearStrokeCap.roundAll,
                 progressColor: globals.red,
                 backgroundColor: Color(0xFFF8F8F8),
@@ -46,7 +46,7 @@ class _Step2State extends State<Step2> {
               child: Container(
                 margin: EdgeInsets.only(top: 15, bottom: 15),
                 child: Text(
-                  'Шаг 2 / 5',
+                  'Шаг 4 / 5',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -128,7 +128,7 @@ class _Step2State extends State<Step2> {
         child: widgets.Button(
           text: 'Продолжить',
           onClick: () {
-            Get.toNamed('/step-3');
+            Get.toNamed('/step-5');
           },
         ),
       ),

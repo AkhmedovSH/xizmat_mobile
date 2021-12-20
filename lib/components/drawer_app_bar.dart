@@ -37,15 +37,11 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
         ),
         onTap: () => {
           // Navigator.pop(context),
-          if (routeName == '/')
-            {
-              Navigator.of(context).pushReplacementNamed('/'),
-            },
+          if (routeName == '/') Get.offAllNamed('/'),
           if (routeName == '/fast-search') Get.toNamed('/fast-search'),
-          if (routeName == '/categories')
-            {
-              Get.toNamed('/categories'),
-            },
+          if (routeName == '/categories') Get.toNamed('/categories'),
+          if (routeName == '/orders') Get.toNamed('/orders'),
+          if (routeName == '/support') Get.toNamed('/support'),
         },
       ),
     );
@@ -142,13 +138,13 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                 context,
                 'Заказать через менеджера',
                 Icons.support_agent,
-                '/filters',
+                '/support',
               ),
               buildListTile(
                 context,
                 'Поддержка',
                 Icons.settings_suggest,
-                '/filters',
+                '/support',
               ),
             ],
           ),

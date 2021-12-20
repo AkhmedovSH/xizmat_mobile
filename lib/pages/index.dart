@@ -78,14 +78,13 @@ class _IndexState extends State<Index> {
                   ),
                 ),
                 Positioned(
-                    bottom: 120,
-                    child: Container(
-                      child: Text(
-                        'Здравствуйте, Валентина',
-                        style: TextStyle(
-                            color: globals.grey, fontWeight: FontWeight.w500),
-                      ),
-                    )),
+                  bottom: 120,
+                  child: Text(
+                    'Здравствуйте, Валентина',
+                    style: TextStyle(
+                        color: globals.grey, fontWeight: FontWeight.w500),
+                  ),
+                ),
                 Positioned(
                     bottom: 80,
                     child: Text(
@@ -349,7 +348,9 @@ class _IndexState extends State<Index> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomBar(),
+      bottomNavigationBar: BottomBar(
+        active: 0,
+      ),
     );
   }
 }
