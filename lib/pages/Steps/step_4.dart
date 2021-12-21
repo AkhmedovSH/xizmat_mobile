@@ -21,7 +21,7 @@ class _Step4State extends State<Step4> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Укажите пол',
+        title: 'Дата и время исполнения',
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
@@ -52,74 +52,49 @@ class _Step4State extends State<Step4> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+              margin: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Женщина',
-                    style: TextStyle(color: globals.black, fontSize: 18),
-                  ),
-                  Transform.scale(
-                    scale: 1,
-                    child: Radio(
-                      onChanged: (value) {
-                        setState(() {
-                          character = value;
-                        });
-                      },
-                      value: 1,
-                      groupValue: character,
-                      activeColor: globals.black,
-                    ),
-                  )
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.calendar_today),
+                          contentPadding: EdgeInsets.all(18.0),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                                color: Color(0xFFDADADA), width: 1.0),
+                          ),
+                          filled: true,
+                          fillColor: Color(0xFFF8F8F8),
+                          hintText: 'дд/мм/гг',
+                          hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                        ),
+                        style: TextStyle(color: globals.inputColor),
+                      )),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.schedule),
+                          contentPadding: EdgeInsets.all(18.0),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                                color: Color(0xFFDADADA), width: 1.0),
+                          ),
+                          filled: true,
+                          fillColor: Color(0xFFF8F8F8),
+                          hintText: '00:00',
+                          hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                        ),
+                        style: TextStyle(color: globals.inputColor),
+                      )),
                 ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Мужчина',
-                    style: TextStyle(color: globals.black, fontSize: 18),
-                  ),
-                  Transform.scale(
-                    scale: 1,
-                    child: Radio(
-                      onChanged: (value) {
-                        setState(() {
-                          character = value;
-                        });
-                      },
-                      value: 2,
-                      groupValue: character,
-                      activeColor: globals.black,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            // Container(
-            //     margin: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            //     child: ClipRRect(
-            //       borderRadius: BorderRadius.all(Radius.circular(5)),
-            //       child: LinearProgressIndicator(
-            //         value: 0.25,
-            //         color: globals.red,
-            //         backgroundColor: Color(0xFFF8F8F8),
-            //         minHeight: 4.0,
-            //       ),
-            //     ))
+            )
           ],
         ),
       ),

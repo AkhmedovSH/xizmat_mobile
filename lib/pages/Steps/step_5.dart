@@ -21,16 +21,20 @@ class _Step5State extends State<Step5> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Укажите пол',
+        title: 'Бюджет услуги (сум)',
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
+          child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              margin: EdgeInsets.symmetric(
+                vertical: 12,
+              ),
               child: LinearPercentIndicator(
                 width: MediaQuery.of(context).size.width - 50,
                 animation: true,
@@ -52,83 +56,72 @@ class _Step5State extends State<Step5> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Женщина',
-                    style: TextStyle(color: globals.black, fontSize: 18),
-                  ),
-                  Transform.scale(
-                    scale: 1,
-                    child: Radio(
-                      onChanged: (value) {
-                        setState(() {
-                          character = value;
-                        });
-                      },
-                      value: 1,
-                      groupValue: character,
-                      activeColor: globals.black,
-                    ),
-                  )
-                ],
+              margin: EdgeInsets.only(top: 20, bottom: 10),
+              child: Text(
+                'Бюджет услуги',
+                style: TextStyle(
+                    color: globals.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Мужчина',
-                    style: TextStyle(color: globals.black, fontSize: 18),
+              margin: EdgeInsets.only(bottom: 15),
+              child: TextField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(18.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
                   ),
-                  Transform.scale(
-                    scale: 1,
-                    child: Radio(
-                      onChanged: (value) {
-                        setState(() {
-                          character = value;
-                        });
-                      },
-                      value: 2,
-                      groupValue: character,
-                      activeColor: globals.black,
-                    ),
-                  )
-                ],
+                  filled: true,
+                  fillColor: globals.inputColor,
+                  hintText: 'Введите сумму',
+                  hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                ),
+                style: TextStyle(color: globals.inputColor),
               ),
             ),
-            // Container(
-            //     margin: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            //     child: ClipRRect(
-            //       borderRadius: BorderRadius.all(Radius.circular(5)),
-            //       child: LinearProgressIndicator(
-            //         value: 0.25,
-            //         color: globals.red,
-            //         backgroundColor: Color(0xFFF8F8F8),
-            //         minHeight: 4.0,
-            //       ),
-            //     ))
+            Container(
+              margin: EdgeInsets.only(top: 20, bottom: 10),
+              child: Text(
+                'Примечание к заказу',
+                style: TextStyle(
+                    color: globals.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 24),
+              child: TextField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(18.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide:
+                        BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
+                  ),
+                  filled: true,
+                  fillColor: globals.inputColor,
+                  hintText: 'Введите текст...',
+                  hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                ),
+                minLines: 8,
+                maxLines: 10,
+                style: TextStyle(color: globals.inputColor),
+              ),
+            ),
           ],
         ),
-      ),
+      )),
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Продолжить',
+          text: 'Опубликовать заказ',
           onClick: () {
-            Get.toNamed('/order-success');
+            Get.toNamed('/success');
           },
         ),
       ),

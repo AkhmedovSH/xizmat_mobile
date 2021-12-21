@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xizmat/pages/Steps/step_4.dart';
+import 'package:xizmat/pages/Steps/step_5.dart';
 
 import './globals.dart' as globals;
 
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/step-1', page: () => Step1()),
         GetPage(name: '/step-2', page: () => Step2()),
         GetPage(name: '/step-3', page: () => Step3()),
+        GetPage(name: '/step-4', page: () => Step4()),
+        GetPage(name: '/step-5', page: () => Step5()),
         GetPage(name: '/google-map', page: () => Map()),
         GetPage(name: '/search-result', page: () => SearchResult(), transition: Transition.downToUp),
       ],

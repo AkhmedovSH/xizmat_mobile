@@ -27,7 +27,7 @@ class _Step3State extends State<Step3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Укажите пол',
+        title: 'Укажите адрес',
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(
@@ -117,17 +117,6 @@ class _Step3State extends State<Step3> {
                 style: TextStyle(color: globals.inputColor),
               ),
             )
-            // Container(
-            //     margin: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            //     child: ClipRRect(
-            //       borderRadius: BorderRadius.all(Radius.circular(5)),
-            //       child: LinearProgressIndicator(
-            //         value: 0.25,
-            //         color: globals.red,
-            //         backgroundColor: Color(0xFFF8F8F8),
-            //         minHeight: 4.0,
-            //       ),
-            //     ))
           ],
         ),
       ),
