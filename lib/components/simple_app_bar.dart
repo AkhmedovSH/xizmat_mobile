@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final AppBar? appBar;
-
-  const SimpleAppBar({Key? key, this.title, @required this.appBar})
+  final bool? leading;
+  const SimpleAppBar(
+      {Key? key, this.title, @required this.appBar, this.leading = true})
       : super(key: key);
 
   @override
@@ -23,14 +24,16 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
-      leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: globals.black,
-          )),
+      leading: leading!
+          ? IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: globals.black,
+              ))
+          : Container(),
     );
   }
 

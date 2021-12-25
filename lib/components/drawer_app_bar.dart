@@ -41,6 +41,8 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
           if (routeName == '/fast-search') Get.toNamed('/fast-search'),
           if (routeName == '/categories') Get.toNamed('/categories'),
           if (routeName == '/orders') Get.toNamed('/orders'),
+          if (routeName == '/order-by-manager')
+            Get.toNamed('/order-by-manager'),
           if (routeName == '/support') Get.toNamed('/support'),
         },
       ),
@@ -138,7 +140,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                 context,
                 'Заказать через менеджера',
                 Icons.support_agent,
-                '/support',
+                '/order-by-manager',
               ),
               buildListTile(
                 context,

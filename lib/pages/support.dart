@@ -24,6 +24,7 @@ class _SupportState extends State<Support> {
       appBar: SimpleAppBar(
         title: 'Поддержка',
         appBar: AppBar(),
+        leading: false,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

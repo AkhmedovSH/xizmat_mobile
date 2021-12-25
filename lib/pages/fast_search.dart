@@ -47,7 +47,7 @@ class _FastSearchState extends State<FastSearch> {
                   filled: true,
                   fillColor: Color(0xFFF7F7F7),
                   hintText: 'Специалист или услуга',
-                  hintStyle: TextStyle(color: globals.ligtGrey), 
+                  hintStyle: TextStyle(color: globals.lightGrey),
                 ),
               ),
             ),

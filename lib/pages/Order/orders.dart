@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../globals.dart' as globals;
+import '../../globals.dart' as globals;
 
-import '../components/bottom_bar.dart';
+import '../../components/bottom_bar.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class _OrdersState extends State<Orders> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/tutor');
+                      Get.toNamed('/order-inside');
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
@@ -125,7 +125,7 @@ class _OrdersState extends State<Orders> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/tutor');
+                      Get.toNamed('/order-inside');
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
@@ -189,7 +189,7 @@ class _OrdersState extends State<Orders> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed('/tutor');
+                      Get.toNamed('/order-inside');
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),

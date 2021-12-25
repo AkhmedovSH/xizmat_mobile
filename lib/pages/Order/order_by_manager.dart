@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../globals.dart' as globals;
-import '../widgets.dart' as widgets;
+import '../../globals.dart' as globals;
+import '../../widgets.dart' as widgets;
 
-import '../components/simple_app_bar.dart';
+import '../../components/simple_app_bar.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class OrderByManager extends StatefulWidget {
+  const OrderByManager({Key? key}) : super(key: key);
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _OrderByManagerState createState() => _OrderByManagerState();
 }
 
-class _RegisterState extends State<Register> {
+class _OrderByManagerState extends State<OrderByManager> {
   dynamic character = 1;
 
   @override
@@ -32,7 +32,17 @@ class _RegisterState extends State<Register> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(top: 20, bottom: 10),
+                margin: EdgeInsets.only(bottom: 15, top: 25),
+                child: Text(
+                  'Отправьте ваши контакты',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: globals.black),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Ваше имя',
                   style: TextStyle(
@@ -87,24 +97,6 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(color: globals.inputColor),
                 ),
               ),
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 11),
-                  child: Text(
-                    'Есть аккаунт?',
-                    style: TextStyle(color: globals.lightGrey, fontSize: 17),
-                  ),
-                ),
-              ),
-              Center(
-                child: Text(
-                  'Войти?',
-                  style: TextStyle(
-                      color: globals.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
             ],
           ),
         ),
@@ -112,9 +104,9 @@ class _RegisterState extends State<Register> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: widgets.Button(
-          text: 'Продолжить',
+          text: 'Отправить',
           onClick: () {
-            Get.toNamed('/confirmation');
+            Get.toNamed('/order-by-manager-success');
           },
         ),
       ),
