@@ -11,8 +11,8 @@ import 'pages/register.dart';
 import 'pages/support.dart';
 import 'pages/Steps/success.dart';
 import 'pages/confirmation.dart';
+import 'pages/specialist_inside.dart';
 import 'package:xizmat/pages/profile.dart';
-
 
 import 'pages/Order/orders.dart';
 import 'pages/Order/order_inside.dart';
@@ -46,6 +46,10 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Color(0xFFFF5453),
         platform: TargetPlatform.android,
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: globals.black,
+              displayColor: globals.black,
+            ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             primary: globals.red,
@@ -63,14 +67,13 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/success', page: () => Success()),
         GetPage(name: '/confirmation', page: () => Confirmation()),
         GetPage(name: '/profile', page: () => Profile()),
-
+        GetPage(name: '/specialist-inside', page: () => SpecialistInside()),
         GetPage(name: '/orders', page: () => Orders()),
         GetPage(name: '/order-inside', page: () => OrderInside()),
         GetPage(name: '/order-by-manager', page: () => OrderByManager()),
-        GetPage(name: '/order-by-manager-success', page: () => OrderByManagerSuccess()),
-
-
-
+        GetPage(
+            name: '/order-by-manager-success',
+            page: () => OrderByManagerSuccess()),
         GetPage(name: '/step-1', page: () => Step1()),
         GetPage(name: '/step-2', page: () => Step2()),
         GetPage(name: '/step-3', page: () => Step3()),

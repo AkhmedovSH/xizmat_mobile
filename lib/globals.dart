@@ -9,3 +9,4 @@ Color red = Color(0xFFFF5453);
 Color orange = Color(0xFFFD6F4E);
 Color white = Color(0xFFFFFFFF);
 Color inputColor = Color(0xFFF3F7FA);
+Color yellow = Color(0xFFF3A919);
