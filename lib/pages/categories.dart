@@ -15,7 +15,10 @@ class _CategoriesState extends State<Categories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar(title: 'Категории услуг', appBar: AppBar(),),
+      appBar: SimpleAppBar(
+        title: 'Категории услуг',
+        appBar: AppBar(),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +35,9 @@ class _CategoriesState extends State<Categories> {
               children: [
                 for (var i = 1; i < 8; i++)
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed('/step-1');
+                    },
                     child: Container(
                         margin:
                             EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),

@@ -114,7 +114,7 @@ class _Step3State extends State<Step3> {
                       fontWeight: FontWeight.bold,
                       fontSize: 17),
                 ),
-                style: TextStyle(color: globals.inputColor),
+                style: TextStyle(color: globals.lightGrey),
               ),
             )
           ],

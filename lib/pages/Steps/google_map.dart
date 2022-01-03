@@ -137,7 +137,7 @@ class _MapState extends State<Map> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16),
                               ),
-                              style: TextStyle(color: globals.inputColor),
+                              style: TextStyle(color: globals.lightGrey),
                             ),
                           ),
                           Container(

@@ -80,7 +80,7 @@ class _Step5State extends State<Step5> {
                   hintText: 'Введите сумму',
                   hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                 ),
-                style: TextStyle(color: globals.inputColor),
+                style: TextStyle(color: globals.lightGrey),
               ),
             ),
             Container(
@@ -110,7 +110,7 @@ class _Step5State extends State<Step5> {
                 ),
                 minLines: 8,
                 maxLines: 10,
-                style: TextStyle(color: globals.inputColor),
+                style: TextStyle(color: globals.lightGrey),
               ),
             ),
           ],

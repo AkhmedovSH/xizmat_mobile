@@ -66,7 +66,7 @@ class _OrderByManagerState extends State<OrderByManager> {
                     hintText: 'Введите имя',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: globals.lightGrey),
                 ),
               ),
               Container(
@@ -94,7 +94,7 @@ class _OrderByManagerState extends State<OrderByManager> {
                     hintText: '+998',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: globals.lightGrey),
                 ),
               ),
             ],

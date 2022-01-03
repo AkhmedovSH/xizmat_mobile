@@ -72,7 +72,7 @@ class _Step4State extends State<Step4> {
                           hintText: 'дд/мм/гг',
                           hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                         ),
-                        style: TextStyle(color: globals.inputColor),
+                        style: TextStyle(color: globals.lightGrey),
                       )),
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,
@@ -90,7 +90,7 @@ class _Step4State extends State<Step4> {
                           hintText: '00:00',
                           hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                         ),
-                        style: TextStyle(color: globals.inputColor),
+                        style: TextStyle(color: globals.lightGrey),
                       )),
                 ],
               ),

@@ -68,7 +68,7 @@ class _ConfirmationState extends State<Confirmation> {
                     hintText: '_ _ _ _',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: globals.lightGrey),
                 ),
               ),
               Row(

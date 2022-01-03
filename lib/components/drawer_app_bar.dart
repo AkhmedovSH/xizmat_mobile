@@ -68,7 +68,7 @@ class _DrawerAppBarState extends State<DrawerAppBar> {
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed('/register');
+                        Get.toNamed('/login');
                       },
                       child: Row(
                         children: [

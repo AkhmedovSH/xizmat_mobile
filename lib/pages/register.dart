@@ -56,7 +56,7 @@ class _RegisterState extends State<Register> {
                     hintText: 'Введите имя',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: globals.lightGrey),
                 ),
               ),
               Container(
@@ -84,7 +84,7 @@ class _RegisterState extends State<Register> {
                     hintText: '+998',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.inputColor),
+                  style: TextStyle(color: globals.lightGrey),
                 ),
               ),
               Center(
@@ -97,12 +97,17 @@ class _RegisterState extends State<Register> {
                 ),
               ),
               Center(
-                child: Text(
-                  'Войти?',
-                  style: TextStyle(
-                      color: globals.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/login');
+                  },
+                  child: Text(
+                    'Войти',
+                    style: TextStyle(
+                        color: globals.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ],
