@@ -2,7 +2,7 @@
     package="com.example.xizmat">
     
    <application
-        android:label="xizmat"
+        android:label="Xizmat24"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
