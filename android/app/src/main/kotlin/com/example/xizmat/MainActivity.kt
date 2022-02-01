@@ -1,4 +1,4 @@
-package com.example.xizmat
+package com.example.xizmat24
 
 import io.flutter.embedding.android.FlutterActivity
 
