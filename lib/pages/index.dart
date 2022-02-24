@@ -124,48 +124,49 @@ class _IndexState extends State<Index> {
                       style: TextStyle(color: globals.grey, fontWeight: FontWeight.bold, fontSize: 24),
                     )),
                 Positioned(
-                    bottom: 0,
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: 330,
-                      child: TextField(
-                        onTap: () async {
-                          final int selected = await showSearch(
-                            context: context,
-                            delegate: delegate,
-                          );
-                          if (selected != 0 && selected != _lastIntegerSelected) {
-                            setState(() {
-                              _lastIntegerSelected = selected;
-                            });
-                          }
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: globals.lightGrey,
-                          ),
-                          suffixIcon: Icon(
-                            Icons.sort,
-                            color: globals.lightGrey,
-                          ),
-                          contentPadding: EdgeInsets.all(18.0),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
-                          ),
-                          filled: true,
-                          fillColor: globals.inputColor,
-                          hintText: 'Специалист или услуга',
-                          hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                  bottom: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(0),
+                    width: 330,
+                    child: TextField(
+                      onTap: () async {
+                        final int selected = await showSearch(
+                          context: context,
+                          delegate: delegate,
+                        );
+                        if (selected != 0 && selected != _lastIntegerSelected) {
+                          setState(() {
+                            _lastIntegerSelected = selected;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: globals.lightGrey,
                         ),
-                        style: TextStyle(color: globals.lightGrey),
+                        suffixIcon: Icon(
+                          Icons.sort,
+                          color: globals.lightGrey,
+                        ),
+                        contentPadding: EdgeInsets.all(18.0),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
+                        ),
+                        filled: true,
+                        fillColor: globals.inputColor,
+                        hintText: 'Специалист или услуга',
+                        hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                       ),
-                    ))
+                      style: TextStyle(color: globals.lightGrey),
+                    ),
+                  ),
+                )
               ],
             ),
             Container(

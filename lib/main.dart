@@ -82,6 +82,8 @@ class MyApp extends StatelessWidget {
           page: () => OrderByManagerSuccess(),
         ),
         // Steps
+        GetPage(name: '/checkboxes', page: () => Step1()),
+
         GetPage(name: '/step-1', page: () => Step1()),
         GetPage(name: '/step-2', page: () => Step2()),
         GetPage(name: '/step-3', page: () => Step3()),
