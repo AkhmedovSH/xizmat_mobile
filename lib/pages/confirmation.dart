@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 import '../globals.dart' as globals;
 import '../widgets.dart' as widgets;

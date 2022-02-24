@@ -1,11 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../../globals.dart' as globals;
-import '../../../widgets.dart' as widgets;
-
-import '../../../components/bottom_bar.dart';
-import '../../../components/simple_app_bar.dart';
 
 class OrderByManagerSuccess extends StatefulWidget {
   const OrderByManagerSuccess({Key? key}) : super(key: key);

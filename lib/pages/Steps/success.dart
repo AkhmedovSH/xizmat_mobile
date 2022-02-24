@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
-
-import '../../components/bottom_bar.dart';
-import '../../components/simple_app_bar.dart';
 
 class Success extends StatefulWidget {
   const Success({Key? key}) : super(key: key);

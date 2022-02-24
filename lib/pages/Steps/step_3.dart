@@ -17,7 +17,7 @@ class Step3 extends StatefulWidget {
 }
 
 class _Step3State extends State<Step3> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   dynamic character = 1;
 
   static final CameraPosition _kGooglePlex =

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:async';
 
 import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
 
 class OrderInsideFeedback extends StatefulWidget {
   const OrderInsideFeedback({Key? key}) : super(key: key);
@@ -21,9 +19,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
       },
       child: Container(
         padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            color: globals.inputColor,
-            borderRadius: BorderRadius.all(Radius.circular(4))),
+        decoration: BoxDecoration(color: globals.inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,18 +38,12 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                   children: [
                     Text(
                       'Специалист окликнулся',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: globals.lightGrey,
-                          fontWeight: FontWeight.w600),
+                      style: TextStyle(fontSize: 14, color: globals.lightGrey, fontWeight: FontWeight.w600),
                     ),
                     Padding(padding: EdgeInsets.only(top: 5)),
                     Text(
                       'Абдувасит Абдуманнобзода',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: globals.black,
-                          fontWeight: FontWeight.w600),
+                      style: TextStyle(fontSize: 16, color: globals.black, fontWeight: FontWeight.w600),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 5),
@@ -69,10 +59,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                                   size: 18,
                                 ),
                                 Padding(padding: EdgeInsets.only(right: 5)),
-                                Text('4,96',
-                                    style: TextStyle(
-                                        color: globals.black,
-                                        fontWeight: FontWeight.w500))
+                                Text('4,96', style: TextStyle(color: globals.black, fontWeight: FontWeight.w500))
                               ],
                             ),
                           ),
@@ -83,10 +70,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                                 color: globals.lightGrey,
                               ),
                               Padding(padding: EdgeInsets.only(right: 5)),
-                              Text('123',
-                                  style: TextStyle(
-                                      color: globals.lightGrey,
-                                      fontWeight: FontWeight.w500))
+                              Text('123', style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500))
                             ],
                           ),
                         ],
@@ -96,48 +80,40 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                 ),
               ],
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 8),
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    child: Text(
-                      'Здравствуйте, готов взяться за ва...',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: globals.black,
-                          fontWeight: FontWeight.w500),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 8),
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  child: Text(
+                    'Здравствуйте, готов взяться за ва...',
+                    style: TextStyle(fontSize: 16, color: globals.black, fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 8),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      gradient: LinearGradient(
-                          colors: const [
-                            Color(0xFFFF5353),
-                            Color(0xFFF99247),
-                          ],
-                          begin: const FractionalOffset(0.0, 1.0),
-                          end: const FractionalOffset(1.0, 0.0),
-                          stops: const [0.0, 1.0],
-                          tileMode: TileMode.clamp),
-                    ),
-                    child: Text(
-                      '2',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: globals.white,
-                          fontWeight: FontWeight.bold),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    gradient: LinearGradient(
+                        colors: const [
+                          Color(0xFFFF5353),
+                          Color(0xFFF99247),
+                        ],
+                        begin: const FractionalOffset(0.0, 1.0),
+                        end: const FractionalOffset(1.0, 0.0),
+                        stops: const [0.0, 1.0],
+                        tileMode: TileMode.clamp),
                   ),
-                ],
-              ),
+                  child: Text(
+                    '2',
+                    style: TextStyle(fontSize: 14, color: globals.white, fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             )
           ],
         ),

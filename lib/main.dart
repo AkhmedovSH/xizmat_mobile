@@ -29,8 +29,7 @@ import 'pages/Steps/step_5.dart';
 import 'pages/Steps/google_map.dart';
 import 'pages/Steps/search_result.dart';
 
-
- void main() {
+void main() {
   runApp(const MyApp());
 }
 
@@ -79,8 +78,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-inside', page: () => OrderInside()),
         GetPage(name: '/order-by-manager', page: () => OrderByManager()),
         GetPage(
-            name: '/order-by-manager-success',
-            page: () => OrderByManagerSuccess()),
+          name: '/order-by-manager-success',
+          page: () => OrderByManagerSuccess(),
+        ),
         // Steps
         GetPage(name: '/step-1', page: () => Step1()),
         GetPage(name: '/step-2', page: () => Step2()),
@@ -88,10 +88,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/step-4', page: () => Step4()),
         GetPage(name: '/step-5', page: () => Step5()),
         GetPage(name: '/google-map', page: () => Map()),
-        GetPage(
-            name: '/search-result',
-            page: () => SearchResult(),
-            transition: Transition.downToUp),
+        GetPage(name: '/search-result', page: () => SearchResult(), transition: Transition.downToUp),
       ],
       // home: Index(),
     );

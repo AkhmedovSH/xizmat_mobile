@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../globals.dart' as globals;
 
-import 'package:flutter/material.dart';
-
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final AppBar? appBar;

@@ -15,7 +15,6 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _SearchDemoSearchDelegate delegate = _SearchDemoSearchDelegate();
-  final GlobalKey<ScaffoldState> _scaffoldKey2 = GlobalKey<ScaffoldState>();
 
   dynamic teamService = [
     {
@@ -115,18 +114,14 @@ class _IndexState extends State<Index> {
                   bottom: 120,
                   child: Text(
                     'Здравствуйте, Валентина',
-                    style: TextStyle(
-                        color: globals.grey, fontWeight: FontWeight.w500),
+                    style: TextStyle(color: globals.grey, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Positioned(
                     bottom: 80,
                     child: Text(
                       'Какую услугу ищете?',
-                      style: TextStyle(
-                          color: globals.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24),
+                      style: TextStyle(color: globals.grey, fontWeight: FontWeight.bold, fontSize: 24),
                     )),
                 Positioned(
                     bottom: 0,
@@ -139,8 +134,7 @@ class _IndexState extends State<Index> {
                             context: context,
                             delegate: delegate,
                           );
-                          if (selected != null &&
-                              selected != _lastIntegerSelected) {
+                          if (selected != 0 && selected != _lastIntegerSelected) {
                             setState(() {
                               _lastIntegerSelected = selected;
                             });
@@ -158,13 +152,11 @@ class _IndexState extends State<Index> {
                           contentPadding: EdgeInsets.all(18.0),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(
-                                color: Color(0xFFECECEC), width: 0.0),
+                            borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(
-                                color: Color(0xFFECECEC), width: 0.0),
+                            borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
                           ),
                           filled: true,
                           fillColor: globals.inputColor,
@@ -190,10 +182,7 @@ class _IndexState extends State<Index> {
                           padding: EdgeInsets.all(0),
                           child: Text(
                             'Популярное',
-                            style: TextStyle(
-                                color: globals.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: globals.black, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Container(
@@ -206,10 +195,7 @@ class _IndexState extends State<Index> {
                               children: [
                                 Text(
                                   'Все категории',
-                                  style: TextStyle(
-                                      color: globals.red,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
+                                  style: TextStyle(color: globals.red, fontSize: 15, fontWeight: FontWeight.w600),
                                 ),
                                 Icon(
                                   Icons.chevron_right,
@@ -234,8 +220,7 @@ class _IndexState extends State<Index> {
                             child: Container(
                                 width: 130,
                                 height: 125,
-                                margin: EdgeInsets.only(
-                                    right: 8.0, left: 8.0, bottom: 20),
+                                margin: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 20),
                                 decoration: BoxDecoration(
                                   color: Color(0xFFF4F7FA),
                                   borderRadius: BorderRadius.circular(15),
@@ -246,9 +231,7 @@ class _IndexState extends State<Index> {
                                       margin: EdgeInsets.all(8),
                                       child: Text(
                                         'Услуги \n курьеров ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: globals.black),
+                                        style: TextStyle(fontWeight: FontWeight.w700, color: globals.black),
                                       ),
                                     ),
                                     Positioned(
@@ -273,10 +256,7 @@ class _IndexState extends State<Index> {
                     ),
                     child: Text(
                       'Командные услуги',
-                      style: TextStyle(
-                          color: globals.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: globals.black, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
@@ -291,49 +271,37 @@ class _IndexState extends State<Index> {
                           Container(
                             decoration: BoxDecoration(
                               color: globals.red,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
                             ),
                             margin: EdgeInsets.only(right: 10),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 7),
+                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                             child: Text(
                               'Лучшее',
-                              style: TextStyle(
-                                  color: globals.white,
-                                  fontWeight: FontWeight.w600),
+                              style: TextStyle(color: globals.white, fontWeight: FontWeight.w600),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
                               color: globals.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
                             ),
                             margin: EdgeInsets.only(right: 10),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 7),
+                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                             child: Text(
                               'Персональные услуги ',
-                              style: TextStyle(
-                                  color: globals.darkGrey,
-                                  fontWeight: FontWeight.w600),
+                              style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w600),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
                               color: globals.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
                             ),
                             margin: EdgeInsets.only(right: 10),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 7),
+                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                             child: Text(
                               'Персональные услуги ',
-                              style: TextStyle(
-                                  color: globals.darkGrey,
-                                  fontWeight: FontWeight.w600),
+                              style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -356,8 +324,7 @@ class _IndexState extends State<Index> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: globals.inputColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
                             ),
                             child: Stack(
                               children: [
@@ -365,20 +332,12 @@ class _IndexState extends State<Index> {
                                   children: [
                                     Container(
                                       padding: EdgeInsets.all(0),
-                                      child: Image.asset('images/p$i.png',
-                                          height: 105,
-                                          width: double.infinity,
-                                          fit: BoxFit.fill),
+                                      child: Image.asset('images/p$i.png', height: 105, width: double.infinity, fit: BoxFit.fill),
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      margin: EdgeInsets.only(
-                                          top: 23,
-                                          bottom: 10,
-                                          right: 11,
-                                          left: 11),
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 11),
+                                      margin: EdgeInsets.only(top: 23, bottom: 10, right: 11, left: 11),
+                                      padding: EdgeInsets.symmetric(horizontal: 11),
                                       child: Text(
                                         'Полная уборка квартиры',
                                         style: TextStyle(
@@ -389,7 +348,7 @@ class _IndexState extends State<Index> {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: double.infinity,
                                       child: Text(
                                         '123 44 +',
@@ -406,16 +365,13 @@ class _IndexState extends State<Index> {
                                 ),
                                 Positioned(
                                     top: 80,
-                                    left: MediaQuery.of(context).size.width *
-                                        0.18,
+                                    left: MediaQuery.of(context).size.width * 0.18,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: globals.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(7.0)),
+                                        borderRadius: BorderRadius.all(Radius.circular(7.0)),
                                       ),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 11, vertical: 8),
+                                      padding: EdgeInsets.symmetric(horizontal: 11, vertical: 8),
                                       child: Icon(
                                         Icons.build,
                                         color: Color(0xFF9C9C9C),
@@ -441,8 +397,7 @@ class _IndexState extends State<Index> {
 }
 
 class _SearchDemoSearchDelegate extends SearchDelegate {
-  final List<int> _data =
-      List<int>.generate(100001, (int i) => i).reversed.toList();
+  final List<int> _data = List<int>.generate(100001, (int i) => i).reversed.toList();
   final List<int> _history = <int>[42607, 85604, 66374, 44, 174];
 
   @override
@@ -461,9 +416,7 @@ class _SearchDemoSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final Iterable<int> suggestions = query.isEmpty
-        ? _history
-        : _data.where((int i) => '$i'.startsWith(query));
+    final Iterable<int> suggestions = query.isEmpty ? _history : _data.where((int i) => '$i'.startsWith(query));
 
     return _SuggestionList(
       query: query,
@@ -499,7 +452,7 @@ class _SearchDemoSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
-      if (!query.isEmpty)
+      if (query.isEmpty)
         IconButton(
           tooltip: 'Clear',
           icon: const Icon(Icons.clear),
@@ -521,7 +474,6 @@ class _SuggestionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return ListView.builder(
       itemCount: suggestions!.length,
       itemBuilder: (BuildContext context, int i) {
@@ -530,8 +482,7 @@ class _SuggestionList extends StatelessWidget {
           title: RichText(
             text: TextSpan(
               text: suggestion.substring(0, query!.length),
-              // style: theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
-              children: [
+              children: const [
                 TextSpan(
                   text: '111',
                   style: TextStyle(),

@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'dart:async';
-
 import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
-
-import '../../components/simple_app_bar.dart';
 
 class OrderInsideAllSpecialists extends StatefulWidget {
   const OrderInsideAllSpecialists({Key? key}) : super(key: key);
@@ -88,7 +82,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
               ),
             ],
           ),
-          Container(
+          SizedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

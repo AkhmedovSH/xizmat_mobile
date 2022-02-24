@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import './globals.dart' as globals;
 
 class Button extends StatefulWidget {
-  String? text;
-  Function? onClick;
-  Button({Key? key, this.text, this.onClick}) : super(key: key);
+  final String? text;
+  final Function? onClick;
+  const Button({Key? key, this.text, this.onClick}) : super(key: key);
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -38,9 +38,9 @@ class _ButtonState extends State<Button> {
 }
 
 class OutlinedButton extends StatefulWidget {
-  String? text;
-  Function? onClick;
-  OutlinedButton({Key? key, this.text, this.onClick}) : super(key: key);
+  final String? text;
+  final Function? onClick;
+  const OutlinedButton({Key? key, this.text, this.onClick}) : super(key: key);
 
   @override
   _OutlinedButtonState createState() => _OutlinedButtonState();

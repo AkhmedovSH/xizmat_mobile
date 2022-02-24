@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 class SearchResult extends StatefulWidget {
-  SearchResult({Key? key}) : super(key: key);
+  const SearchResult({Key? key}) : super(key: key);
 
   @override
   _SearchResultState createState() => _SearchResultState();
@@ -12,7 +10,7 @@ class SearchResult extends StatefulWidget {
 class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
       child: Text('SearchREsult'),
     );
   }

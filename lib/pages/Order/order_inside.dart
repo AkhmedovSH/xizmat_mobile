@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'dart:async';
-
 import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
 
 import './order_inside_feedback.dart';
 import './order_inside_all_specialists.dart';
