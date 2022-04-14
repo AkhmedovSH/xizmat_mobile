@@ -5,6 +5,7 @@ import '../globals.dart' as globals;
 //ignore: must_be_immutable
 class BottomBar extends StatefulWidget {
   int? active;
+  
   BottomBar({Key? key, this.active}) : super(key: key);
 
   @override

@@ -1,6 +1,6 @@
 {
-    "name": "xizmat",
-    "short_name": "xizmat",
+    "name": "xizmat_client",
+    "short_name": "xizmat_client",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

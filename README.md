@@ -1,4 +1,4 @@
-# xizmat
+# xizmat_client
 
 A new Flutter project.
 

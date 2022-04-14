@@ -3,20 +3,21 @@ import 'package:get/get.dart';
 
 import './globals.dart' as globals;
 
-import 'pages/index.dart';
+import 'pages/dashboard/dashboard.dart';
+// import 'pages/dashboard/index.dart';
 import 'pages/categories.dart';
 import 'pages/fast_search.dart';
 import 'pages/tutor.dart';
-import 'pages/support.dart';
+import 'pages/dashboard/support.dart';
 import 'pages/Steps/success.dart';
 import 'pages/specialist_inside.dart';
-import 'package:xizmat/pages/profile.dart';
+import 'pages/dashboard/profile.dart';
 
 import 'pages/register.dart';
 import 'pages/confirmation.dart';
 import 'pages/login.dart';
 
-import 'pages/Order/orders.dart';
+import 'pages/dashboard/orders.dart';
 import 'pages/Order/order_inside.dart';
 import 'pages/Order/order_by_manager.dart';
 import 'pages/Order/order_by_manager_success.dart';
@@ -41,12 +42,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       popGesture: true,
       defaultTransition: Transition.leftToRight,
-      transitionDuration: Duration(milliseconds: 250),
+      transitionDuration: const Duration(milliseconds: 250),
       theme: ThemeData(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: const Color(0xFFFFFFFF),
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
         brightness: Brightness.light,
-        primaryColor: Color(0xFFFF5453),
+        primaryColor: const Color(0xFFFF5453),
         platform: TargetPlatform.android,
         textTheme: Theme.of(context).textTheme.apply(
               bodyColor: globals.black,
@@ -60,37 +61,32 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => Index()),
-        GetPage(name: '/categories', page: () => Categories()),
-        GetPage(name: '/fast-search', page: () => FastSearch()),
-        GetPage(name: '/tutor', page: () => Tutor()),
-        GetPage(name: '/support', page: () => Support()),
-        GetPage(name: '/success', page: () => Success()),
-        GetPage(name: '/confirmation', page: () => Confirmation()),
-        GetPage(name: '/profile', page: () => Profile()),
+        GetPage(name: '/', page: () => const Dashboard()),
+        GetPage(name: '/categories', page: () => const Categories()),
+        GetPage(name: '/fast-search', page: () => const FastSearch()),
+        GetPage(name: '/tutor', page: () => const Tutor()),
+        GetPage(name: '/support', page: () => const Support()),
+        GetPage(name: '/success', page: () => const Success()),
+        GetPage(name: '/confirmation', page: () => const Confirmation()),
+        GetPage(name: '/profile', page: () => const Profile()),
         // Register
-        GetPage(name: '/register', page: () => Register()),
-        GetPage(name: '/confirmation', page: () => Confirmation()),
-        GetPage(name: '/login', page: () => Login()),
+        GetPage(name: '/register', page: () => const Register()),
+        GetPage(name: '/confirmation', page: () => const Confirmation()),
+        GetPage(name: '/login', page: () => const Login()),
         // Order
-        GetPage(name: '/specialist-inside', page: () => SpecialistInside()),
-        GetPage(name: '/orders', page: () => Orders()),
-        GetPage(name: '/order-inside', page: () => OrderInside()),
-        GetPage(name: '/order-by-manager', page: () => OrderByManager()),
-        GetPage(
-          name: '/order-by-manager-success',
-          page: () => OrderByManagerSuccess(),
-        ),
+        GetPage(name: '/specialist-inside', page: () => const SpecialistInside()),
+        GetPage(name: '/orders', page: () => const Orders()),
+        GetPage(name: '/order-inside', page: () => const OrderInside()),
+        GetPage(name: '/order-by-manager', page: () => const OrderByManager()),
+        GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
         // Steps
-        GetPage(name: '/checkboxes', page: () => Step1()),
-
-        GetPage(name: '/step-1', page: () => Step1()),
-        GetPage(name: '/step-2', page: () => Step2()),
-        GetPage(name: '/step-3', page: () => Step3()),
-        GetPage(name: '/step-4', page: () => Step4()),
-        GetPage(name: '/step-5', page: () => Step5()),
-        GetPage(name: '/google-map', page: () => Map()),
-        GetPage(name: '/search-result', page: () => SearchResult(), transition: Transition.downToUp),
+        GetPage(name: '/step-1', page: () => const Step1()),
+        GetPage(name: '/step-2', page: () => const Step2()),
+        GetPage(name: '/step-3', page: () => const Step3()),
+        GetPage(name: '/step-4', page: () => const Step4()),
+        GetPage(name: '/step-5', page: () => const Step5()),
+        GetPage(name: '/google-map', page: () => const Map()),
+        GetPage(name: '/search-result', page: () => const SearchResult(), transition: Transition.downToUp),
       ],
       // home: Index(),
     );

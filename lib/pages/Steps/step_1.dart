@@ -30,7 +30,7 @@ class _Step1State extends State<Step1> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: LinearPercentIndicator(
                 width: MediaQuery.of(context).size.width - 50,
                 animation: true,
@@ -39,24 +39,22 @@ class _Step1State extends State<Step1> {
                 percent: 0.2,
                 linearStrokeCap: LinearStrokeCap.roundAll,
                 progressColor: globals.red,
-                backgroundColor: Color(0xFFF8F8F8),
+                backgroundColor: const Color(0xFFF8F8F8),
               ),
             ),
             Center(
               child: Container(
-                margin: EdgeInsets.only(top: 15, bottom: 15),
-                child: Text(
+                margin: const EdgeInsets.only(top: 15, bottom: 15),
+                child: const Text(
                   'Шаг 1 /5',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+              margin: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -81,11 +79,9 @@ class _Step1State extends State<Step1> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+              margin: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -124,12 +120,10 @@ class _Step1State extends State<Step1> {
         ),
       ),
       floatingActionButton: Container(
-        margin: EdgeInsets.only(left: 32),
+        margin: const EdgeInsets.only(left: 32),
         child: widgets.Button(
           text: 'Продолжить',
-          onClick: () => {
-            Get.toNamed('/step-2')
-          },
+          onClick: () => {Get.toNamed('/step-2')},
         ),
       ),
     );

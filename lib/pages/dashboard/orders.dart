@@ -36,12 +36,8 @@ class _OrdersState extends State<Orders> {
                     labelColor: globals.black,
                     indicatorColor: globals.orange,
                     indicatorWeight: 2,
-                    labelStyle: TextStyle(
-                        fontSize: 14.0,
-                        color: globals.black,
-                        fontWeight: FontWeight.w500),
-                    unselectedLabelStyle:
-                        TextStyle(fontSize: 14.0, color: Color(0xFF9B9B9B)),
+                    labelStyle: TextStyle(fontSize: 14.0, color: globals.black, fontWeight: FontWeight.w500),
+                    unselectedLabelStyle: TextStyle(fontSize: 14.0, color: Color(0xFF9B9B9B)),
                     // controller: ,
                     tabs: const [
                       Tab(
@@ -65,8 +61,7 @@ class _OrdersState extends State<Orders> {
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
                           color: globals.inputColor,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -76,15 +71,11 @@ class _OrdersState extends State<Orders> {
                             Container(
                               margin: EdgeInsets.only(bottom: 11),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '№ 345 666',
-                                    style: TextStyle(
-                                        color: globals.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -98,11 +89,7 @@ class _OrdersState extends State<Orders> {
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
-                                            Text('345 откликов',
-                                                style: TextStyle(
-                                                    color: Color(0xFFE32F45),
-                                                    fontWeight:
-                                                        FontWeight.w500)),
+                                            Text('345 откликов', style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
                                           ],
                                         )
                                       : Container(),
@@ -114,8 +101,7 @@ class _OrdersState extends State<Orders> {
                               children: [
                                 Text(
                                   'Мужская стрижка',
-                                  style: TextStyle(
-                                      color: globals.black, fontSize: 18),
+                                  style: TextStyle(color: globals.black, fontSize: 18),
                                 ),
                                 Icon(Icons.arrow_forward, color: globals.black)
                               ],
@@ -129,8 +115,7 @@ class _OrdersState extends State<Orders> {
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
                           color: globals.inputColor,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -140,15 +125,11 @@ class _OrdersState extends State<Orders> {
                             Container(
                               margin: EdgeInsets.only(bottom: 11),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '№ 345 666',
-                                    style: TextStyle(
-                                        color: globals.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -162,11 +143,7 @@ class _OrdersState extends State<Orders> {
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
-                                            Text('345 откликов',
-                                                style: TextStyle(
-                                                    color: Color(0xFFE32F45),
-                                                    fontWeight:
-                                                        FontWeight.w500)),
+                                            Text('345 откликов', style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
                                           ],
                                         )
                                       : Container(),
@@ -178,8 +155,7 @@ class _OrdersState extends State<Orders> {
                               children: [
                                 Text(
                                   'Мужская стрижка',
-                                  style: TextStyle(
-                                      color: globals.black, fontSize: 18),
+                                  style: TextStyle(color: globals.black, fontSize: 18),
                                 ),
                                 Icon(Icons.arrow_forward, color: globals.black)
                               ],
@@ -193,8 +169,7 @@ class _OrdersState extends State<Orders> {
                     },
                     child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
                           color: globals.inputColor,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -204,15 +179,11 @@ class _OrdersState extends State<Orders> {
                             Container(
                               margin: EdgeInsets.only(bottom: 11),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '№ 345 666',
-                                    style: TextStyle(
-                                        color: globals.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -226,11 +197,7 @@ class _OrdersState extends State<Orders> {
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
-                                            Text('345 откликов',
-                                                style: TextStyle(
-                                                    color: Color(0xFFE32F45),
-                                                    fontWeight:
-                                                        FontWeight.w500)),
+                                            Text('345 откликов', style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
                                           ],
                                         )
                                       : Container(),
@@ -242,8 +209,7 @@ class _OrdersState extends State<Orders> {
                               children: [
                                 Text(
                                   'Мужская стрижка',
-                                  style: TextStyle(
-                                      color: globals.black, fontSize: 18),
+                                  style: TextStyle(color: globals.black, fontSize: 18),
                                 ),
                                 Icon(Icons.arrow_forward, color: globals.black)
                               ],
@@ -263,27 +229,24 @@ class _OrdersState extends State<Orders> {
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   gradient: LinearGradient(
-                      colors: const [
+                      colors: [
                         Color(0xFFFF5353),
                         Color(0xFFF99247),
                       ],
-                      begin: const FractionalOffset(0.0, 1.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: const [0.0, 1.0],
+                      begin: FractionalOffset(0.0, 1.0),
+                      end: FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   size: 26,
                 ),
               ))
           : Container(),
-      bottomNavigationBar: BottomBar(
-        active: 1,
-      ),
     );
   }
 }
