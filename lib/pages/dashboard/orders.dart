@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../globals.dart' as globals;
 
-import '../../components/bottom_bar.dart';
-
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
 

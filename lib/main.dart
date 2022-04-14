@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       getPages: [
         GetPage(name: '/', page: () => const Dashboard()),
         GetPage(name: '/categories', page: () => const Categories()),
