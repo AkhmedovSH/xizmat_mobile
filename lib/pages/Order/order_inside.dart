@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart';
 
 import './order_inside_feedback.dart';
 import './order_inside_all_specialists.dart';
@@ -34,19 +34,14 @@ class _OrderInsideState extends State<OrderInside> {
                     margin: EdgeInsets.only(top: 13, bottom: 20),
                     child: Text(
                       'Мужская стрижка',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: globals.black),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: black),
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.all(5),
                     margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                        color: globals.inputColor,
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -60,23 +55,14 @@ class _OrderInsideState extends State<OrderInside> {
                             width: MediaQuery.of(context).size.width * 0.44,
                             padding: EdgeInsets.symmetric(vertical: 15),
                             decoration: BoxDecoration(
-                                color: currentIndex == 0
-                                    ? globals.white
-                                    : Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4))),
+                                color: currentIndex == 0 ? white : Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
                             child: Stack(
                               children: [
                                 Container(
                                   alignment: Alignment.center,
                                   child: Text(
                                     'Отклики',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: currentIndex == 0
-                                            ? globals.black
-                                            : globals.lightGrey,
-                                        fontWeight: FontWeight.w600),
+                                    style: TextStyle(fontSize: 16, color: currentIndex == 0 ? black : lightGrey, fontWeight: FontWeight.w600),
                                     textAlign: TextAlign.center,
                                   ),
                                 )
@@ -94,23 +80,14 @@ class _OrderInsideState extends State<OrderInside> {
                             width: MediaQuery.of(context).size.width * 0.44,
                             padding: EdgeInsets.symmetric(vertical: 15),
                             decoration: BoxDecoration(
-                                color: currentIndex == 1
-                                    ? globals.white
-                                    : Colors.transparent,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4))),
+                                color: currentIndex == 1 ? white : Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(4))),
                             child: Stack(
                               children: [
                                 Container(
                                   alignment: Alignment.center,
                                   child: Text(
                                     'Все специалисты',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: currentIndex == 1
-                                            ? globals.black
-                                            : globals.lightGrey,
-                                        fontWeight: FontWeight.w600),
+                                    style: TextStyle(fontSize: 16, color: currentIndex == 1 ? black : lightGrey, fontWeight: FontWeight.w600),
                                     textAlign: TextAlign.center,
                                   ),
                                 )
@@ -122,11 +99,7 @@ class _OrderInsideState extends State<OrderInside> {
                     ),
                   ),
                   Column(
-                    children: [
-                      currentIndex == 0
-                          ? OrderInsideFeedback()
-                          : OrderInsideAllSpecialists()
-                    ],
+                    children: [currentIndex == 0 ? OrderInsideFeedback() : OrderInsideAllSpecialists()],
                   )
                 ],
               ),
@@ -137,15 +110,10 @@ class _OrderInsideState extends State<OrderInside> {
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
                     decoration: BoxDecoration(
-                      color: globals.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0)),
+                      color: white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
                       boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black38,
-                            spreadRadius: -3,
-                            blurRadius: 5),
+                        BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
                       ],
                     ),
                     child: Row(
@@ -158,21 +126,17 @@ class _OrderInsideState extends State<OrderInside> {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 10),
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                               elevation: 0,
-                              primary: globals.white,
+                              primary: white,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: globals.red),
+                                side: BorderSide(color: red),
                                 borderRadius: BorderRadius.circular(7),
                               ),
                             ),
                             child: Text(
                               'Написать специалисту',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  color: globals.red),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: red),
                             ),
                           ),
                         ),
@@ -181,21 +145,17 @@ class _OrderInsideState extends State<OrderInside> {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 10),
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                               elevation: 0,
-                              primary: globals.white,
+                              primary: white,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: globals.black),
+                                side: BorderSide(color: black),
                                 borderRadius: BorderRadius.circular(7),
                               ),
                             ),
                             child: Text(
                               'Отменить заказ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  color: globals.black),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
                             ),
                           ),
                         )
@@ -211,9 +171,9 @@ class _OrderInsideState extends State<OrderInside> {
         //     style: ElevatedButton.styleFrom(
         //       padding: EdgeInsets.symmetric(vertical: 8),
         //       elevation: 0,
-        //       primary: globals.white,
+        //       primary: white,
         //       shape: RoundedRectangleBorder(
-        //         side: BorderSide(color: globals.red),
+        //         side: BorderSide(color: red),
         //         borderRadius: BorderRadius.circular(7),
         //       ),
         //     ),
@@ -223,7 +183,7 @@ class _OrderInsideState extends State<OrderInside> {
         //         style: TextStyle(
         //             fontWeight: FontWeight.bold,
         //             fontSize: 17,
-        //             color: globals.black),
+        //             color: black),
         //       ),
         //     ),
         //   ),

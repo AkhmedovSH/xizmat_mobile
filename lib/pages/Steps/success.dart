@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart';
 
 class Success extends StatefulWidget {
   const Success({Key? key}) : super(key: key);
@@ -11,8 +11,6 @@ class Success extends StatefulWidget {
 }
 
 class _SuccessState extends State<Success> {
-  dynamic character = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +22,7 @@ class _SuccessState extends State<Success> {
             margin: EdgeInsets.only(bottom: 7),
             child: Text(
               'Ваш заказ размещен!',
-              style: TextStyle(
-                  color: Color(0xFF363F4D),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: Color(0xFF363F4D), fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -35,10 +30,7 @@ class _SuccessState extends State<Success> {
             margin: EdgeInsets.only(bottom: 22),
             child: Text(
               'ID заказа: 098 000!',
-              style: TextStyle(
-                  color: Color(0xFF363F4D),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
+              style: TextStyle(color: Color(0xFF363F4D), fontSize: 16, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
           ),
@@ -46,10 +38,7 @@ class _SuccessState extends State<Success> {
             margin: EdgeInsets.only(bottom: 22, left: 29, right: 29),
             child: Text(
               'Вы можете отслеживать отклики на заказ в вашем профиле в разделе \n“Мои заказы”!',
-              style: TextStyle(
-                  color: globals.lightGrey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
+              style: TextStyle(color: lightGrey, fontSize: 16, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
           ),
@@ -80,16 +69,13 @@ class _SuccessState extends State<Success> {
                 margin: EdgeInsets.only(right: 5),
                 child: Text(
                   'Выбрать другую услугу',
-                  style: TextStyle(
-                      color: globals.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),
               Icon(
                 Icons.arrow_forward,
-                color: globals.black,
+                color: black,
               )
             ],
           )

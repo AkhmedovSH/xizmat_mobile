@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -31,10 +31,10 @@ class _OrdersState extends State<Orders> {
                         currentIndex = index;
                       });
                     },
-                    labelColor: globals.black,
-                    indicatorColor: globals.orange,
+                    labelColor: black,
+                    indicatorColor: orange,
                     indicatorWeight: 2,
-                    labelStyle: TextStyle(fontSize: 14.0, color: globals.black, fontWeight: FontWeight.w500),
+                    labelStyle: TextStyle(fontSize: 14.0, color: black, fontWeight: FontWeight.w500),
                     unselectedLabelStyle: TextStyle(fontSize: 14.0, color: Color(0xFF9B9B9B)),
                     // controller: ,
                     tabs: const [
@@ -61,7 +61,7 @@ class _OrdersState extends State<Orders> {
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
-                          color: globals.inputColor,
+                          color: inputColor,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         child: Column(
@@ -73,7 +73,7 @@ class _OrdersState extends State<Orders> {
                                 children: [
                                   Text(
                                     '№ 345 666',
-                                    style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -99,9 +99,9 @@ class _OrdersState extends State<Orders> {
                               children: [
                                 Text(
                                   'Мужская стрижка',
-                                  style: TextStyle(color: globals.black, fontSize: 18),
+                                  style: TextStyle(color: black, fontSize: 18),
                                 ),
-                                Icon(Icons.arrow_forward, color: globals.black)
+                                Icon(Icons.arrow_forward, color: black)
                               ],
                             ),
                           ],
@@ -115,7 +115,7 @@ class _OrdersState extends State<Orders> {
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
-                          color: globals.inputColor,
+                          color: inputColor,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         child: Column(
@@ -127,7 +127,7 @@ class _OrdersState extends State<Orders> {
                                 children: [
                                   Text(
                                     '№ 345 666',
-                                    style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -153,9 +153,9 @@ class _OrdersState extends State<Orders> {
                               children: [
                                 Text(
                                   'Мужская стрижка',
-                                  style: TextStyle(color: globals.black, fontSize: 18),
+                                  style: TextStyle(color: black, fontSize: 18),
                                 ),
-                                Icon(Icons.arrow_forward, color: globals.black)
+                                Icon(Icons.arrow_forward, color: black)
                               ],
                             ),
                           ],
@@ -169,7 +169,7 @@ class _OrdersState extends State<Orders> {
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
-                          color: globals.inputColor,
+                          color: inputColor,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         child: Column(
@@ -181,7 +181,7 @@ class _OrdersState extends State<Orders> {
                                 children: [
                                   Text(
                                     '№ 345 666',
-                                    style: TextStyle(color: globals.black, fontSize: 16, fontWeight: FontWeight.bold),
+                                    style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -207,9 +207,9 @@ class _OrdersState extends State<Orders> {
                               children: [
                                 Text(
                                   'Мужская стрижка',
-                                  style: TextStyle(color: globals.black, fontSize: 18),
+                                  style: TextStyle(color: black, fontSize: 18),
                                 ),
-                                Icon(Icons.arrow_forward, color: globals.black)
+                                Icon(Icons.arrow_forward, color: black)
                               ],
                             ),
                           ],

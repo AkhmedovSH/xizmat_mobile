@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart';
+import '../../helpers/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -62,7 +62,7 @@ class _CheckboxState extends State<Checkbox> {
                 animationDuration: 500,
                 percent: 0.2,
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: globals.red,
+                progressColor: red,
                 backgroundColor: Color(0xFFF8F8F8),
               ),
             ),
@@ -84,7 +84,7 @@ class _CheckboxState extends State<Checkbox> {
                 children: [
                   Text(
                     'У меня',
-                    style: TextStyle(color: globals.black, fontSize: 18),
+                    style: TextStyle(color: black, fontSize: 18),
                   ),
                   Transform.scale(
                     scale: 1,
@@ -96,7 +96,7 @@ class _CheckboxState extends State<Checkbox> {
                       },
                       value: 1,
                       groupValue: character,
-                      activeColor: globals.black,
+                      activeColor: black,
                     ),
                   )
                 ],
@@ -111,7 +111,7 @@ class _CheckboxState extends State<Checkbox> {
                 children: [
                   Text(
                     'У специалиста',
-                    style: TextStyle(color: globals.black, fontSize: 18),
+                    style: TextStyle(color: black, fontSize: 18),
                   ),
                   Transform.scale(
                     scale: 1,
@@ -123,7 +123,7 @@ class _CheckboxState extends State<Checkbox> {
                       },
                       value: 2,
                       groupValue: character,
-                      activeColor: globals.black,
+                      activeColor: black,
                     ),
                   )
                 ],
@@ -135,7 +135,7 @@ class _CheckboxState extends State<Checkbox> {
             //       borderRadius: BorderRadius.all(Radius.circular(5)),
             //       child: LinearProgressIndicator(
             //         value: 0.25,
-            //         color: globals.red,
+            //         color: red,
             //         backgroundColor: Color(0xFFF8F8F8),
             //         minHeight: 4.0,
             //       ),

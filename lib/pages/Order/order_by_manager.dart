@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart';
+import '../../helpers/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -14,8 +14,6 @@ class OrderByManager extends StatefulWidget {
 }
 
 class _OrderByManagerState extends State<OrderByManager> {
-  dynamic character = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,20 +32,14 @@ class _OrderByManagerState extends State<OrderByManager> {
                 margin: EdgeInsets.only(bottom: 15, top: 25),
                 child: Text(
                   'Отправьте ваши контакты',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: globals.black),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: black),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Ваше имя',
-                  style: TextStyle(
-                      color: globals.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                  style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
@@ -57,25 +49,21 @@ class _OrderByManagerState extends State<OrderByManager> {
                     contentPadding: EdgeInsets.all(18.0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          BorderSide(color: Color(0xFFECECEC), width: 0.0),
+                      borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
                     ),
                     filled: true,
-                    fillColor: globals.inputColor,
+                    fillColor: inputColor,
                     hintText: 'Введите имя',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.lightGrey),
+                  style: TextStyle(color: lightGrey),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Номер телефона',
-                  style: TextStyle(
-                      color: globals.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                  style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
@@ -85,15 +73,14 @@ class _OrderByManagerState extends State<OrderByManager> {
                     contentPadding: EdgeInsets.all(18.0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
-                      borderSide:
-                          BorderSide(color: Color(0xFFECECEC), width: 0.0),
+                      borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
                     ),
                     filled: true,
-                    fillColor: globals.inputColor,
+                    fillColor: inputColor,
                     hintText: '+998',
                     hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                   ),
-                  style: TextStyle(color: globals.lightGrey),
+                  style: TextStyle(color: lightGrey),
                 ),
               ),
             ],

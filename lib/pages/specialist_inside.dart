@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../globals.dart' as globals;
-import '../widgets.dart' as widgets;
+import '../helpers/globals.dart';
+import '../helpers/widgets.dart' as widgets;
 
 import '../components/simple_app_bar.dart';
 
@@ -55,10 +55,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                   Padding(padding: EdgeInsets.only(top: 5)),
                                   Text(
                                     'Абдувасит Абдуманнобзода Бахтиярович',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        color: globals.black,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 17, color: black, fontWeight: FontWeight.bold),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
@@ -73,14 +70,8 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                                 color: Color(0xFFF3A919),
                                                 size: 18,
                                               ),
-                                              Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 5)),
-                                              Text('4,96',
-                                                  style: TextStyle(
-                                                      color: globals.black,
-                                                      fontWeight:
-                                                          FontWeight.w500))
+                                              Padding(padding: EdgeInsets.only(right: 5)),
+                                              Text('4,96', style: TextStyle(color: black, fontWeight: FontWeight.w500))
                                             ],
                                           ),
                                         ),
@@ -88,16 +79,10 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                           children: [
                                             Icon(
                                               Icons.feedback_outlined,
-                                              color: globals.lightGrey,
+                                              color: lightGrey,
                                             ),
-                                            Padding(
-                                                padding:
-                                                    EdgeInsets.only(right: 5)),
-                                            Text('123',
-                                                style: TextStyle(
-                                                    color: globals.lightGrey,
-                                                    fontWeight:
-                                                        FontWeight.w500))
+                                            Padding(padding: EdgeInsets.only(right: 5)),
+                                            Text('123', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
                                           ],
                                         ),
                                       ],
@@ -113,9 +98,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 25),
                       padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          color: globals.inputColor,
-                          borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,14 +107,10 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                             margin: EdgeInsets.only(bottom: 5),
                             child: Text(
                               'О себе',
-                              style: TextStyle(
-                                  color: globals.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600),
+                              style: TextStyle(color: black, fontSize: 15, fontWeight: FontWeight.w600),
                             ),
                           ),
-                          Text(
-                              'Имею большой опыт работы в Ташкенте с 2017 года в сфере репетиторства.',
+                          Text('Имею большой опыт работы в Ташкенте с 2017 года в сфере репетиторства.',
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 15,
@@ -143,8 +122,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                       margin: EdgeInsets.only(bottom: 15),
                       child: Text(
                         'Сертификаты и документы',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 15),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                       ),
                     ),
                     SingleChildScrollView(
@@ -167,8 +145,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                       margin: EdgeInsets.only(top: 25, bottom: 15),
                       child: Text(
                         'Услуги',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     ),
                     Column(
@@ -179,13 +156,11 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                             padding: EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
                                 border: Border(
-                              top: BorderSide(
-                                  color: Color(0xFFDADADA), width: 1.0),
+                              top: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                             )),
                             child: Text(
                               'Занятия по высшей математике',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 15),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                             ),
                           )
                       ],
@@ -194,8 +169,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                       margin: EdgeInsets.only(top: 25, bottom: 15),
                       child: Text(
                         'Портфолио',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     ),
                     SingleChildScrollView(
@@ -218,8 +192,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                       margin: EdgeInsets.only(top: 25, bottom: 15),
                       child: Text(
                         'Отзывы об исполнителе',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 16),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                       ),
                     ),
                     Column(
@@ -228,28 +201,21 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                           Container(
                             margin: EdgeInsets.only(bottom: 15),
                             padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                                color: globals.inputColor,
-                                borderRadius: BorderRadius.circular(10)),
+                            decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.circular(10)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: const [
                                     Text(
                                       'Гульмирова Гульноза',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       '02.05.2021',
-                                      style: TextStyle(
-                                          color: Color(0xFF707070),
-                                          fontWeight: FontWeight.w500),
+                                      style: TextStyle(color: Color(0xFF707070), fontWeight: FontWeight.w500),
                                     )
                                   ],
                                 ),
@@ -262,15 +228,14 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                           margin: EdgeInsets.only(right: 5),
                                           child: Icon(
                                             Icons.star,
-                                            color: globals.yellow,
+                                            color: yellow,
                                             size: 16,
                                           ),
                                         )
                                     ],
                                   ),
                                 ),
-                                Text(
-                                    'Обучает моего сына уже три года. Уровень английского просто на высоте. Настоящий практик и знаток своего дела.',
+                                Text('Обучает моего сына уже три года. Уровень английского просто на высоте. Настоящий практик и знаток своего дела.',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15,
@@ -296,15 +261,10 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
-                      color: globals.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0)),
+                      color: white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
                       boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black38,
-                            spreadRadius: -3,
-                            blurRadius: 5),
+                        BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
                       ],
                     ),
                     child: Row(
@@ -325,8 +285,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                             ),
                             child: Text(
                               'Предложить заказ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                             ),
                           ),
                         ),
@@ -335,21 +294,17 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 10),
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                               elevation: 0,
-                              primary: globals.white,
+                              primary: white,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: globals.black),
+                                side: BorderSide(color: black),
                                 borderRadius: BorderRadius.circular(7),
                               ),
                             ),
                             child: Text(
                               'Написать',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  color: globals.black),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
                             ),
                           ),
                         )

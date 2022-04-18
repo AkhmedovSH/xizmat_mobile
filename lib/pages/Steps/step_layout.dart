@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../globals.dart';
+import '../../helpers/globals.dart';
 
 import 'step_1.dart';
 import 'step_2.dart';

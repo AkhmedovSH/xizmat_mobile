@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../globals.dart' as globals;
+import '../helpers/globals.dart';
 
 //ignore: must_be_immutable
 class BottomBar extends StatefulWidget {
   int? active;
-  
+
   BottomBar({Key? key, this.active}) : super(key: key);
 
   @override
@@ -47,9 +47,8 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        // color: globals.white,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+        // color: white,
+        borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
         boxShadow: const [
           BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
         ],
@@ -65,24 +64,18 @@ class _BottomBarState extends State<BottomBar> {
             // showUnselectedLabels: false,
             onTap: onItemTab,
             currentIndex: widget.active!,
-            backgroundColor: globals.white,
-            selectedItemColor: globals.black,
-            selectedIconTheme: IconThemeData(color: globals.black),
+            backgroundColor: white,
+            selectedItemColor: black,
+            selectedIconTheme: IconThemeData(color: black),
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
                   ),
                   label: 'Главная'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.list_alt, color: Color(0xFF828282)),
-                  label: 'Мои заказы'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person, color: Color(0xFF828282)),
-                  label: 'Профиль'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.headset_mic, color: Color(0xFF828282)),
-                  label: 'Поддержка'),
+              BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFF828282)), label: 'Мои заказы'),
+              BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFF828282)), label: 'Профиль'),
+              BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),
             ]),
       ),
     );
@@ -95,10 +88,10 @@ class _BottomBarState extends State<BottomBar> {
 //         // showUnselectedLabels: false,
 //         onTap: onItemTab,
 //         currentIndex: widget.active!,
-//         backgroundColor: globals.white,
-//         selectedItemColor: globals.black,
+//         backgroundColor: white,
+//         selectedItemColor: black,
         
-//         selectedIconTheme: IconThemeData(color: globals.black),
+//         selectedIconTheme: IconThemeData(color: black),
 //         items: const [
 //           BottomNavigationBarItem(
 //             icon: Icon(

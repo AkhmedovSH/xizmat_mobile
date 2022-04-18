@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import './globals.dart' as globals;
+import 'helpers/globals.dart';
+
+import 'helpers/translations.dart';
 
 import 'pages/dashboard/dashboard.dart';
-// import 'pages/dashboard/index.dart';
 import 'pages/categories.dart';
 import 'pages/fast_search.dart';
 import 'pages/tutor.dart';
 import 'pages/dashboard/support.dart';
 import 'pages/Steps/success.dart';
 import 'pages/specialist_inside.dart';
-import 'pages/dashboard/profile.dart';
+import 'pages/dashboard/profile/profile.dart';
 
-import 'pages/register.dart';
-import 'pages/confirmation.dart';
-import 'pages/login.dart';
+import 'pages/auth/register.dart';
+import 'pages/auth/confirmation.dart';
+import 'pages/auth/login.dart';
 
 import 'pages/dashboard/orders.dart';
 import 'pages/Order/order_inside.dart';
@@ -26,11 +29,21 @@ import 'pages/Steps/step_1.dart';
 import 'pages/Steps/step_2.dart';
 import 'pages/Steps/step_3.dart';
 import 'pages/Steps/step_4.dart';
-import 'pages/Steps/step_5.dart';
+import 'pages/Steps/step_5.dart'; 
 import 'pages/Steps/google_map.dart';
 import 'pages/Steps/search_result.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    // systemNavigationBarColor: Colors.black,
+    statusBarColor: Colors.transparent,
+  ));
   runApp(const MyApp());
 }
 
@@ -39,9 +52,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: Messages(),
+      locale: const Locale('uz', 'UZ'),
+      fallbackLocale: const Locale('uz', 'UZ'),
       debugShowCheckedModeBanner: false,
       popGesture: true,
-      defaultTransition: Transition.leftToRight,
+      defaultTransition: Transition.fade,
       transitionDuration: const Duration(milliseconds: 250),
       theme: ThemeData(
         backgroundColor: const Color(0xFFFFFFFF),
@@ -50,12 +66,12 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFFFF5453),
         platform: TargetPlatform.android,
         textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: globals.black,
-              displayColor: globals.black,
+              bodyColor: black,
+              displayColor: black,
             ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: globals.red,
+            primary: red,
           ),
         ),
       ),
@@ -70,7 +86,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/confirmation', page: () => const Confirmation()),
         GetPage(name: '/profile', page: () => const Profile()),
         // Register
-        GetPage(name: '/register', page: () => const Register()),
+        GetPage(name: '/registration', page: () => const Register()),
         GetPage(name: '/confirmation', page: () => const Confirmation()),
         GetPage(name: '/login', page: () => const Login()),
         // Order
@@ -80,6 +96,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-by-manager', page: () => const OrderByManager()),
         GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
         // Steps
+        GetPage(name: '/checkboxes', page: () => Step1()),
         GetPage(name: '/step-1', page: () => const Step1()),
         GetPage(name: '/step-2', page: () => const Step2()),
         GetPage(name: '/step-3', page: () => const Step3()),

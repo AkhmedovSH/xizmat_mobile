@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 import '../helpers/globals.dart';
 
-class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? title;
+class TransperentAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar? appBar;
   final bool? leading;
-  const SimpleAppBar({Key? key, this.title, @required this.appBar, this.leading = true}) : super(key: key);
+  final Brightness? brightness;
+  final Color? statusBarColor;
+  const TransperentAppBar({
+    Key? key,
+    @required this.appBar,
+    this.leading = true,
+    this.brightness = Brightness.dark,
+    this.statusBarColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.white,
-      title: Text(
-        title!,
-        style: TextStyle(
-          color: black,
-        ),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: brightness,
+        statusBarColor: statusBarColor,
       ),
+      backgroundColor: Colors.white,
       centerTitle: true,
       leading: leading!
           ? IconButton(

@@ -4,8 +4,8 @@ import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart';
+import '../../helpers/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -83,7 +83,7 @@ class _MapState extends State<Map> {
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 19),
                       decoration: BoxDecoration(
-                          color: globals.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0))),
+                          color: white, borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -91,7 +91,7 @@ class _MapState extends State<Map> {
                             margin: EdgeInsets.only(bottom: 10),
                             child: Text(
                               'Укажите адрес',
-                              style: TextStyle(color: globals.black, fontWeight: FontWeight.bold),
+                              style: TextStyle(color: black, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Container(
@@ -101,7 +101,7 @@ class _MapState extends State<Map> {
                                 prefixIcon: Icon(Icons.search),
                                 suffixIcon: Icon(
                                   Icons.cancel_sharp,
-                                  color: globals.red,
+                                  color: red,
                                   size: 20,
                                 ),
                                 contentPadding: EdgeInsets.all(8.0),
@@ -112,9 +112,9 @@ class _MapState extends State<Map> {
                                 filled: true,
                                 fillColor: Color(0xFFF7F7F7),
                                 hintText: 'Улица Бахтияра',
-                                hintStyle: TextStyle(color: globals.black, fontWeight: FontWeight.bold, fontSize: 16),
+                                hintStyle: TextStyle(color: black, fontWeight: FontWeight.bold, fontSize: 16),
                               ),
-                              style: TextStyle(color: globals.lightGrey),
+                              style: TextStyle(color: lightGrey),
                             ),
                           ),
                           Container(

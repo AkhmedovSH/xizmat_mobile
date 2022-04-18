@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../globals.dart';
+import '../../helpers/globals.dart';
 
-import 'profile.dart';
+import 'profile/profile.dart';
 import 'support.dart';
 import 'index.dart';
 import 'orders.dart';
@@ -15,6 +16,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int currentIndex = 0;
 
   changeIndex(int index) {
@@ -24,20 +26,88 @@ class _DashboardState extends State<Dashboard> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (Get.arguments != null) {
+      currentIndex = Get.arguments;
+    }
+  }
+
+  openDrawerBar() {
+    scaffoldKey.currentState!.openDrawer();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       body: IndexedStack(
         index: currentIndex,
         children: [
-          currentIndex == 0 ? const Index() : Container(),
+          currentIndex == 0
+              ? Index(
+                  openDrawerBar: openDrawerBar,
+                )
+              : Container(),
           currentIndex == 1 ? const Orders() : Container(),
           currentIndex == 2 ? const Profile() : Container(),
           currentIndex == 3 ? const Support() : Container(),
         ],
       ),
+      drawer: currentIndex == 0
+          ? Container(
+              padding: const EdgeInsets.all(0),
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: Drawer(
+                child: SafeArea(
+                  child: Container(
+                    color: Colors.white,
+                    child: Column(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        buildListTile(
+                          context,
+                          'Быстрый поиск',
+                          Icons.search,
+                          '/fast-search',
+                        ),
+                        buildListTile(
+                          context,
+                          'Категории услуг',
+                          Icons.category,
+                          '/categories',
+                        ),
+                        buildListTile(
+                          context,
+                          'Мои заказы',
+                          Icons.list_alt,
+                          '/orders',
+                        ),
+                        buildListTile(
+                          context,
+                          'Заказать через менеджера',
+                          Icons.support_agent,
+                          '/order-by-manager',
+                        ),
+                        buildListTile(
+                          context,
+                          'Поддержка',
+                          Icons.settings_suggest,
+                          '/support',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          : Container(),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          // color: globals.white,
+          // color: white,
           borderRadius: BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10)),
           boxShadow: [
             BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
@@ -68,6 +138,35 @@ class _DashboardState extends State<Dashboard> {
                 BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),
               ]),
         ),
+      ),
+    );
+  }
+
+  Widget buildListTile(
+    BuildContext context,
+    String title,
+    IconData icon,
+    String routeName,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+      child: ListTile(
+        leading: Icon(
+          icon,
+          size: 26,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        onTap: () => {
+          // Navigator.pop(context),
+          Get.offAllNamed(routeName)
+        },
       ),
     );
   }

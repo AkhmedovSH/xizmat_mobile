@@ -4,8 +4,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart';
+import '../../helpers/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -18,10 +18,7 @@ class Step3 extends StatefulWidget {
 
 class _Step3State extends State<Step3> {
   final Completer<GoogleMapController> _controller = Completer();
-  dynamic character = 1;
-
-  static final CameraPosition _kGooglePlex =
-      CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
+  static final CameraPosition _kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +41,7 @@ class _Step3State extends State<Step3> {
                 animationDuration: 500,
                 percent: 0.6,
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: globals.red,
+                progressColor: red,
                 backgroundColor: Color(0xFFF8F8F8),
               ),
             ),
@@ -82,9 +79,7 @@ class _Step3State extends State<Step3> {
                       },
                       child: Container(
                         padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: globals.white,
-                            borderRadius: BorderRadius.circular(50.0)),
+                        decoration: BoxDecoration(color: white, borderRadius: BorderRadius.circular(50.0)),
                         child: Image.asset(
                           'images/send.png',
                         ),
@@ -103,18 +98,14 @@ class _Step3State extends State<Step3> {
                   contentPadding: EdgeInsets.all(18.0),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide:
-                        BorderSide(color: Color(0xFFDADADA), width: 1.0),
+                    borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                   ),
                   filled: true,
-                  fillColor: globals.white,
+                  fillColor: white,
                   hintText: 'Ташкент',
-                  hintStyle: TextStyle(
-                      color: globals.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17),
+                  hintStyle: TextStyle(color: black, fontWeight: FontWeight.bold, fontSize: 17),
                 ),
-                style: TextStyle(color: globals.lightGrey),
+                style: TextStyle(color: lightGrey),
               ),
             )
           ],

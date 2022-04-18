@@ -8,8 +8,6 @@ class OrderByManagerSuccess extends StatefulWidget {
 }
 
 class _OrderByManagerSuccessState extends State<OrderByManagerSuccess> {
-  dynamic character = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

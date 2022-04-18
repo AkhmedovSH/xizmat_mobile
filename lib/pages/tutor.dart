@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../globals.dart' as globals;
-import '../widgets.dart' as widgets;
+import '../helpers/globals.dart';
+import '../helpers/widgets.dart' as widgets;
 
 import '../components/simple_app_bar.dart';
 
@@ -42,21 +42,15 @@ class _TutorState extends State<Tutor> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 12),
                     padding: EdgeInsets.symmetric(vertical: 21),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1, color: Color(0xFFF2F2F2)))),
+                    decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           tutors[i]['name'],
-                          style: TextStyle(color: globals.black, fontSize: 18),
+                          style: TextStyle(color: black, fontSize: 18),
                         ),
-                        Icon(Icons.arrow_forward,
-                            color: tutors[i]['active']
-                                ? globals.black
-                                : Color(0xFFDADADA))
+                        Icon(Icons.arrow_forward, color: tutors[i]['active'] ? black : Color(0xFFDADADA))
                       ],
                     ),
                   ),
@@ -82,10 +76,7 @@ class _TutorState extends State<Tutor> {
               margin: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Наш менеджер проконсультирует вас и поможет найти специалиста под вашу задачу.',
-                style: TextStyle(
-                    color: globals.darkGrey,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15),
+                style: TextStyle(color: darkGrey, fontWeight: FontWeight.w500, fontSize: 15),
                 textAlign: TextAlign.center,
               ),
             )

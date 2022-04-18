@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../globals.dart' as globals;
+import '../../helpers/globals.dart';
 import '../../../components/simple_app_bar.dart';
 
 class Support extends StatefulWidget {
@@ -11,8 +11,6 @@ class Support extends StatefulWidget {
 }
 
 class _SupportState extends State<Support> {
-  dynamic character = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,7 @@ class _SupportState extends State<Support> {
             margin: EdgeInsets.only(bottom: 25),
             child: Text(
               'Телефон: +998 90 988 90 99',
-              style: TextStyle(color: globals.black, fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -66,9 +64,9 @@ class _SupportState extends State<Support> {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 elevation: 0,
-                primary: globals.white,
+                primary: white,
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(color: globals.black),
+                  side: BorderSide(color: black),
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
@@ -77,14 +75,14 @@ class _SupportState extends State<Support> {
                 children: [
                   Icon(
                     Icons.textsms_outlined,
-                    color: globals.black,
+                    color: black,
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     'Онлайн чат',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: globals.black),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: black),
                   )
                 ],
               ),

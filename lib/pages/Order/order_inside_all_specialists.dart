@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart';
 
 class OrderInsideAllSpecialists extends StatefulWidget {
   const OrderInsideAllSpecialists({Key? key}) : super(key: key);
 
   @override
-  _OrderInsideAllSpecialistsState createState() =>
-      _OrderInsideAllSpecialistsState();
+  _OrderInsideAllSpecialistsState createState() => _OrderInsideAllSpecialistsState();
 }
 
 class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
@@ -14,9 +13,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          color: globals.inputColor,
-          borderRadius: BorderRadius.all(Radius.circular(4))),
+      decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,10 +33,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                   Padding(padding: EdgeInsets.only(top: 5)),
                   Text(
                     'Абдувасит Абдуманнобзода',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: globals.black,
-                        fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w600),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 5),
@@ -55,10 +49,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                                 size: 18,
                               ),
                               Padding(padding: EdgeInsets.only(right: 5)),
-                              Text('4,96',
-                                  style: TextStyle(
-                                      color: globals.black,
-                                      fontWeight: FontWeight.w500))
+                              Text('4,96', style: TextStyle(color: black, fontWeight: FontWeight.w500))
                             ],
                           ),
                         ),
@@ -66,13 +57,10 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                           children: [
                             Icon(
                               Icons.feedback_outlined,
-                              color: globals.lightGrey,
+                              color: lightGrey,
                             ),
                             Padding(padding: EdgeInsets.only(right: 5)),
-                            Text('123',
-                                style: TextStyle(
-                                    color: globals.lightGrey,
-                                    fontWeight: FontWeight.w500))
+                            Text('123', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
                           ],
                         ),
                       ],
@@ -93,10 +81,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: Text(
                         'Меня зовут Абдувасит, я начинающий курьер. Среднее образование. Быстро',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: globals.black,
-                            fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w500),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -107,10 +92,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                   margin: EdgeInsets.only(top: 8),
                   child: Text(
                     'Еще',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: globals.red,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14, color: red, fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

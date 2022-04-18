@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../globals.dart' as globals;
+import '../../helpers/globals.dart';
 
 class OrderInsideFeedback extends StatefulWidget {
   const OrderInsideFeedback({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
       },
       child: Container(
         padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(color: globals.inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
+        decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,12 +38,12 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                   children: [
                     Text(
                       'Специалист окликнулся',
-                      style: TextStyle(fontSize: 14, color: globals.lightGrey, fontWeight: FontWeight.w600),
+                      style: TextStyle(fontSize: 14, color: lightGrey, fontWeight: FontWeight.w600),
                     ),
                     Padding(padding: EdgeInsets.only(top: 5)),
                     Text(
                       'Абдувасит Абдуманнобзода',
-                      style: TextStyle(fontSize: 16, color: globals.black, fontWeight: FontWeight.w600),
+                      style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w600),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 5),
@@ -59,7 +59,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                                   size: 18,
                                 ),
                                 Padding(padding: EdgeInsets.only(right: 5)),
-                                Text('4,96', style: TextStyle(color: globals.black, fontWeight: FontWeight.w500))
+                                Text('4,96', style: TextStyle(color: black, fontWeight: FontWeight.w500))
                               ],
                             ),
                           ),
@@ -67,10 +67,10 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                             children: [
                               Icon(
                                 Icons.feedback_outlined,
-                                color: globals.lightGrey,
+                                color: lightGrey,
                               ),
                               Padding(padding: EdgeInsets.only(right: 5)),
-                              Text('123', style: TextStyle(color: globals.lightGrey, fontWeight: FontWeight.w500))
+                              Text('123', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
                             ],
                           ),
                         ],
@@ -88,7 +88,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                   width: MediaQuery.of(context).size.width * 0.75,
                   child: Text(
                     'Здравствуйте, готов взяться за ва...',
-                    style: TextStyle(fontSize: 16, color: globals.black, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w500),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -109,7 +109,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                   ),
                   child: Text(
                     '2',
-                    style: TextStyle(fontSize: 14, color: globals.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14, color: white, fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart';
+import '../../helpers/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -15,8 +15,6 @@ class Step5 extends StatefulWidget {
 }
 
 class _Step5State extends State<Step5> {
-  dynamic character = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +40,7 @@ class _Step5State extends State<Step5> {
                 animationDuration: 500,
                 percent: 1,
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: globals.red,
+                progressColor: red,
                 backgroundColor: Color(0xFFF8F8F8),
               ),
             ),
@@ -59,10 +57,7 @@ class _Step5State extends State<Step5> {
               margin: EdgeInsets.only(top: 20, bottom: 10),
               child: Text(
                 'Бюджет услуги',
-                style: TextStyle(
-                    color: globals.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             Container(
@@ -72,25 +67,21 @@ class _Step5State extends State<Step5> {
                   contentPadding: EdgeInsets.all(18.0),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide:
-                        BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
+                    borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
                   ),
                   filled: true,
-                  fillColor: globals.inputColor,
+                  fillColor: inputColor,
                   hintText: 'Введите сумму',
                   hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                 ),
-                style: TextStyle(color: globals.lightGrey),
+                style: TextStyle(color: lightGrey),
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20, bottom: 10),
               child: Text(
                 'Примечание к заказу',
-                style: TextStyle(
-                    color: globals.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             Container(
@@ -100,17 +91,16 @@ class _Step5State extends State<Step5> {
                   contentPadding: EdgeInsets.all(18.0),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide:
-                        BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
+                    borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1.0),
                   ),
                   filled: true,
-                  fillColor: globals.inputColor,
+                  fillColor: inputColor,
                   hintText: 'Введите текст...',
                   hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                 ),
                 minLines: 8,
                 maxLines: 10,
-                style: TextStyle(color: globals.lightGrey),
+                style: TextStyle(color: lightGrey),
               ),
             ),
           ],

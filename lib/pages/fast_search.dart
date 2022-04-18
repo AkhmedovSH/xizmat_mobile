@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../globals.dart' as globals;
+import '../helpers/globals.dart';
 
 class FastSearch extends StatefulWidget {
   const FastSearch({Key? key}) : super(key: key);
@@ -35,19 +35,18 @@ class _FastSearchState extends State<FastSearch> {
                       icon: Icon(Icons.arrow_back)),
                   suffixIcon: Icon(
                     Icons.cancel_sharp,
-                    color: globals.red,
+                    color: red,
                     size: 20,
                   ),
                   contentPadding: EdgeInsets.all(12.0),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide:
-                        BorderSide(color: Colors.transparent, width: 0.0),
+                    borderSide: BorderSide(color: Colors.transparent, width: 0.0),
                   ),
                   filled: true,
                   fillColor: Color(0xFFF7F7F7),
                   hintText: 'Специалист или услуга',
-                  hintStyle: TextStyle(color: globals.lightGrey),
+                  hintStyle: TextStyle(color: lightGrey),
                 ),
               ),
             ),
@@ -59,15 +58,11 @@ class _FastSearchState extends State<FastSearch> {
                     currentIndex = index;
                   });
                 },
-                labelColor: globals.black,
-                indicatorColor: globals.orange,
+                labelColor: black,
+                indicatorColor: orange,
                 indicatorWeight: 2,
-                labelStyle: TextStyle(
-                    fontSize: 16.0,
-                    color: Color(0xFF272727),
-                    fontWeight: FontWeight.bold),
-                unselectedLabelStyle:
-                    TextStyle(fontSize: 16.0, color: Color(0xFF9B9B9B)),
+                labelStyle: TextStyle(fontSize: 16.0, color: Color(0xFF272727), fontWeight: FontWeight.bold),
+                unselectedLabelStyle: TextStyle(fontSize: 16.0, color: Color(0xFF9B9B9B)),
                 // controller: ,
                 tabs: const [
                   Tab(
@@ -87,53 +82,44 @@ class _FastSearchState extends State<FastSearch> {
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 21),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1, color: Color(0xFFF2F2F2)))),
+                    decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Репетитор',
-                          style: TextStyle(color: globals.black, fontSize: 18),
+                          style: TextStyle(color: black, fontSize: 18),
                         ),
-                        Icon(Icons.arrow_forward, color: globals.black)
+                        Icon(Icons.arrow_forward, color: black)
                       ],
                     ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 21),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+                  decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Врач',
-                        style: TextStyle(color: globals.black, fontSize: 18),
+                        style: TextStyle(color: black, fontSize: 18),
                       ),
-                      Icon(Icons.arrow_forward, color: globals.black)
+                      Icon(Icons.arrow_forward, color: black)
                     ],
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 21),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+                  decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Муж на час',
-                        style: TextStyle(color: globals.black, fontSize: 18),
+                        style: TextStyle(color: black, fontSize: 18),
                       ),
-                      Icon(Icons.arrow_forward, color: globals.black)
+                      Icon(Icons.arrow_forward, color: black)
                     ],
                   ),
                 ),

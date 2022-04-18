@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../globals.dart' as globals;
+
+import '../helpers/globals.dart';
 
 import '../components/simple_app_bar.dart';
 
@@ -39,8 +40,7 @@ class _CategoriesState extends State<Categories> {
                       Get.toNamed('/step-1');
                     },
                     child: Container(
-                        margin:
-                            EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),
+                        margin: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),
                         decoration: BoxDecoration(
                           color: Color(0xFFF4F7FA),
                           borderRadius: BorderRadius.circular(20),
@@ -51,9 +51,7 @@ class _CategoriesState extends State<Categories> {
                               margin: EdgeInsets.all(8),
                               child: Text(
                                 'Услуги курьеров ',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: globals.black),
+                                style: TextStyle(fontWeight: FontWeight.w700, color: black),
                               ),
                             ),
                             Positioned(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../globals.dart' as globals;
 
-import '../../components/drawer_app_bar.dart';
+import '../../helpers/globals.dart';
+import '../../helpers/api.dart';
+
+// import '../../components/drawer_app_bar.dart';
 
 class Index extends StatefulWidget {
-  const Index({Key? key}) : super(key: key);
+  final Function? openDrawerBar;
+  const Index({Key? key, this.openDrawerBar}) : super(key: key);
 
   @override
   _IndexState createState() => _IndexState();
@@ -14,6 +17,9 @@ class Index extends StatefulWidget {
 class _IndexState extends State<Index> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final _SearchDemoSearchDelegate delegate = _SearchDemoSearchDelegate();
+
+  dynamic categories = [];
+  dynamic user = {};
 
   dynamic teamService = [
     {
@@ -31,6 +37,36 @@ class _IndexState extends State<Index> {
   ];
 
   int? _lastIntegerSelected;
+  final focusNode = FocusNode();
+
+  getUser() async {
+    final response = await get('/services/mobile/api/get-info');
+    if (response != null) {
+      setState(() {
+        user = response;
+      });
+    }
+  }
+
+  getCategories() async {
+    final response = await get('/services/mobile/api/category-list');
+    if (response != null) {
+      setState(() {
+        categories = response;
+      });
+    }
+  }
+
+  getData() async {
+    getUser();
+    getCategories();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +87,7 @@ class _IndexState extends State<Index> {
       //   //   icon: Icon(Icons.menu),
       //   // ),
       // ),
-      drawer: Container(
-        padding: const EdgeInsets.all(0),
-        width: MediaQuery.of(context).size.width * 0.95,
-        child: const DrawerAppBar(),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -92,11 +124,11 @@ class _IndexState extends State<Index> {
                   left: 4,
                   child: IconButton(
                     onPressed: () {
-                      _scaffoldKey.currentState!.openDrawer();
+                      widget.openDrawerBar!();
                     },
                     icon: Icon(
                       Icons.menu,
-                      color: globals.white,
+                      color: white,
                     ),
                   ),
                 ),
@@ -112,15 +144,15 @@ class _IndexState extends State<Index> {
                 Positioned(
                   bottom: 120,
                   child: Text(
-                    'Здравствуйте, Валентина',
-                    style: TextStyle(color: globals.grey, fontWeight: FontWeight.w500),
+                    'Здравствуйте, ${user['name']}',
+                    style: TextStyle(color: grey, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Positioned(
                     bottom: 80,
                     child: Text(
                       'Какую услугу ищете?',
-                      style: TextStyle(color: globals.grey, fontWeight: FontWeight.bold, fontSize: 24),
+                      style: TextStyle(color: grey, fontWeight: FontWeight.bold, fontSize: 24),
                     )),
                 Positioned(
                     bottom: 0,
@@ -129,24 +161,31 @@ class _IndexState extends State<Index> {
                       width: 330,
                       child: TextField(
                         onTap: () async {
-                          final int selected = await showSearch(
+                          focusNode.unfocus();
+                          // Future.delayed(Duration(milliseconds: 500), () {
+
+                          // });
+                          final selected = await showSearch(
                             context: context,
                             delegate: delegate,
                           );
-                          if (selected != _lastIntegerSelected) {
-                            setState(() {
-                              _lastIntegerSelected = selected;
-                            });
+                          if (selected != null) {
+                            if (selected != 0 && selected != _lastIntegerSelected) {
+                              setState(() {
+                                _lastIntegerSelected = selected;
+                              });
+                            }
                           }
                         },
+                        focusNode: focusNode,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.search,
-                            color: globals.lightGrey,
+                            color: lightGrey,
                           ),
                           suffixIcon: Icon(
                             Icons.sort,
-                            color: globals.lightGrey,
+                            color: lightGrey,
                           ),
                           contentPadding: const EdgeInsets.all(18.0),
                           enabledBorder: OutlineInputBorder(
@@ -158,11 +197,11 @@ class _IndexState extends State<Index> {
                             borderSide: const BorderSide(color: Color(0xFFECECEC), width: 0.0),
                           ),
                           filled: true,
-                          fillColor: globals.inputColor,
+                          fillColor: inputColor,
                           hintText: 'Специалист или услуга',
                           hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                         ),
-                        style: TextStyle(color: globals.lightGrey),
+                        style: TextStyle(color: lightGrey),
                       ),
                     ))
               ],
@@ -181,7 +220,7 @@ class _IndexState extends State<Index> {
                           padding: const EdgeInsets.all(0),
                           child: Text(
                             'Популярное',
-                            style: TextStyle(color: globals.black, fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Container(
@@ -194,11 +233,11 @@ class _IndexState extends State<Index> {
                               children: [
                                 Text(
                                   'Все категории',
-                                  style: TextStyle(color: globals.red, fontSize: 15, fontWeight: FontWeight.w600),
+                                  style: TextStyle(color: red, fontSize: 15, fontWeight: FontWeight.w600),
                                 ),
                                 Icon(
                                   Icons.chevron_right,
-                                  color: globals.red,
+                                  color: red,
                                 )
                               ],
                             ),
@@ -211,7 +250,7 @@ class _IndexState extends State<Index> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        for (var i = 1; i < 7; i++)
+                        for (var i = 1; i < categories.length; i++)
                           GestureDetector(
                             onTap: () {
                               Get.toNamed('/step-1');
@@ -229,8 +268,8 @@ class _IndexState extends State<Index> {
                                     Container(
                                       margin: const EdgeInsets.all(8),
                                       child: Text(
-                                        'Услуги \n курьеров ',
-                                        style: TextStyle(fontWeight: FontWeight.w700, color: globals.black),
+                                        '${categories[i]['name']}',
+                                        style: TextStyle(fontWeight: FontWeight.w700, color: black),
                                       ),
                                     ),
                                     Positioned(
@@ -255,7 +294,7 @@ class _IndexState extends State<Index> {
                     ),
                     child: Text(
                       'Командные услуги',
-                      style: TextStyle(color: globals.black, fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
@@ -269,38 +308,38 @@ class _IndexState extends State<Index> {
                           // for (var i = 0; i < teamService.length; i++)
                           Container(
                             decoration: BoxDecoration(
-                              color: globals.red,
+                              color: red,
                               borderRadius: const BorderRadius.all(Radius.circular(12.0)),
                             ),
                             margin: const EdgeInsets.only(right: 10),
                             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                             child: Text(
                               'Лучшее',
-                              style: TextStyle(color: globals.white, fontWeight: FontWeight.w600),
+                              style: TextStyle(color: white, fontWeight: FontWeight.w600),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: globals.grey,
+                              color: grey,
                               borderRadius: const BorderRadius.all(Radius.circular(12.0)),
                             ),
                             margin: const EdgeInsets.only(right: 10),
                             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                             child: Text(
                               'Персональные услуги ',
-                              style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w600),
+                              style: TextStyle(color: darkGrey, fontWeight: FontWeight.w600),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: globals.grey,
+                              color: grey,
                               borderRadius: const BorderRadius.all(Radius.circular(12.0)),
                             ),
                             margin: const EdgeInsets.only(right: 10),
                             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 7),
                             child: Text(
                               'Персональные услуги ',
-                              style: TextStyle(color: globals.darkGrey, fontWeight: FontWeight.w600),
+                              style: TextStyle(color: darkGrey, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -322,7 +361,7 @@ class _IndexState extends State<Index> {
                           onTap: () {},
                           child: Container(
                             decoration: BoxDecoration(
-                              color: globals.inputColor,
+                              color: inputColor,
                               borderRadius: const BorderRadius.all(Radius.circular(12.0)),
                             ),
                             child: Stack(
@@ -367,7 +406,7 @@ class _IndexState extends State<Index> {
                                     left: MediaQuery.of(context).size.width * 0.18,
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: globals.white,
+                                        color: white,
                                         borderRadius: const BorderRadius.all(Radius.circular(7.0)),
                                       ),
                                       padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),

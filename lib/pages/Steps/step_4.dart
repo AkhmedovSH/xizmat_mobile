@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../globals.dart' as globals;
-import '../../widgets.dart' as widgets;
+import '../../helpers/globals.dart';
+import '../../helpers/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
@@ -15,8 +15,6 @@ class Step4 extends StatefulWidget {
 }
 
 class _Step4State extends State<Step4> {
-  dynamic character = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +36,7 @@ class _Step4State extends State<Step4> {
                 animationDuration: 500,
                 percent: 0.8,
                 linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: globals.red,
+                progressColor: red,
                 backgroundColor: Color(0xFFF8F8F8),
               ),
             ),
@@ -64,15 +62,14 @@ class _Step4State extends State<Step4> {
                           contentPadding: EdgeInsets.all(18.0),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            borderSide: BorderSide(
-                                color: Color(0xFFDADADA), width: 1.0),
+                            borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                           ),
                           filled: true,
                           fillColor: Color(0xFFF8F8F8),
                           hintText: 'дд/мм/гг',
                           hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                         ),
-                        style: TextStyle(color: globals.lightGrey),
+                        style: TextStyle(color: lightGrey),
                       )),
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,
@@ -82,15 +79,14 @@ class _Step4State extends State<Step4> {
                           contentPadding: EdgeInsets.all(18.0),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            borderSide: BorderSide(
-                                color: Color(0xFFDADADA), width: 1.0),
+                            borderSide: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                           ),
                           filled: true,
                           fillColor: Color(0xFFF8F8F8),
                           hintText: '00:00',
                           hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
                         ),
-                        style: TextStyle(color: globals.lightGrey),
+                        style: TextStyle(color: lightGrey),
                       )),
                 ],
               ),
