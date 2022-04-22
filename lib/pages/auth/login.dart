@@ -25,15 +25,15 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    'username': '', // 998 998325455
-    'password': '', // 112233
+    'username': '998998198858', // 998 998325455
+    'password': '1232', // 112233
   };
   bool showPassword = true;
 
   login() async {
-    setState(() {
-      sendData['username'] = '998' + maskFormatter.getUnmaskedText();
-    });
+    // setState(() {
+    //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
+    // });
     final prefs = await SharedPreferences.getInstance();
     final response = await guestPost('/auth/login', sendData);
     if (response != null) {

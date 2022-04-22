@@ -25,9 +25,8 @@ class _StepLayoutState extends State<StepLayout> {
   int currentStep = 0;
   dynamic items = [];
   dynamic item = {};
-  dynamic id = '';
+  dynamic radioId = '';
   bool loading = false;
-  dynamic optionList = [];
   dynamic stepHistory = [];
 
   dynamic stepOrder = {
@@ -47,7 +46,7 @@ class _StepLayoutState extends State<StepLayout> {
       setState(() {
         item = response;
         items = response['optionList'] ?? [];
-        id = stepHistory[currentStep - 1]['id'].toString();
+        radioId = stepHistory[currentStep - 1]['id'].toString();
         stepHistory.removeAt(stepHistory.length - 1);
         stepOrder['stepList'].removeAt(currentStep - 1);
         currentStep = currentStep - 1;
@@ -73,18 +72,24 @@ class _StepLayoutState extends State<StepLayout> {
         {
           'main': item['main'],
           'optionType': items[index]['optionType'],
-          'optionList': optionList,
+          'optionList': [
+            {
+              "optionId": items[index]['id'],
+            }
+          ],
           'id': item['id'],
         },
       );
-      stepHistory.add({'id': int.parse(id)});
+      stepHistory.add({'id': index});
       item = response;
       items = response['optionList'] ?? [];
       currentStep = currentStep + 1;
       loading = false;
-      id = '';
+      radioId = '';
     });
   }
+
+  nextStepMap() async {}
 
   getStep() async {
     final response = await get('/services/mobile/api/step-category/${Get.arguments}');
@@ -206,7 +211,8 @@ class _StepLayoutState extends State<StepLayout> {
           // height: 50,
           child: ElevatedButton(
             onPressed: () {
-              nextStep(int.parse(id));
+              print(radioId);
+              nextStep(int.parse(radioId != '' ? radioId : '0'));
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 12),
@@ -254,7 +260,7 @@ class _StepLayoutState extends State<StepLayout> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          id = i.toString();
+          radioId = i.toString();
         });
         // nextStep(i);
       },
@@ -277,11 +283,11 @@ class _StepLayoutState extends State<StepLayout> {
               child: Radio(
                 onChanged: (value) {
                   setState(() {
-                    id = value;
+                    radioId = value;
                   });
                 },
                 value: i.toString(),
-                groupValue: id,
+                groupValue: radioId,
                 activeColor: black,
               ),
             )
@@ -295,14 +301,14 @@ class _StepLayoutState extends State<StepLayout> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          id = i.toString();
+          radioId = i.toString();
         });
         // nextStep(i);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))), 
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -312,11 +318,11 @@ class _StepLayoutState extends State<StepLayout> {
               child: Radio(
                 onChanged: (value) {
                   setState(() {
-                    id = value;
+                    radioId = value;
                   });
                 },
                 value: i.toString(),
-                groupValue: id,
+                groupValue: radioId,
                 activeColor: black,
               ),
             )
@@ -330,7 +336,7 @@ class _StepLayoutState extends State<StepLayout> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          id = i.toString();
+          radioId = i.toString();
         });
         nextStep(i);
       },
@@ -378,7 +384,7 @@ class _StepLayoutState extends State<StepLayout> {
         mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
+          // _controller.complete(controller);
         },
         markers: Set.from(marker),
         // onTap: handleTab,
