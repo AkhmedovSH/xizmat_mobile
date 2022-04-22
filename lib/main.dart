@@ -8,13 +8,15 @@ import 'helpers/globals.dart';
 import 'helpers/translations.dart';
 
 import 'pages/dashboard/dashboard.dart';
-import 'pages/categories.dart';
 import 'pages/fast_search.dart';
 import 'pages/tutor.dart';
 import 'pages/dashboard/support.dart';
 import 'pages/Steps/success.dart';
 import 'pages/specialist_inside.dart';
 import 'pages/dashboard/profile/profile.dart';
+
+import 'pages/categories/categories.dart';
+import 'pages/categories/categories_childs.dart';
 
 import 'pages/auth/register.dart';
 import 'pages/auth/confirmation.dart';
@@ -25,11 +27,12 @@ import 'pages/Order/order_inside.dart';
 import 'pages/Order/order_by_manager.dart';
 import 'pages/Order/order_by_manager_success.dart';
 
+import 'pages/Steps/step_layout.dart';
 import 'pages/Steps/step_1.dart';
 import 'pages/Steps/step_2.dart';
 import 'pages/Steps/step_3.dart';
 import 'pages/Steps/step_4.dart';
-import 'pages/Steps/step_5.dart'; 
+import 'pages/Steps/step_5.dart';
 import 'pages/Steps/google_map.dart';
 import 'pages/Steps/search_result.dart';
 
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: Messages(),
-      locale: const Locale('uz', 'UZ'),
+      locale: const Locale('ru', 'RU'),
       fallbackLocale: const Locale('uz', 'UZ'),
       debugShowCheckedModeBanner: false,
       popGesture: true,
@@ -79,6 +82,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => const Dashboard()),
         GetPage(name: '/categories', page: () => const Categories()),
+        GetPage(name: '/categories-childs', page: () => const CategoriesChilds()),
         GetPage(name: '/fast-search', page: () => const FastSearch()),
         GetPage(name: '/tutor', page: () => const Tutor()),
         GetPage(name: '/support', page: () => const Support()),
@@ -96,7 +100,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-by-manager', page: () => const OrderByManager()),
         GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
         // Steps
-        GetPage(name: '/checkboxes', page: () => Step1()),
+        GetPage(name: '/step-layout', page: () => StepLayout()),
         GetPage(name: '/step-1', page: () => const Step1()),
         GetPage(name: '/step-2', page: () => const Step2()),
         GetPage(name: '/step-3', page: () => const Step3()),

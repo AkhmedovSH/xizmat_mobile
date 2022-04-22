@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../helpers/globals.dart';
+import '../../helpers/globals.dart';
 
-import '../components/simple_app_bar.dart';
+import '../../components/simple_app_bar.dart';
 
 class Categories extends StatefulWidget {
   const Categories({Key? key}) : super(key: key);

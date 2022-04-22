@@ -48,27 +48,18 @@ class _LoginState extends State<Login> {
       }
       if (checkAccess) {
         LocalNotificationService.initialize(context);
-
-        ///gives you the message on which user taps
-        ///and it opened the app from terminated state
         FirebaseMessaging.instance.getInitialMessage().then((message) {
           if (message != null) {
             Get.offAllNamed('/notifications');
           }
         });
-
-        ///forground work
         FirebaseMessaging.onMessage.listen((message) {
           if (message.notification != null) {
-            //print(message.notification!.body);
-            //print(message.notification!.title);
-            //print("THIS IS MY ROTE 2 :${message.data['route']}");
-            //Get.toNamed('/dashboard');
+            //Get.toNamed('/');
           }
           LocalNotificationService.display(message);
         });
 
-        ///When the app is in background but opened and user taps on the notification
         FirebaseMessaging.onMessageOpenedApp.listen((message) {
           Get.offAllNamed('/notifications');
         });

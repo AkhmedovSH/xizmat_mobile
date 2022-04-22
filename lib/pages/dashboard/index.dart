@@ -143,10 +143,12 @@ class _IndexState extends State<Index> {
                 ),
                 Positioned(
                   bottom: 120,
-                  child: Text(
-                    'Здравствуйте, ${user['name']}',
-                    style: TextStyle(color: grey, fontWeight: FontWeight.w500),
-                  ),
+                  child: user['name'] != null
+                      ? Text(
+                          'Здравствуйте, ${user['name'] ?? ''}',
+                          style: TextStyle(color: grey, fontWeight: FontWeight.w500),
+                        )
+                      : Text(''),
                 ),
                 Positioned(
                     bottom: 80,
@@ -253,7 +255,7 @@ class _IndexState extends State<Index> {
                         for (var i = 1; i < categories.length; i++)
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed('/step-1');
+                              Get.toNamed('/categories-childs', arguments: categories[i]['id']);
                             },
                             child: Container(
                                 width: 130,
