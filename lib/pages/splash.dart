@@ -1,10 +1,19 @@
+import 'dart:convert';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:async';
 import 'package:get/get.dart';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:xizmat/helpers/api.dart';
+import 'package:xizmat/helpers/globals.dart';
+
+import 'package:xizmat/helpers/location_notification_service.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -22,8 +31,58 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    checkVersion();
+    login();
+    // checkVersion();
     // startTimer();
+  }
+
+  login() async {
+    // setState(() {
+    //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
+    // });
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user') != null) {
+      final user = jsonDecode(prefs.getString('user')!);
+      final response = await guestPost('/auth/login', {
+        'username': user['username'],
+        'password': user['password'],
+      });
+      if (response != null) {
+        prefs.setString('access_token', response['access_token'].toString());
+        var account = await get('/services/uaa/api/account');
+        var checkAccess = false;
+        for (var i = 0; i < account['authorities'].length; i++) {
+          if (account['authorities'][i] == 'ROLE_CLIENT') {
+            checkAccess = true;
+          }
+        }
+        if (checkAccess) {
+          LocalNotificationService.initialize(context);
+          FirebaseMessaging.instance.getInitialMessage().then((message) {
+            if (message != null) {
+              Get.offAllNamed('/notifications');
+            }
+          });
+          FirebaseMessaging.onMessage.listen((message) {
+            if (message.notification != null) {
+              //Get.toNamed('/');
+            }
+            LocalNotificationService.display(message);
+          });
+
+          FirebaseMessaging.onMessageOpenedApp.listen((message) {
+            Get.offAllNamed('/notifications');
+          });
+
+          // var firebaseToken = await FirebaseMessaging.instance.getToken();
+          // await put('/services/gocashmobile/api/firebase-token', {'token': firebaseToken});
+
+          Get.offAllNamed('/');
+        }
+      }
+    } else {
+      Get.offAllNamed('/login');
+    }
   }
 
   void checkVersion() async {
@@ -70,7 +129,7 @@ class _SplashState extends State<Splash> {
     // bool lightMode =
     //     MediaQuery.of(context).platformBrightness == Brightness.light;
     return Scaffold(
-      backgroundColor: const Color(0xFF7D4196),
+      backgroundColor: red,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -80,7 +139,12 @@ class _SplashState extends State<Splash> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: Image.asset('images/splash_logo.png')),
+          Center(
+              child: Image.asset(
+            'images/splash_logo.png',
+            height: 200,
+            width: MediaQuery.of(context).size.width * 0.6,
+          )),
         ],
       ),
     );

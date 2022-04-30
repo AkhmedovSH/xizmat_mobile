@@ -51,6 +51,7 @@ class _IndexState extends State<Index> {
   getCategories() async {
     final response = await get('/services/mobile/api/category-list');
     if (response != null) {
+      print(response);
       setState(() {
         categories = response;
       });
@@ -252,7 +253,7 @@ class _IndexState extends State<Index> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        for (var i = 1; i < categories.length; i++)
+                        for (var i = 0; i < categories.length; i++)
                           GestureDetector(
                             onTap: () {
                               Get.toNamed('/categories-childs', arguments: categories[i]['id']);
@@ -278,7 +279,7 @@ class _IndexState extends State<Index> {
                                       bottom: 0,
                                       right: 0,
                                       child: Image.asset(
-                                        'images/c$i.png',
+                                        'images/c1.png',
                                         height: 80,
                                         width: 100,
                                       ),

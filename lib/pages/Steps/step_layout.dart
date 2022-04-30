@@ -55,40 +55,6 @@ class _StepLayoutState extends State<StepLayout> {
     }
   }
 
-  nextStep(index) async {
-    setState(() {
-      loading = true;
-    });
-    if (items[index]['nextStepId'] == 0) {
-      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
-      print(responseOrder);
-      Get.offAllNamed('/success');
-      return;
-    }
-    final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
-    print(index);
-    setState(() {
-      stepOrder['stepList'].add(
-        {
-          'main': item['main'],
-          'optionType': items[index]['optionType'],
-          'optionList': [
-            {
-              "optionId": items[index]['id'],
-            }
-          ],
-          'id': item['id'],
-        },
-      );
-      stepHistory.add({'id': index});
-      item = response;
-      items = response['optionList'] ?? [];
-      currentStep = currentStep + 1;
-      loading = false;
-      radioId = '';
-    });
-  }
-
   nextStepMap() async {}
 
   getStep() async {
@@ -119,26 +85,26 @@ class _StepLayoutState extends State<StepLayout> {
       return radioWithText(i);
     }
     if (items[i]['optionType'] == 3) {
+      setState(() {
+        items[i]['isChecked'] = false;
+      });
       return checkBox(i);
     }
     if (items[i]['optionType'] == 4) {
-      return radio(i);
+      setState(() {
+        items[i]['isChecked'] = false;
+      });
+      return checkBoxWithtext(i);
     }
     if (items[i]['optionType'] == 5) {
       return map(i);
     }
-    if (items[i]['optionType'] == 6) {
-      return radio(i);
-    }
-    if (items[i]['optionType'] == 7) {
-      return radio(i);
-    }
-    if (items[i]['optionType'] == 8) {
-      return radio(i);
-    }
-    if (items[i]['optionType'] == 9) {
-      return radio(i);
-    }
+    if (items[i]['optionType'] == 6) {}
+    if (items[i]['optionType'] == 7) {}
+    if (items[i]['optionType'] == 8) {}
+    if (items[i]['optionType'] == 9) {}
+    if (items[i]['optionType'] == 10) {}
+    return Container();
   }
 
   @override
@@ -211,8 +177,7 @@ class _StepLayoutState extends State<StepLayout> {
           // height: 50,
           child: ElevatedButton(
             onPressed: () {
-              print(radioId);
-              nextStep(int.parse(radioId != '' ? radioId : '0'));
+              nextStepRadio(int.parse(radioId != '' ? radioId : '0'));
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 12),
@@ -256,21 +221,70 @@ class _StepLayoutState extends State<StepLayout> {
     );
   }
 
+  nextStepRadio(index) async {
+    setState(() {
+      loading = true;
+    });
+    if (items[index]['nextStepId'] == 0) {
+      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
+      print(responseOrder);
+      Get.offAllNamed('/success');
+      return;
+    }
+    final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
+    print(index);
+    setState(() {
+      stepOrder['stepList'].add(
+        {
+          'main': item['main'],
+          'optionType': items[index]['optionType'],
+          'optionList': [
+            {
+              "optionId": items[index]['id'],
+            }
+          ],
+          'id': item['id'],
+        },
+      );
+      stepHistory.add({'id': index});
+      item = response;
+      items = response['optionList'] ?? [];
+      currentStep = currentStep + 1;
+      loading = false;
+      radioId = '';
+    });
+  }
+
   radio(i) {
     return GestureDetector(
       onTap: () {
         setState(() {
           radioId = i.toString();
         });
-        // nextStep(i);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Transform.scale(
+                scale: 1,
+                child: Radio(
+                  onChanged: (value) {
+                    setState(() {
+                      radioId = value;
+                    });
+                  },
+                  value: i.toString(),
+                  groupValue: radioId,
+                  activeColor: black,
+                ),
+              ),
+            ),
             Flexible(
               child: Text(
                 items[i]['optionName'],
@@ -278,19 +292,6 @@ class _StepLayoutState extends State<StepLayout> {
                 overflow: TextOverflow.clip,
               ),
             ),
-            Transform.scale(
-              scale: 1,
-              child: Radio(
-                onChanged: (value) {
-                  setState(() {
-                    radioId = value;
-                  });
-                },
-                value: i.toString(),
-                groupValue: radioId,
-                activeColor: black,
-              ),
-            )
           ],
         ),
       ),
@@ -303,16 +304,14 @@ class _StepLayoutState extends State<StepLayout> {
         setState(() {
           radioId = i.toString();
         });
-        // nextStep(i);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))), 
+        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextFormField(),
             Transform.scale(
               scale: 1,
               child: Radio(
@@ -325,28 +324,86 @@ class _StepLayoutState extends State<StepLayout> {
                 groupValue: radioId,
                 activeColor: black,
               ),
-            )
+            ),
+            TextFormField(),
           ],
         ),
       ),
     );
   }
 
+  dynamic checkBoxList = [];
+
+  nextStepCheckBox(index) async {
+    setState(() {
+      loading = true;
+    });
+    if (items[index]['nextStepId'] == 0) {
+      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
+      print(responseOrder);
+      Get.offAllNamed('/success');
+      return;
+    }
+    for (var i = 0; i < checkBoxList.length; i++) {
+      
+    }
+    final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
+    print(index);
+    setState(() {
+      stepOrder['stepList'].add(
+        {
+          'main': item['main'],
+          'optionType': items[index]['optionType'],
+          'optionList': [
+            {
+              "optionId": items[index]['id'],
+            }
+          ],
+          'id': item['id'],
+        },
+      );
+      stepHistory.add({'id': index});
+      item = response;
+      items = response['optionList'] ?? [];
+      currentStep = currentStep + 1;
+      loading = false;
+      radioId = '';
+    });
+  }
+
   checkBox(i) {
+    setState(() {
+      checkBoxList.add({
+        'isChecked': items[i]['isChecked'],
+        'id': items[i]['id'],
+      });
+    });
     return GestureDetector(
       onTap: () {
         setState(() {
-          radioId = i.toString();
+          checkBoxList[i]['isChecked'] = !checkBoxList[i]['isChecked'];
         });
-        nextStep(i);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Checkbox(
+                checkColor: Colors.white,
+                activeColor: black,
+                value: checkBoxList[i]['isChecked'],
+                onChanged: (value) {
+                  setState(() {
+                    checkBoxList[i]['isChecked'] = !checkBoxList[i]['isChecked'];
+                  });
+                },
+              ),
+            ),
             Flexible(
               child: Text(
                 items[i]['optionName'],
@@ -354,14 +411,65 @@ class _StepLayoutState extends State<StepLayout> {
                 overflow: TextOverflow.clip,
               ),
             ),
-            Checkbox(
-              checkColor: Colors.white,
-              value: i,
-              onChanged: (value) {
-                setState(() {
-                  i = value!;
-                });
-              },
+          ],
+        ),
+      ),
+    );
+  }
+
+  checkBoxWithtext(i) {                                   
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          checkBoxList[i]['isChecked'] = !checkBoxList[i]['isChecked'];
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: Checkbox(
+                checkColor: Colors.white,
+                activeColor: black,
+                value: checkBoxList[i]['isChecked'],
+                onChanged: (value) {
+                  setState(() {
+                    checkBoxList[i]['isChecked'] = !checkBoxList[i]['isChecked'];
+                  });
+                },
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.65,
+              child: TextFormField(
+                onTap: () {
+                  setState(() {
+                    checkBoxList[i]['isChecked'] = true;
+                  });
+                },
+                
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(12.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
+                  ),
+                  filled: true,
+                  fillColor: Color(0xFFF8F8F8),
+                  hintText: 'Другое',
+                  hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+                ),
+                style: TextStyle(color: lightGrey),
+              ),
             )
           ],
         ),

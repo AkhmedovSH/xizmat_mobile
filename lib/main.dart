@@ -7,6 +7,7 @@ import 'helpers/globals.dart';
 
 import 'helpers/translations.dart';
 
+import 'pages/splash.dart';
 import 'pages/dashboard/dashboard.dart';
 import 'pages/fast_search.dart';
 import 'pages/tutor.dart';
@@ -78,8 +79,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       getPages: [
+        GetPage(name: '/splash', page: () => const Splash()),
         GetPage(name: '/', page: () => const Dashboard()),
         GetPage(name: '/categories', page: () => const Categories()),
         GetPage(name: '/categories-childs', page: () => const CategoriesChilds()),

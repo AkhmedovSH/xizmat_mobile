@@ -47,7 +47,7 @@ class _SuccessState extends State<Success> {
             margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed('/orders');
+                  Get.toNamed('/', arguments: 1);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -65,12 +65,17 @@ class _SuccessState extends State<Success> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                margin: EdgeInsets.only(right: 5),
-                child: Text(
-                  'Выбрать другую услугу',
-                  style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/');
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 5),
+                  child: Text(
+                    'Выбрать другую услугу',
+                    style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               Icon(
