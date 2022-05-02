@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import '../../helpers/globals.dart';
 import '../../helpers/api.dart';
 
+import 'package:shimmer/shimmer.dart';
+
 // import '../../components/drawer_app_bar.dart';
 
 class Index extends StatefulWidget {
@@ -259,34 +261,35 @@ class _IndexState extends State<Index> {
                               Get.toNamed('/categories-childs', arguments: categories[i]['id']);
                             },
                             child: Container(
-                                width: 130,
-                                height: 125,
-                                margin: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 20),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF4F7FA),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.all(8),
-                                      child: Text(
-                                        '${categories[i]['name']}',
-                                        style: TextStyle(fontWeight: FontWeight.w700, color: black),
-                                      ),
+                              width: 130,
+                              height: 125,
+                              margin: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 20),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF4F7FA),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(8),
+                                    child: Text(
+                                      '${categories[i]['name']}',
+                                      style: TextStyle(fontWeight: FontWeight.w700, color: black),
                                     ),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      child: Image.asset(
-                                        'images/c1.png',
-                                        height: 80,
-                                        width: 100,
-                                      ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Image.asset(
+                                      'images/c1.png',
+                                      height: 80,
+                                      width: 100,
                                     ),
-                                    const Padding(padding: EdgeInsets.only(top: 10)),
-                                  ],
-                                )),
+                                  ),
+                                  const Padding(padding: EdgeInsets.only(top: 10)),
+                                ],
+                              ),
+                            ),
                           )
                       ],
                     ),

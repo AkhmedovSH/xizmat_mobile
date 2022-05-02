@@ -1,18 +1,21 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:xizmat/helpers/api.dart';
 import '../../helpers/globals.dart';
-import 'package:xizmat/helpers/widgets.dart';
+// import 'package:xizmat/helpers/widgets.dart';
 
-// import 'step_1.dart';
-// import 'step_2.dart';
-// import 'step_3.dart';
-// import 'step_4.dart';
-// import 'step_5.dart';
+// radio(i)
+// radioWithText(i)
+// checkBox(i)
+// checkBoxWithText(i)
+// map(i)
 
 class StepLayout extends StatefulWidget {
   const StepLayout({Key? key}) : super(key: key);
@@ -25,37 +28,34 @@ class _StepLayoutState extends State<StepLayout> {
   int currentStep = 0;
   dynamic items = [];
   dynamic item = {};
-  dynamic radioId = '';
   bool loading = false;
+
   dynamic stepHistory = [];
 
   dynamic stepOrder = {
     'categoryId': '0',
     'stepList': [],
-    'index': 0,
   };
 
-  changeIndex() async {
+  decrementStep() async {
     if (currentStep == 0) {
       Get.back();
       return true;
     } else {
-      print(currentStep);
-      final response = await get('/services/mobile/api/step/' + stepOrder['stepList'][currentStep - 1]['id'].toString());
-      print(stepOrder['stepList']);
+      dynamic stepInfo = stepHistory[stepHistory.length - 1];
+      print(stepInfo);
       setState(() {
-        item = response;
-        items = response['optionList'] ?? [];
-        radioId = stepHistory[currentStep - 1]['id'].toString();
-        stepHistory.removeAt(stepHistory.length - 1);
-        stepOrder['stepList'].removeAt(currentStep - 1);
         currentStep = currentStep - 1;
+        radioId = stepInfo['radioId'] ?? '';
+        checkBoxList = stepInfo['checkBoxList'] ?? [];
+        position = stepInfo['position'] ?? [];
+        items = stepInfo['items'];
+        item = stepInfo['item'];
+        stepHistory.removeAt(stepHistory.length - 1);
       });
       return false;
     }
   }
-
-  nextStepMap() async {}
 
   getStep() async {
     final response = await get('/services/mobile/api/step-category/${Get.arguments}');
@@ -74,7 +74,7 @@ class _StepLayoutState extends State<StepLayout> {
   void initState() {
     super.initState();
     getStep();
-    getOptions();
+    // getOptions();
   }
 
   checkOption(i) {
@@ -86,32 +86,87 @@ class _StepLayoutState extends State<StepLayout> {
     }
     if (items[i]['optionType'] == 3) {
       setState(() {
-        items[i]['isChecked'] = false;
+        items[i]['isChecked'] = items[i]['isChecked'] ?? false;
+        checkBoxList = List.from(items);
       });
       return checkBox(i);
     }
     if (items[i]['optionType'] == 4) {
       setState(() {
-        items[i]['isChecked'] = false;
+        items[i]['isChecked'] = items[i]['isChecked'] ?? false;
+        checkBoxList = List.from(items);
       });
       return checkBoxWithtext(i);
     }
     if (items[i]['optionType'] == 5) {
       return map(i);
     }
-    if (items[i]['optionType'] == 6) {}
+    if (items[i]['optionType'] == 6) {
+      return calendar(i);
+    }
     if (items[i]['optionType'] == 7) {}
-    if (items[i]['optionType'] == 8) {}
+    if (items[i]['optionType'] == 8) {
+      return range(i);
+    }
     if (items[i]['optionType'] == 9) {}
     if (items[i]['optionType'] == 10) {}
+    if (items[i]['optionType'] == 11) {}
+    if (items[i]['optionType'] == 12) {}
     return Container();
+  }
+
+  clearAllVariables() {
+    setState(() {
+      items = [];
+      item = {};
+      loading = false;
+      radioId = '';
+      checkBoxList = [];
+      position = {};
+    });
+  }
+
+  checkNextStepId(index) async {
+    setState(() {
+      loading = true;
+    });
+    if (items[index]['nextStepId'] == 0) {
+      currentStep = currentStep - 1;
+      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
+      print(responseOrder);
+      Get.offAllNamed('/success');
+    }
+  }
+
+  nextStep() async {
+    print(items[0]['optionType']);
+    if (items[0]['optionType'] == 1 || items[0]['optionType'] == 2) {
+      nextStepRadio(int.parse(radioId != '' ? radioId : '0'));
+    }
+    if (items[0]['optionType'] == 3 || items[0]['optionType'] == 4) {
+      nextStepCheckBox();
+    }
+    if (items[0]['optionType'] == 5) {
+      nextStepMap();
+    }
+    if (items[0]['optionType'] == 6) {
+      nextStepCalendar();
+    }
+    if (items[0]['optionType'] == 7) {}
+    if (items[0]['optionType'] == 8) {}
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    checkBoxFieldFocusNode.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return changeIndex();
+        return decrementStep();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -126,7 +181,7 @@ class _StepLayoutState extends State<StepLayout> {
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              changeIndex();
+              decrementStep();
             },
             icon: Icon(
               Icons.arrow_back,
@@ -177,7 +232,7 @@ class _StepLayoutState extends State<StepLayout> {
           // height: 50,
           child: ElevatedButton(
             onPressed: () {
-              nextStepRadio(int.parse(radioId != '' ? radioId : '0'));
+              nextStep();
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: 12),
@@ -221,38 +276,36 @@ class _StepLayoutState extends State<StepLayout> {
     );
   }
 
+  dynamic radioId = '';
+
   nextStepRadio(index) async {
-    setState(() {
-      loading = true;
-    });
-    if (items[index]['nextStepId'] == 0) {
-      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
-      print(responseOrder);
-      Get.offAllNamed('/success');
-      return;
-    }
+    checkNextStepId(index);
     final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
-    print(index);
-    setState(() {
-      stepOrder['stepList'].add(
-        {
+    if (response != null) {
+      setState(() {
+        stepHistory.add({
+          'radioId': radioId,
+          'items': items,
+          'item': item,
+          'id': item['id'],
+        });
+        stepOrder['stepList'].add({
           'main': item['main'],
-          'optionType': items[index]['optionType'],
           'optionList': [
             {
-              "optionId": items[index]['id'],
-            }
+              'optionId': items[int.parse(radioId)]['id'],
+            },
           ],
-          'id': item['id'],
-        },
-      );
-      stepHistory.add({'id': index});
-      item = response;
-      items = response['optionList'] ?? [];
-      currentStep = currentStep + 1;
-      loading = false;
-      radioId = '';
-    });
+          'optionType': 1
+        });
+      });
+      clearAllVariables();
+      setState(() {
+        currentStep = currentStep + 1;
+        item = response;
+        items = response['optionList'] ?? [];
+      });
+    }
   }
 
   radio(i) {
@@ -263,14 +316,14 @@ class _StepLayoutState extends State<StepLayout> {
         });
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 12),
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+        margin: mx12,
+        padding: py10,
+        decoration: borderBottom,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(right: 20),
+              margin: mr20,
               child: Transform.scale(
                 scale: 1,
                 child: Radio(
@@ -298,6 +351,8 @@ class _StepLayoutState extends State<StepLayout> {
     );
   }
 
+  FocusNode radioFieldFocusNode = FocusNode();
+
   radioWithText(i) {
     return GestureDetector(
       onTap: () {
@@ -306,26 +361,40 @@ class _StepLayoutState extends State<StepLayout> {
         });
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 12),
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+        margin: mx12,
+        padding: py10,
+        decoration: borderBottom,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Transform.scale(
-              scale: 1,
-              child: Radio(
-                onChanged: (value) {
-                  setState(() {
-                    radioId = value;
-                  });
-                },
-                value: i.toString(),
-                groupValue: radioId,
-                activeColor: black,
+            Container(
+              margin: mr20,
+              child: Transform.scale(
+                scale: 1,
+                child: Radio(
+                  onChanged: (value) {
+                    setState(() {
+                      radioId = value;
+                    });
+                  },
+                  value: i.toString(),
+                  groupValue: radioId,
+                  activeColor: black,
+                ),
               ),
             ),
-            TextFormField(),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.65,
+              child: TextFormField(
+                onTap: () {
+                  setState(() {
+                    radioId = i.toString();
+                  });
+                },
+                decoration: inputDecoration(),
+                style: TextStyle(color: lightGrey),
+              ),
+            )
           ],
         ),
       ),
@@ -334,50 +403,41 @@ class _StepLayoutState extends State<StepLayout> {
 
   dynamic checkBoxList = [];
 
-  nextStepCheckBox(index) async {
-    setState(() {
-      loading = true;
-    });
-    if (items[index]['nextStepId'] == 0) {
-      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
-      print(responseOrder);
-      Get.offAllNamed('/success');
-      return;
-    }
+  nextStepCheckBox() async {
+    dynamic optionList = [];
     for (var i = 0; i < checkBoxList.length; i++) {
-      
+      print(checkBoxList[i]);
+      if (checkBoxList[i]['isChecked']) {
+        optionList.add({
+          'optionId': checkBoxList[i]['id'],
+          'optionType': checkBoxList[i]['optionType'],
+        });
+      }
     }
-    final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
-    print(index);
+    checkNextStepId(0);
+    final response = await get('/services/mobile/api/step/' + checkBoxList[0]['nextStepId'].toString());
     setState(() {
-      stepOrder['stepList'].add(
-        {
-          'main': item['main'],
-          'optionType': items[index]['optionType'],
-          'optionList': [
-            {
-              "optionId": items[index]['id'],
-            }
-          ],
-          'id': item['id'],
-        },
-      );
-      stepHistory.add({'id': index});
+      stepHistory.add({
+        'checkBoxList': checkBoxList,
+        'items': items,
+        'item': item,
+        'id': item['id'],
+      });
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': optionList,
+        'optionType': 3,
+      });
+    });
+    clearAllVariables();
+    setState(() {
+      currentStep = currentStep + 1;
       item = response;
       items = response['optionList'] ?? [];
-      currentStep = currentStep + 1;
-      loading = false;
-      radioId = '';
     });
   }
 
   checkBox(i) {
-    setState(() {
-      checkBoxList.add({
-        'isChecked': items[i]['isChecked'],
-        'id': items[i]['id'],
-      });
-    });
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -387,7 +447,7 @@ class _StepLayoutState extends State<StepLayout> {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+        decoration: borderBottom,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -417,7 +477,9 @@ class _StepLayoutState extends State<StepLayout> {
     );
   }
 
-  checkBoxWithtext(i) {                                   
+  FocusNode checkBoxFieldFocusNode = FocusNode();
+
+  checkBoxWithtext(i) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -427,7 +489,7 @@ class _StepLayoutState extends State<StepLayout> {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
+        decoration: borderBottom,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -440,11 +502,16 @@ class _StepLayoutState extends State<StepLayout> {
                 onChanged: (value) {
                   setState(() {
                     checkBoxList[i]['isChecked'] = !checkBoxList[i]['isChecked'];
+                    if (checkBoxList[i]['isChecked']) {
+                      checkBoxFieldFocusNode.requestFocus();
+                    } else {
+                      checkBoxFieldFocusNode.unfocus();
+                    }
                   });
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.65,
               child: TextFormField(
                 onTap: () {
@@ -452,34 +519,77 @@ class _StepLayoutState extends State<StepLayout> {
                     checkBoxList[i]['isChecked'] = true;
                   });
                 },
-                
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(12.0),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
-                  ),
-                  filled: true,
-                  fillColor: Color(0xFFF8F8F8),
-                  hintText: 'Другое',
-                  hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
-                ),
+                onChanged: (value) {
+                  setState(() {
+                    setState(() {
+                      checkBoxList[i]['optionValue1'] = value;
+                    });
+                  });
+                },
+                focusNode: checkBoxFieldFocusNode,
+                decoration: inputDecoration(),
                 style: TextStyle(color: lightGrey),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
+  dynamic position = {
+    'gpsPointX': '',
+    'gpsPointY': '',
+  };
+
   final Completer<GoogleMapController> _controller = Completer();
-  List<Marker> marker = [Marker(markerId: MarkerId(LatLng(41.311081, 69.240562).toString()), position: LatLng(41.311081, 69.240562))];
+  List<Marker> marker = [
+    Marker(
+      markerId: MarkerId(LatLng(41.311081, 69.240562).toString()),
+      position: LatLng(41.311081, 69.240562),
+    ),
+  ];
   static final CameraPosition _kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
+
+  nextStepMap() async {
+    checkNextStepId(0);
+    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    setState(() {
+      stepHistory.add({
+        'position': position,
+        'items': items,
+        'item': item,
+        'id': item['id'],
+      });
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': {
+          'optionId': items[0]['id'],
+          'optionValue1': position['gpsPointX'],
+          'optionValue2': position['gpsPointY'],
+          'optionType': items[0]['optionType'],
+        },
+        'optionType': 5,
+      });
+    });
+    clearAllVariables();
+    setState(() {
+      currentStep = currentStep + 1;
+      item = response;
+      items = response['optionList'] ?? [];
+    });
+  }
+
+  handleTab(LatLng tappedPoint) {
+    setState(() {
+      position['gpsPointX'] = tappedPoint.latitude;
+      position['gpsPointY'] = tappedPoint.longitude;
+      marker = [];
+      marker.add(
+        Marker(markerId: MarkerId(tappedPoint.toString()), position: tappedPoint),
+      );
+    });
+  }
 
   map(i) {
     return Container(
@@ -492,11 +602,191 @@ class _StepLayoutState extends State<StepLayout> {
         mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
-          // _controller.complete(controller);
+          _controller.complete(controller);
         },
         markers: Set.from(marker),
-        // onTap: handleTab,
+        onTap: handleTab,
       ),
     );
   }
+
+  final kToday = DateTime.now();
+  final kFirstDay = DateTime(DateTime.now().year, DateTime.now().month - 3, DateTime.now().day);
+  final kLastDay = DateTime(DateTime.now().year, DateTime.now().month + 3, DateTime.now().day);
+  final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
+    equals: isSameDay,
+  );
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+
+  nextStepCalendar() async {
+    checkNextStepId(0);
+    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    setState(() {
+      stepHistory.add({
+        'position': position,
+        'items': items,
+        'item': item,
+        'id': item['id'],
+      });
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': {
+          'optionId': items[0]['id'],
+          'optionType': items[0]['optionType'],
+        },
+        'optionType': 6,
+      });
+    });
+    clearAllVariables();
+    setState(() {
+      currentStep = currentStep + 1;
+      item = response;
+      items = response['optionList'] ?? [];
+    });
+  }
+
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    print(selectedDay);
+    setState(() {
+      _focusedDay = focusedDay;
+      if (_selectedDays.contains(selectedDay)) {
+        _selectedDays.remove(selectedDay);
+      } else {
+        _selectedDays.add(selectedDay);
+      }
+    });
+  }
+
+  calendar(i) {
+    return Container(
+      padding: EdgeInsets.all(0),
+      width: MediaQuery.of(context).size.width,
+      // height: 250,
+      child: TableCalendar(
+        locale: locale,
+        firstDay: kFirstDay,
+        lastDay: kLastDay,
+        focusedDay: _focusedDay,
+        calendarFormat: _calendarFormat,
+        startingDayOfWeek: StartingDayOfWeek.monday,
+        calendarStyle: CalendarStyle(
+          isTodayHighlighted: false,
+          selectedDecoration: BoxDecoration(
+            color: red,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          selectedTextStyle: TextStyle(color: Colors.white),
+          defaultDecoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        headerStyle: HeaderStyle(
+          formatButtonVisible: false,
+          titleCentered: true,
+          formatButtonShowsNext: false,
+        ),
+        selectedDayPredicate: (day) {
+          return _selectedDays.contains(day);
+        },
+        onDaySelected: _onDaySelected,
+      ),
+    );
+  }
+
+  time(i) {
+    return Container();
+  }
+
+  var maskFormatter = MaskTextInputFormatter(
+    mask: 'от ############ Som',
+    filter: {"#": RegExp(r'[0-9]')},
+  );
+
+  TextEditingController fromTextEditingController = TextEditingController(text: 'от 0 сум');
+
+  range(i) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.44,
+            child: TextFormField(
+              inputFormatters: [maskFormatter],
+              // controller: fromTextEditingController,
+              onChanged: (value) {
+                print(value);
+                setState(() {
+                  fromTextEditingController.text = '';
+                  maskFormatter.maskText('от $value сум');
+                  fromTextEditingController.text = 'от $value сум';
+                });
+                fromTextEditingController.selection = TextSelection.fromPosition(TextPosition(offset: fromTextEditingController.text.length));
+              },
+              keyboardType: TextInputType.number,
+              decoration: inputDecoration(hintText: 'от 0 сум'),
+              style: TextStyle(color: lightGrey),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.44,
+            child: TextFormField(
+              decoration: inputDecoration(hintText: 'до'),
+              keyboardType: TextInputType.number,
+              style: TextStyle(color: lightGrey),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  EdgeInsets mr20 = EdgeInsets.only(right: 20);
+  EdgeInsets mx12 = EdgeInsets.symmetric(horizontal: 12);
+  EdgeInsets py10 = EdgeInsets.symmetric(vertical: 10);
+  BoxDecoration borderBottom = const BoxDecoration(
+    border: Border(
+      bottom: BorderSide(
+        width: 1,
+        color: Color(0xFFF2F2F2),
+      ),
+    ),
+  );
+  inputDecoration({hintText = 'Другое'}) {
+    return InputDecoration(
+      contentPadding: EdgeInsets.all(12.0),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
+      ),
+      filled: true,
+      fillColor: Color(0xFFF8F8F8),
+      hintText: hintText,
+      hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+    );
+  }
+
+  // InputDecoration inputDecoration = InputDecoration(
+  //   contentPadding: EdgeInsets.all(12.0),
+  //   enabledBorder: OutlineInputBorder(
+  //     borderRadius: BorderRadius.circular(12.0),
+  //     borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
+  //   ),
+  //   focusedBorder: OutlineInputBorder(
+  //     borderRadius: BorderRadius.circular(12.0),
+  //     borderSide: BorderSide(color: Color(0xFFF3F7FA), width: 0.0),
+  //   ),
+  //   filled: true,
+  //   fillColor: Color(0xFFF8F8F8),
+  //   hintText: 'Другое',
+  //   hintStyle: TextStyle(color: Color(0xFF9C9C9C)),
+  // );
 }

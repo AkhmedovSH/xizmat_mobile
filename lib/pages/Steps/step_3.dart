@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
 import '../../helpers/globals.dart';
-import '../../helpers/widgets.dart' as widgets;
+import '../../components/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 

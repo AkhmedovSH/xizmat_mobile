@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../helpers/globals.dart';
 import '../../helpers/api.dart';
-import '../../helpers/widgets.dart' as widgets;
+import '../../components/widgets.dart' as widgets;
 
 import 'package:xizmat/components/transperent_app_bar.dart';
 import 'package:xizmat/helpers/location_notification_service.dart';

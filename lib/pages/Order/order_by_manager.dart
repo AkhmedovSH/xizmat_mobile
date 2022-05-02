@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../helpers/globals.dart';
-import '../../helpers/widgets.dart' as widgets;
+import '../../components/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 

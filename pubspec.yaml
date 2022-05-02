@@ -50,6 +50,8 @@ dependencies:
   new_version: ^0.3.0
   image_picker: ^0.8.5
   shimmer: ^2.0.0
+  flutter_calendar_carousel: ^2.1.0
+  table_calendar: ^3.0.5
 
 flutter_icons:
   android: "launcher_icon"

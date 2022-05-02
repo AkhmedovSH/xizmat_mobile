@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'globals.dart';
+import '../helpers/globals.dart';
 
 class Button extends StatefulWidget {
   final String? text;
@@ -102,5 +102,20 @@ class InputState extends State<Input> {
         hintText: widget.hintText,
       ),
     );
+  }
+}
+
+
+class Shimmer extends StatefulWidget {
+  const Shimmer({Key? key}) : super(key: key);
+
+  @override
+  State<Shimmer> createState() => _ShimmerState();
+}
+
+class _ShimmerState extends State<Shimmer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

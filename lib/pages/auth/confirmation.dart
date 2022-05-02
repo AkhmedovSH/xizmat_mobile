@@ -5,7 +5,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../helpers/api.dart';
 import '../../helpers/globals.dart';
-import '../../helpers/widgets.dart' as widgets;
+import '../../components/widgets.dart' as widgets;
 
 import '../../components/simple_app_bar.dart';
 
