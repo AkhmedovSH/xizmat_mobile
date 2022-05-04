@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:intl/intl.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 Color black = Color(0xFF40484E);
 Color darkGrey = Color(0xFF727272);
@@ -50,6 +51,18 @@ showErrorToast(message) {
     gravity: ToastGravity.TOP,
     timeInSecForIosWeb: 1,
     backgroundColor: const Color(0xFFE32F45),
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
+
+showWarningToast(message) {
+  return Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 1,
+    backgroundColor: Color(0xFFffc107),
     textColor: Colors.white,
     fontSize: 16.0,
   );

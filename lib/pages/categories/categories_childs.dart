@@ -22,7 +22,8 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
   }
 
   getChildCategories() async {
-    final response = await get('/services/mobile/api/category-child-list/${Get.arguments}');
+    dynamic category = Get.arguments;
+    final response = await get('/services/mobile/api/category-child-list/${category['id']}');
     print(response);
     setState(() {
       categories = response;
@@ -78,7 +79,7 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                     for (var i = 0; i < categories.length; i++)
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed('/step-layout', arguments: categories[i]['id']);
+                          Get.toNamed('/step-layout', arguments: categories[i]);
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 21),

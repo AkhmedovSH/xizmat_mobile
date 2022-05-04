@@ -258,7 +258,7 @@ class _IndexState extends State<Index> {
                         for (var i = 0; i < categories.length; i++)
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed('/categories-childs', arguments: categories[i]['id']);
+                              Get.toNamed('/categories-childs', arguments: categories[i]);
                             },
                             child: Container(
                               width: 130,
