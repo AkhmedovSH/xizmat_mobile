@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+dynamic mainUrl = 'https://xizmat24.uz';
 
 Color black = Color(0xFF40484E);
 Color darkGrey = Color(0xFF727272);

@@ -203,6 +203,9 @@ class _StepLayoutState extends State<StepLayout> {
     if (items[0]['optionType'] == 11) {
       nextStepInput();
     }
+    if (items[0]['optionType'] == 12) {
+      nextStepFile();
+    }
   }
 
   @override
@@ -340,6 +343,14 @@ class _StepLayoutState extends State<StepLayout> {
   dynamic radioId = '0';
 
   nextStepRadio(index) async {
+    setState(() {
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': [
+          {'optionId': items[int.parse(radioId)]['id'], 'optionType': items[int.parse(radioId)]['optionType']},
+        ],
+      });
+    });
     checkNextStepId(index);
     final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
     if (response != null) {
@@ -349,12 +360,6 @@ class _StepLayoutState extends State<StepLayout> {
           'items': items,
           'item': item,
           'id': item['id'],
-        });
-        stepOrder['stepList'].add({
-          'main': item['main'],
-          'optionList': [
-            {'optionId': items[int.parse(radioId)]['id'], 'optionType': items[int.parse(radioId)]['optionType']},
-          ],
         });
       });
       clearAllVariables();
@@ -476,6 +481,12 @@ class _StepLayoutState extends State<StepLayout> {
       showWarningToast('Выберите один вариант');
       return;
     }
+    setState(() {
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': optionList,
+      });
+    });
     checkNextStepId(0);
     final response = await get('/services/mobile/api/step/' + checkBoxList[0]['nextStepId'].toString());
     setState(() {
@@ -484,10 +495,6 @@ class _StepLayoutState extends State<StepLayout> {
         'items': items,
         'item': item,
         'id': item['id'],
-      });
-      stepOrder['stepList'].add({
-        'main': item['main'],
-        'optionList': optionList,
       });
     });
     clearAllVariables();
@@ -605,10 +612,10 @@ class _StepLayoutState extends State<StepLayout> {
 
   final Completer<GoogleMapController> _controller = Completer();
   List<Marker> marker = [
-    Marker(
-      markerId: MarkerId(LatLng(41.311081, 69.240562).toString()),
-      position: LatLng(41.311081, 69.240562),
-    ),
+    // Marker(
+    //   markerId: MarkerId(LatLng(41.311081, 69.240562).toString()),
+    //   position: LatLng(41.311081, 69.240562),
+    // ),
   ];
   static final CameraPosition _kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
 
@@ -617,15 +624,7 @@ class _StepLayoutState extends State<StepLayout> {
       showWarningToast('Выберите место назначения');
       return;
     }
-    checkNextStepId(0);
-    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
-      stepHistory.add({
-        'position': position,
-        'items': items,
-        'item': item,
-        'id': item['id'],
-      });
       stepOrder['stepList'].add({
         'main': item['main'],
         'optionList': {
@@ -634,6 +633,16 @@ class _StepLayoutState extends State<StepLayout> {
           'optionValue2': position['gpsPointY'],
           'optionType': items[0]['optionType'],
         },
+      });
+    });
+    checkNextStepId(0);
+    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    setState(() {
+      stepHistory.add({
+        'position': position,
+        'items': items,
+        'item': item,
+        'id': item['id'],
       });
     });
     clearAllVariables();
@@ -693,12 +702,22 @@ class _StepLayoutState extends State<StepLayout> {
       showWarningToast('Выберите дату');
       return;
     }
+    setState(() {
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': {
+          'optionId': items[0]['id'],
+          'optionType': items[0]['optionType'],
+        },
+        'optionType': 6,
+      });
+    });
     print(days.toString().replaceAll('[', '').replaceAll(']', ''));
     dynamic optionList = [];
     for (var i = 0; i < optionList.length; i++) {
       print(DateFormat('yyyy-MM-dd').format(optionList[i]));
     }
-    return;
+    // return;
     checkNextStepId(0);
     final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
@@ -707,14 +726,6 @@ class _StepLayoutState extends State<StepLayout> {
         'items': items,
         'item': item,
         'id': item['id'],
-      });
-      stepOrder['stepList'].add({
-        'main': item['main'],
-        'optionList': {
-          'optionId': items[0]['id'],
-          'optionType': items[0]['optionType'],
-        },
-        'optionType': 6,
       });
     });
     clearAllVariables();
@@ -794,6 +805,15 @@ class _StepLayoutState extends State<StepLayout> {
   TextEditingController toTextEditingController = TextEditingController(text: 'до  сум');
 
   nextStepRange() async {
+    setState(() {
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': {
+          'optionId': items[0]['id'],
+          'optionType': items[0]['optionType'],
+        },
+      });
+    });
     checkNextStepId(0);
     final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     if (response != null) {
@@ -803,13 +823,6 @@ class _StepLayoutState extends State<StepLayout> {
           'items': items,
           'item': item,
           'id': item['id'],
-        });
-        stepOrder['stepList'].add({
-          'main': item['main'],
-          'optionList': {
-            'optionId': items[0]['id'],
-            'optionType': items[0]['optionType'],
-          },
         });
       });
       clearAllVariables();
@@ -890,7 +903,6 @@ class _StepLayoutState extends State<StepLayout> {
   dynamic inputValues = [];
 
   nextStepInput() async {
-    checkNextStepId(0);
     dynamic optionList = [];
     for (var i = 0; i < inputValues.length; i++) {
       if (inputValues[i]['optionValue1'] != null) {
@@ -901,7 +913,13 @@ class _StepLayoutState extends State<StepLayout> {
         });
       }
     }
-    print(optionList);
+    setState(() {
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': optionList,
+      });
+    });
+    checkNextStepId(0);
     final response = await get('/services/mobile/api/step/' + inputValues[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
@@ -909,10 +927,6 @@ class _StepLayoutState extends State<StepLayout> {
         'items': items,
         'item': item,
         'id': item['id'],
-      });
-      stepOrder['stepList'].add({
-        'main': item['main'],
-        'optionList': optionList,
       });
     });
     for (var i = 0; i < inputValues.length; i++) {
@@ -963,7 +977,7 @@ class _StepLayoutState extends State<StepLayout> {
     );
   }
 
-  dynamic imageUrl = '';
+  dynamic imageUrlList = [];
 
   Future pickImage() async {
     final source = await showImageSource(context);
@@ -971,49 +985,166 @@ class _StepLayoutState extends State<StepLayout> {
     try {
       XFile? img = await ImagePicker().pickImage(source: source);
       if (img == null) return;
-      final response = await uploadImage('/services/gocashmobile/api/account-image-upload', File(img.path));
-      String jsonsDataString = response.toString();
-      final jsonData = jsonDecode(jsonsDataString);
-      setState(() {
-        imageUrl = jsonData['url'];
-      });
+      final response = await uploadImage('/services/executor/api/upload/image', File(img.path));
+      if (response != null) {
+        String jsonsDataString = response.toString();
+        final jsonData = jsonDecode(jsonsDataString);
+        setState(() {
+          imageUrlList.add(jsonData['url']);
+        });
+      }
     } on PlatformException catch (e) {
       print('ERROR: $e');
     }
   }
 
+  deleteImage(i) async {
+    setState(() {
+      imageUrlList.removeAt(i);
+    });
+  }
+
+  nextStepFile() async {
+    setState(() {
+      stepOrder['stepList'].add({
+        'main': item['main'],
+        'optionList': [
+          {
+            'optionValue1': imageUrlList,
+            'optionId': items[0]['id'],
+            'optionType': items[0]['optionType'],
+          }
+        ],
+      });
+    });
+    checkNextStepId(0);
+    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    setState(() {
+      stepHistory.add({
+        'files': imageUrlList,
+        'items': items,
+        'item': item,
+        'id': item['id'],
+      });
+    });
+    clearAllVariables();
+    setState(() {
+      currentStep = currentStep + 1;
+      item = response;
+      items = response['optionList'] ?? [];
+    });
+  }
+
   file(i) {
-    return GestureDetector(
-      onTap: () {
-        pickImage();
-      },
-      child: Container(
-        decoration: DottedDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: black,
-          strokeWidth: 0.7,
-          shape: Shape.box,
-        ),
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
-              'Добавить фото или файл',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+    return imageUrlList.length > 0
+        ? Container(
+            decoration: BoxDecoration(),
+            child: Wrap(
+              alignment: WrapAlignment.spaceAround,
+              children: [
+                for (var i = 0; i < imageUrlList.length; i++)
+                  Stack(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Color(0xFF999999)),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            mainUrl + imageUrlList[i],
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 15,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: red,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: BoxConstraints(),
+                            onPressed: () {
+                              deleteImage(i);
+                            },
+                            icon: Icon(
+                              Icons.close,
+                              color: white,
+                              size: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                GestureDetector(
+                  onTap: () {
+                    pickImage();
+                  },
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: DottedDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Color(0xFF717171),
+                      strokeWidth: 0.7,
+                      shape: Shape.box,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: lightGrey,
+                        size: 48,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        : GestureDetector(
+            onTap: () {
+              pickImage();
+            },
+            child: Container(
+              decoration: DottedDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: black,
+                strokeWidth: 0.7,
+                shape: Shape.box,
+              ),
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'Добавить фото или файл',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(
+                    Icons.add,
+                    size: 28,
+                  ),
+                ],
               ),
             ),
-            Icon(
-              Icons.add,
-              size: 28,
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   Future<ImageSource?> showImageSource(BuildContext context) async {

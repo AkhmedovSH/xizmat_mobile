@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -46,7 +45,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(    
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     // systemNavigationBarColor: Colors.black,
     statusBarColor: Colors.transparent,
   ));
