@@ -1,18 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../helpers/globals.dart';
-import '../../../helpers/api.dart';
 import '../../../components/widgets.dart' as widgets;
 
 import 'package:xizmat/components/transperent_app_bar.dart';
-import 'package:xizmat/helpers/location_notification_service.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

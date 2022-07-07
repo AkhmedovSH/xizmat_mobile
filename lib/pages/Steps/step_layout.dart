@@ -74,8 +74,8 @@ class _StepLayoutState extends State<StepLayout> {
 
   getStep() async {
     final response = await get('/services/mobile/api/step-category/${category['id']}');
-    await getOptions();
-    // await Future.delayed(Duration(seconds: 2));
+    print('response${response}');
+    //await getOptions();
     setState(() {
       stepOrder['categoryId'] = category['id'].toString();
       item = response;
@@ -85,17 +85,7 @@ class _StepLayoutState extends State<StepLayout> {
   }
 
   getOptions() async {
-    final response = await get('/services/admin/api/option-type-helper');
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      shimmerLoading = true;
-      category = Get.arguments;
-    });
-    getStep();
+    await get('/services/admin/api/option-type-helper');
   }
 
   checkOption(i) {
@@ -168,7 +158,9 @@ class _StepLayoutState extends State<StepLayout> {
     });
     if (items[index]['nextStepId'] == 0) {
       currentStep = currentStep - 1;
-      final responseOrder = await post('/services/mobile/api/step-order', stepOrder);
+      stepOrder['cityId'] = 10;
+      print(stepOrder);
+      final responseOrder = await post('/services/mobile/api/order', stepOrder);
       print(responseOrder);
       Get.offAllNamed('/success');
     }
@@ -206,6 +198,16 @@ class _StepLayoutState extends State<StepLayout> {
     if (items[0]['optionType'] == 12) {
       nextStepFile();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      shimmerLoading = true;
+      category = Get.arguments;
+    });
+    getStep();
   }
 
   @override
@@ -610,7 +612,6 @@ class _StepLayoutState extends State<StepLayout> {
     'gpsPointY': '',
   };
 
-  final Completer<GoogleMapController> _controller = Completer();
   List<Marker> marker = [
     // Marker(
     //   markerId: MarkerId(LatLng(41.311081, 69.240562).toString()),

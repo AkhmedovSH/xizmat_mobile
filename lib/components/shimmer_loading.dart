@@ -2,10 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../helpers/globals.dart';
-
-import 'package:shimmer/shimmer.dart';
-
 class ShimmerLoading extends StatefulWidget {
   final bool? loading;
   const ShimmerLoading({Key? key, this.loading}) : super(key: key);

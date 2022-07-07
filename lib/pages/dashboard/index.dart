@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import '../../helpers/globals.dart';
 import '../../helpers/api.dart';
 
-import 'package:shimmer/shimmer.dart';
-
 // import '../../components/drawer_app_bar.dart';
 
 class Index extends StatefulWidget {
@@ -51,7 +49,7 @@ class _IndexState extends State<Index> {
   }
 
   getCategories() async {
-    final response = await get('/services/mobile/api/category-list');
+    final response = await get('/services/mobile/api/category-top-list');
     if (response != null) {
       print(response);
       setState(() {
@@ -76,43 +74,11 @@ class _IndexState extends State<Index> {
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
-
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.transparent,
-      //   // title: Text('data'),
-      //   // centerTitle: true,
-      //   leading: Container(),
-      //   // leading: IconButton(
-      //   //   onPressed: () {
-      //   //     _scaffoldKey.currentState!.openDrawer();
-      //   //   },
-      //   //   icon: Icon(Icons.menu),
-      //   // ),
-      // ),
-
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-            //   height: 240,
-            //   width: double.infinity,
-            //   decoration: BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage(
-            //         'images/appBar.png',
-
-            //         // width: double.infinity,
-            //         // fit: BoxFit.fill,
-            //         // height: 250,
-            //       ),
-            //       fit: BoxFit.fill,
-            //     ),
-            //   ),
-            //   child: Text('data'),
-            // )
             Stack(
               alignment: Alignment.center,
               children: [

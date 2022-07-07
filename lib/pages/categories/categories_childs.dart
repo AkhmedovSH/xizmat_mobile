@@ -24,7 +24,7 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
   getChildCategories() async {
     dynamic category = Get.arguments;
     final response = await get('/services/mobile/api/category-child-list/${category['id']}');
-    print(response);
+    print('category-child-list${response}');
     setState(() {
       categories = response;
     });
@@ -57,11 +57,7 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                             Get.back();
                           },
                           icon: Icon(Icons.arrow_back)),
-                      suffixIcon: Icon(
-                        Icons.cancel_sharp,
-                        color: red,
-                        size: 20,
-                      ),
+                      suffixIcon: Icon(Icons.cancel_sharp, color: red, size: 20),
                       contentPadding: EdgeInsets.all(12.0),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -96,34 +92,6 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                           ),
                         ),
                       ),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(vertical: 21),
-                    //   decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       Text(
-                    //         'Врач',
-                    //         style: TextStyle(color: black, fontSize: 18),
-                    //       ),
-                    //       Icon(Icons.arrow_forward, color: black)
-                    //     ],
-                    //   ),
-                    // ),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(vertical: 21),
-                    //   decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 1, color: Color(0xFFF2F2F2)))),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       Text(
-                    //         'Муж на час',
-                    //         style: TextStyle(color: black, fontSize: 18),
-                    //       ),
-                    //       Icon(Icons.arrow_forward, color: black)
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 )
               ],
