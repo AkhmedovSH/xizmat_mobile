@@ -22,13 +22,13 @@ class _OrdersState extends State<Orders> {
     //   "query": { "token": '/mobile' }
     // });
     socket = IO.io(
-        "https://xizmat24.uz:9193/user-orders-1?apiKey=f72206f2-f2f7-11ec-9a5f-0242ac12000b",
+        "https://xizmat24.uz:9193",
         IO.OptionBuilder()
             .enableForceNew() // <--- this method
             .setTransports(['websocket'])
-            // .setQuery({
-            //   "user1": _fromUser1,
-            // })
+            .setQuery({
+              "apiKey": "f72206f2-f2f7-11ec-9a5f-0242ac12000b",
+            })
             .setPath("/mobile")
             .disableAutoConnect()
             .build());
@@ -37,6 +37,7 @@ class _OrdersState extends State<Orders> {
     socket!.onConnect((_) {
       print('connect');
     });
+    socket!.on('user-orders-1', (data) => print(data));
     print(socket!.connected);
   }
 
