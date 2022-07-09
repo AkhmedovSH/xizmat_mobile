@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import '../../helpers/globals.dart';
 
 class Orders extends StatefulWidget {
@@ -11,6 +13,38 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   int currentIndex = 0;
+  IO.Socket? socket;
+
+  void connect() async {
+    // socket = IO.io('https://xizmat24.uz:9193/user-orders-1?apiKey=f72206f2-f2f7-11ec-9a5f-0242ac12000b', {
+    //   "transports": ["websocket"],
+    //   "autoConnect": false,
+    //   "query": { "token": '/mobile' }
+    // });
+    socket = IO.io(
+        "https://xizmat24.uz:9193/user-orders-1?apiKey=f72206f2-f2f7-11ec-9a5f-0242ac12000b",
+        IO.OptionBuilder()
+            .enableForceNew() // <--- this method
+            .setTransports(['websocket'])
+            // .setQuery({
+            //   "user1": _fromUser1,
+            // })
+            .setPath("/mobile")
+            .disableAutoConnect()
+            .build());
+
+    socket!.connect();
+    socket!.onConnect((_) {
+      print('connect');
+    });
+    print(socket!.connected);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    connect();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,14 +264,15 @@ class _OrdersState extends State<Orders> {
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFFF5353),
-                        Color(0xFFF99247),
-                      ],
-                      begin: FractionalOffset(0.0, 1.0),
-                      end: FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
+                    colors: [
+                      Color(0xFFFF5353),
+                      Color(0xFFF99247),
+                    ],
+                    begin: FractionalOffset(0.0, 1.0),
+                    end: FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp,
+                  ),
                 ),
                 child: const Icon(
                   Icons.add,

@@ -30,13 +30,9 @@ import 'pages/Order/order_by_manager.dart';
 import 'pages/Order/order_by_manager_success.dart';
 
 import 'pages/Steps/step_layout.dart';
-import 'pages/Steps/step_1.dart';
-import 'pages/Steps/step_2.dart';
-import 'pages/Steps/step_3.dart';
-import 'pages/Steps/step_4.dart';
-import 'pages/Steps/step_5.dart';
 import 'pages/Steps/google_map.dart';
 import 'pages/Steps/search_result.dart';
+import 'pages/Steps/select_city_id.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -104,13 +100,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
         // Steps
         GetPage(name: '/step-layout', page: () => StepLayout()),
-        GetPage(name: '/step-1', page: () => const Step1()),
-        GetPage(name: '/step-2', page: () => const Step2()),
-        GetPage(name: '/step-3', page: () => const Step3()),
-        GetPage(name: '/step-4', page: () => const Step4()),
-        GetPage(name: '/step-5', page: () => const Step5()),
         GetPage(name: '/google-map', page: () => const Map()),
         GetPage(name: '/search-result', page: () => const SearchResult(), transition: Transition.downToUp),
+        GetPage(name: '/select-city', page: () => const SelectCityId(),),
       ],
       // home: Index(),
     );

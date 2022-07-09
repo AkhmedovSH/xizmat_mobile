@@ -30,6 +30,7 @@ Future get(String url, {payload}) async {
           "Language": getx.Get.locale.toString().substring(0, 2),
           "Accept-Language": getx.Get.locale.toString().substring(0, 2)
         }));
+    // log(response.data.toString());
     return response.data;
   } on DioError catch (e) {
     statuscheker(e);
@@ -46,6 +47,7 @@ Future post(String url, dynamic payload) async {
         }));
     return response.data;
   } on DioError catch (e) {
+    print(e.response?.data);
     statuscheker(e);
   }
 }
@@ -75,14 +77,11 @@ Future put(String url, dynamic payload) async {
 
 Future delete(String url) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(url);
   try {
     final response = await dio.delete(hostUrl + url,
         options: Options(headers: {
           "authorization": "Bearer ${prefs.getString('access_token')}",
         }));
-    print(response.statusCode);
-    print(response.data);
     return response.data;
   } on DioError catch (e) {
     print(e.response?.statusCode);

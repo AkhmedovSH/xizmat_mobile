@@ -56,7 +56,6 @@ class _StepLayoutState extends State<StepLayout> {
       return true;
     } else {
       dynamic stepInfo = stepHistory[stepHistory.length - 1];
-      print(stepInfo);
       setState(() {
         currentStep = currentStep - 1;
         radioId = stepInfo['radioId'] ?? '';
@@ -74,7 +73,6 @@ class _StepLayoutState extends State<StepLayout> {
 
   getStep() async {
     final response = await get('/services/mobile/api/step-category/${category['id']}');
-    print('response${response}');
     //await getOptions();
     setState(() {
       stepOrder['categoryId'] = category['id'].toString();
@@ -156,18 +154,26 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       loading = true;
     });
+    print(items[index]);
     if (items[index]['nextStepId'] == 0) {
-      currentStep = currentStep - 1;
-      stepOrder['cityId'] = 10;
-      print(stepOrder);
-      final responseOrder = await post('/services/mobile/api/order', stepOrder);
-      print(responseOrder);
-      Get.offAllNamed('/success');
+      setState(() {
+        currentStep = currentStep - 1;
+        stepOrder['cityId'] = 10;
+      });
+      final result = await Get.toNamed('/select-city', arguments: stepOrder);
+      print(item);
+      if (result == null) {
+        setState(() {
+          loading = false;
+        });
+        return true;
+      }
+      // final responseOrder = await post('/services/mobile/api/order', stepOrder);
     }
+    return false;
   }
 
   nextStep() async {
-    print(items[0]['optionType']);
     if (items[0]['optionType'] == 1 || items[0]['optionType'] == 2) {
       nextStepRadio(int.parse(radioId));
     }
@@ -348,12 +354,16 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': [
           {'optionId': items[int.parse(radioId)]['id'], 'optionType': items[int.parse(radioId)]['optionType']},
         ],
       });
     });
-    checkNextStepId(index);
+    final result = await checkNextStepId(index);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
     if (response != null) {
       setState(() {
@@ -471,7 +481,6 @@ class _StepLayoutState extends State<StepLayout> {
   nextStepCheckBox() async {
     dynamic optionList = [];
     for (var i = 0; i < checkBoxList.length; i++) {
-      print(checkBoxList[i]);
       if (checkBoxList[i]['isChecked']) {
         optionList.add({
           'optionId': checkBoxList[i]['id'],
@@ -486,10 +495,14 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': optionList,
       });
     });
-    checkNextStepId(0);
+    final result = await checkNextStepId(0);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + checkBoxList[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
@@ -628,6 +641,7 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': {
           'optionId': items[0]['id'],
           'optionValue1': position['gpsPointX'],
@@ -636,7 +650,10 @@ class _StepLayoutState extends State<StepLayout> {
         },
       });
     });
-    checkNextStepId(0);
+    final result = await checkNextStepId(0);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
@@ -706,6 +723,7 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': {
           'optionId': items[0]['id'],
           'optionType': items[0]['optionType'],
@@ -719,7 +737,10 @@ class _StepLayoutState extends State<StepLayout> {
       print(DateFormat('yyyy-MM-dd').format(optionList[i]));
     }
     // return;
-    checkNextStepId(0);
+    final result = await checkNextStepId(0);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
@@ -809,13 +830,17 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': {
           'optionId': items[0]['id'],
           'optionType': items[0]['optionType'],
         },
       });
     });
-    checkNextStepId(0);
+    final result = await checkNextStepId(0);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     if (response != null) {
       setState(() {
@@ -846,7 +871,6 @@ class _StepLayoutState extends State<StepLayout> {
             child: TextFormField(
               controller: rangeData['fromTextEditingController'],
               onChanged: (value) {
-                print(value.replaceAll(RegExp(r'[^0-9]'), ''));
                 if (value.replaceAll(RegExp(r'[^0-9]'), '') != '0') {
                   setState(() {
                     rangeData['fromTextEditingController'].text = 'от ' + value.replaceAll(RegExp(r'[^0-9]'), '').toString() + ' сум';
@@ -873,8 +897,6 @@ class _StepLayoutState extends State<StepLayout> {
             child: TextFormField(
               controller: rangeData['toTextEditingController'],
               onChanged: (value) {
-                print(value.replaceAll(RegExp(r'[^0-9]'), '').runtimeType);
-                print(value.replaceAll(RegExp(r'[^0-9]'), '') != '0');
                 if (value.replaceAll(RegExp(r'[^0-9]'), '') != '0') {
                   setState(() {
                     rangeData['toTextEditingController'].text = 'до ' + value.replaceAll(RegExp(r'[^0-9]'), '').toString() + ' сум';
@@ -917,10 +939,14 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': optionList,
       });
     });
-    checkNextStepId(0);
+    final result = await checkNextStepId(0);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + inputValues[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
@@ -1009,6 +1035,7 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       stepOrder['stepList'].add({
         'main': item['main'],
+        'stepId': item['id'],
         'optionList': [
           {
             'optionValue1': imageUrlList,
@@ -1018,7 +1045,10 @@ class _StepLayoutState extends State<StepLayout> {
         ],
       });
     });
-    checkNextStepId(0);
+    final result = await checkNextStepId(0);
+    if (result) {
+      return;
+    }
     final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
