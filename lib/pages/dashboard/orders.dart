@@ -22,14 +22,13 @@ class _OrdersState extends State<Orders> {
     //   "query": { "token": '/mobile' }
     // });
     socket = IO.io(
-        "https://xizmat24.uz:9193",
+        "http://mb.xizmat24.uz:9193/user-orders-1",
         IO.OptionBuilder()
             .enableForceNew() // <--- this method
             .setTransports(['websocket'])
             .setQuery({
               "apiKey": "f72206f2-f2f7-11ec-9a5f-0242ac12000b",
             })
-            .setPath("/mobile")
             .disableAutoConnect()
             .build());
 
