@@ -14,6 +14,7 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   int currentIndex = 0;
   IO.Socket? socket;
+  dynamic orders = [];
 
   void connect() async {
     // socket = IO.io('https://xizmat24.uz:9193/user-orders-1?apiKey=f72206f2-f2f7-11ec-9a5f-0242ac12000b', {
@@ -33,10 +34,18 @@ class _OrdersState extends State<Orders> {
             .build());
 
     socket!.connect();
-    socket!.onConnect((_) {
+    socket!.onConnect((data) {
+      print(data);
       print('connect');
     });
-    socket!.on('user-orders-1', (data) => print(data));
+    socket!.on('user-orders-1', (data) {
+      print(data);
+      if (mounted) {
+        setState(() {
+          orders = data;
+        });
+      }
+    });
     print(socket!.connected);
   }
 
@@ -87,11 +96,12 @@ class _OrdersState extends State<Orders> {
               ),
               Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/order-inside');
-                    },
-                    child: Container(
+                  for (var i = 0; i < orders.length; i++)
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/order-inside');
+                      },
+                      child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
@@ -106,7 +116,7 @@ class _OrdersState extends State<Orders> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '№ 345 666',
+                                    '№ ${orders[i]['orderNumber']}',
                                     style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
                                   currentIndex == 0
@@ -121,7 +131,8 @@ class _OrdersState extends State<Orders> {
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
-                                            Text('345 откликов', style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
+                                            Text('${orders[i]['countExecutors']} откликов',
+                                                style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
                                           ],
                                         )
                                       : Container(),
@@ -132,123 +143,16 @@ class _OrdersState extends State<Orders> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Мужская стрижка',
+                                  '${orders[i]['categoryChildName']}',
                                   style: TextStyle(color: black, fontSize: 18),
                                 ),
                                 Icon(Icons.arrow_forward, color: black)
                               ],
                             ),
                           ],
-                        )),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/order-inside');
-                    },
-                    child: Container(
-                        margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                        decoration: BoxDecoration(
-                          color: inputColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 11),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '№ 345 666',
-                                    style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
-                                  ),
-                                  currentIndex == 0
-                                      ? Row(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(right: 5),
-                                              height: 4,
-                                              width: 4,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFE32F45),
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            Text('345 откликов', style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
-                                          ],
-                                        )
-                                      : Container(),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Мужская стрижка',
-                                  style: TextStyle(color: black, fontSize: 18),
-                                ),
-                                Icon(Icons.arrow_forward, color: black)
-                              ],
-                            ),
-                          ],
-                        )),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/order-inside');
-                    },
-                    child: Container(
-                        margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                        decoration: BoxDecoration(
-                          color: inputColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 11),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '№ 345 666',
-                                    style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
-                                  ),
-                                  currentIndex == 0
-                                      ? Row(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(right: 5),
-                                              height: 4,
-                                              width: 4,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFE32F45),
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            Text('345 откликов', style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
-                                          ],
-                                        )
-                                      : Container(),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Мужская стрижка',
-                                  style: TextStyle(color: black, fontSize: 18),
-                                ),
-                                Icon(Icons.arrow_forward, color: black)
-                              ],
-                            ),
-                          ],
-                        )),
-                  ),
+                      ),
+                    ),
                 ],
               )
             ],
