@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/step-layout', page: () => StepLayout()),
         GetPage(name: '/google-map', page: () => const Map()),
         GetPage(name: '/search-result', page: () => const SearchResult(), transition: Transition.downToUp),
-        GetPage(name: '/select-city', page: () => const SelectCityId(),),
+        GetPage(name: '/select-city', page: () => const SelectCityId()),
       ],
       // home: Index(),
     );

@@ -17,6 +17,12 @@ class _OrderInsideState extends State<OrderInside> {
   int currentIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: SimpleAppBar(
