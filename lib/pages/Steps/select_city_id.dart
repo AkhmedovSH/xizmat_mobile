@@ -39,8 +39,8 @@ class _SelectCityIdState extends State<SelectCityId> {
 
   handleTab(LatLng tappedPoint) {
     setState(() {
-      position['gpsPointX'] = tappedPoint.latitude;
-      position['gpsPointY'] = tappedPoint.longitude;
+      position['gpsPointX'] = tappedPoint.latitude.toString();
+      position['gpsPointY'] = tappedPoint.longitude.toString();
       marker = [];
       marker.add(
         Marker(markerId: MarkerId(tappedPoint.toString()), position: tappedPoint),
@@ -96,8 +96,8 @@ class _SelectCityIdState extends State<SelectCityId> {
       stepOrder['gpsPointX'] = position['gpsPointX'];
       stepOrder['gpsPointY'] = position['gpsPointY'];
       stepOrder['executionDate'] = DateFormat('yyyy-MM-dd').format(_selectedDay);
-      stepOrder['executionTime'] = DateFormat('yyyy-MM-dd').format(_selectedDay);
     });
+    print(stepOrder);
     final responseOrder = await post('/services/mobile/api/order', stepOrder);
     if (responseOrder != null) {
       Get.offAllNamed('/success');
