@@ -244,7 +244,7 @@ class _SelectCityIdState extends State<SelectCityId> {
                     isTodayHighlighted: false,
                     selectedDecoration: BoxDecoration(
                       color: red,
-                      shape: BoxShape.rectangle,
+                      // shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     selectedTextStyle: TextStyle(color: Colors.white),

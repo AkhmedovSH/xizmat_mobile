@@ -31,9 +31,9 @@ class _LoginState extends State<Login> {
   bool showPassword = true;
 
   login() async {
-    // setState(() {
-    //   sendData['username'] = '998' + maskFormatter.getUnmaskedText();
-    // });
+    setState(() {
+      sendData['username'] = '998' + maskFormatter.getUnmaskedText();
+    });
     final prefs = await SharedPreferences.getInstance();
     final response = await guestPost('/auth/login', sendData);
     if (response != null) {

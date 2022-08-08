@@ -43,6 +43,7 @@ class _SplashState extends State<Splash> {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('user') != null) {
       final user = jsonDecode(prefs.getString('user')!);
+      print(user);
       final response = await guestPost('/auth/login', {
         'username': user['username'],
         'password': user['password'],
