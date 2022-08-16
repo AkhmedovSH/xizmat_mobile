@@ -18,6 +18,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
   dynamic user = {};
   dynamic passImageUrlList = [];
   dynamic certUrlList = [];
+  dynamic galleryUrlList = [];
 
   getOrder() async {
     final response = await get('/services/mobile/api/executor/${Get.arguments}');
@@ -25,6 +26,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
       user = response;
       passImageUrlList = user['passImageUrlList'];
       certUrlList = user['certUrlList'];
+      galleryUrlList = user['galleryUrlList'];
     });
   }
 
@@ -186,7 +188,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                     ),
                     Column(
                       children: [
-                        for (var i = 0; i < 3; i++)
+                        for (var i = 0; i < user['educationList'].length; i++)
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(vertical: 12),
@@ -195,7 +197,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                               top: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                             )),
                             child: Text(
-                              'Занятия по высшей математике',
+                              '${user['educationList'][i]['title']}',
                               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                             ),
                           )
@@ -212,13 +214,14 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          for (var i = 0; i < 4; i++)
+                          for (var i = 0; i < galleryUrlList.length; i++)
                             Container(
                               margin: EdgeInsets.only(right: 15),
-                              child: Image.asset(
-                                'images/portofolio.png',
+                              child: Image.network(
+                                mainUrl + user['galleryUrlList'][i]['fileUrl'],
                                 height: 120,
                                 width: 150,
+                                fit: BoxFit.fill,
                               ),
                             )
                         ],
