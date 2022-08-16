@@ -1,6 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -96,6 +99,8 @@ class _SelectCityIdState extends State<SelectCityId> {
       stepOrder['gpsPointX'] = position['gpsPointX'];
       stepOrder['gpsPointY'] = position['gpsPointY'];
       stepOrder['executionDate'] = DateFormat('yyyy-MM-dd').format(_selectedDay);
+      stepOrder['orderAmount'] = 1000;
+      stepOrder['note'] = "pulini kelishamiz";
     });
     print(stepOrder);
     final responseOrder = await post('/services/mobile/api/order', stepOrder);
@@ -223,6 +228,11 @@ class _SelectCityIdState extends State<SelectCityId> {
                   initialCameraPosition: _kGooglePlex,
                   onMapCreated: (GoogleMapController controller) {
                     // _controller.complete(controller);
+                  },
+                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                    Factory<OneSequenceGestureRecognizer>(
+                      () => EagerGestureRecognizer(),
+                    ),
                   },
                   markers: Set.from(marker),
                   onTap: handleTab,

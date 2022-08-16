@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 dynamic mainUrl = 'https://xizmat24.uz';
 
+dynamic imageUrl = 'https://xizmat24.uz';
+
 Color black = Color(0xFF40484E);
 Color darkGrey = Color(0xFF727272);
 Color grey = Color(0xFFF1F1F1);

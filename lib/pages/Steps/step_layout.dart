@@ -8,6 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -638,18 +641,18 @@ class _StepLayoutState extends State<StepLayout> {
       showWarningToast('Выберите место назначения');
       return;
     }
-    setState(() {
-      stepOrder['stepList'].add({
-        'main': item['main'],
-        'stepId': item['id'],
-        'optionList': {
-          'optionId': items[0]['id'],
-          'optionValue1': position['gpsPointX'],
-          'optionValue2': position['gpsPointY'],
-          'optionType': items[0]['optionType'],
-        },
-      });
-    });
+    // setState(() {
+    //   stepOrder['stepList'].add({
+    //     'main': item['main'],
+    //     'stepId': item['id'],
+    //     'optionList': {
+    //       'optionId': items[0]['id'],
+    //       'optionValue1': position['gpsPointX'],
+    //       'optionValue2': position['gpsPointY'],
+    //       'optionType': 1,
+    //     },
+    //   });
+    // });
     final result = await checkNextStepId(0);
     if (result) {
       return;
@@ -697,6 +700,11 @@ class _StepLayoutState extends State<StepLayout> {
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           // _controller.complete(controller);
+        },
+        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+          Factory<OneSequenceGestureRecognizer>(
+            () => EagerGestureRecognizer(),
+          ),
         },
         markers: Set.from(marker),
         onTap: handleTab,

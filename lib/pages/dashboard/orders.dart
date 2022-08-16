@@ -46,9 +46,8 @@ class _OrdersState extends State<Orders> {
         });
       }
     });
-    print(socket!.connected);
   }
-
+      
   @override
   void initState() {
     super.initState();
@@ -99,7 +98,7 @@ class _OrdersState extends State<Orders> {
                   for (var i = 0; i < orders.length; i++)
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed('/order-inside');
+                        Get.toNamed('/order-inside', arguments: orders[i]['id']);
                       },
                       child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),

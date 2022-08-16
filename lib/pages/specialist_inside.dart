@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xizmat/helpers/api.dart';
 
 import '../helpers/globals.dart';
 import '../components/widgets.dart' as widgets;
@@ -13,6 +15,25 @@ class SpecialistInside extends StatefulWidget {
 }
 
 class _SpecialistInsideState extends State<SpecialistInside> {
+  dynamic user = {};
+  dynamic passImageUrlList = [];
+  dynamic certUrlList = [];
+
+  getOrder() async {
+    final response = await get('/services/mobile/api/executor/${Get.arguments}');
+    setState(() {
+      user = response;
+      passImageUrlList = user['passImageUrlList'];
+      certUrlList = user['certUrlList'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrder();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +57,16 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 30.0,
-                              backgroundColor: Colors.transparent,
-                              child: Image.asset(
-                                'images/circle_avatar.png',
-                                height: 100,
-                                width: 64,
-                              ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: user['imageUrl'] != null
+                                  ? Image.network(
+                                      mainUrl + user['imageUrl'],
+                                      height: 64,
+                                      width: 64,
+                                      fit: BoxFit.fill,
+                                    )
+                                  : Container(),
                             ),
                             Padding(padding: EdgeInsets.only(right: 10)),
                             Flexible(
@@ -54,7 +77,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                 children: [
                                   Padding(padding: EdgeInsets.only(top: 5)),
                                   Text(
-                                    'Абдувасит Абдуманнобзода Бахтиярович',
+                                    '${user['name']}',
                                     style: TextStyle(fontSize: 17, color: black, fontWeight: FontWeight.bold),
                                   ),
                                   Container(
@@ -71,7 +94,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                                 size: 18,
                                               ),
                                               Padding(padding: EdgeInsets.only(right: 5)),
-                                              Text('4,96', style: TextStyle(color: black, fontWeight: FontWeight.w500))
+                                              Text('${user['rating']}', style: TextStyle(color: black, fontWeight: FontWeight.w500))
                                             ],
                                           ),
                                         ),
@@ -82,7 +105,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                               color: lightGrey,
                                             ),
                                             Padding(padding: EdgeInsets.only(right: 5)),
-                                            Text('123', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
+                                            Text('${user['countComments']}', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
                                           ],
                                         ),
                                       ],
@@ -110,11 +133,13 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                               style: TextStyle(color: black, fontSize: 15, fontWeight: FontWeight.w600),
                             ),
                           ),
-                          Text('Имею большой опыт работы в Ташкенте с 2017 года в сфере репетиторства.',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15,
-                              )),
+                          Text(
+                            'Имею большой опыт работы в Ташкенте с 2017 года в сфере репетиторства.',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -129,15 +154,26 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          for (var i = 0; i < 4; i++)
+                          for (var i = 0; i < passImageUrlList.length; i++)
                             Container(
                               margin: EdgeInsets.only(right: 15),
-                              child: Image.asset(
-                                'images/sertificat.png',
+                              child: Image.network(
+                                mainUrl + user['passImageUrlList'][i]['fileUrl'],
                                 height: 100,
                                 width: 80,
+                                fit: BoxFit.fill,
                               ),
-                            )
+                            ),
+                          for (var i = 0; i < certUrlList.length; i++)
+                            Container(
+                              margin: EdgeInsets.only(right: 15),
+                              child: Image.network(
+                                mainUrl + user['certUrlList'][i]['fileUrl'],
+                                height: 100,
+                                width: 80,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                         ],
                       ),
                     ),

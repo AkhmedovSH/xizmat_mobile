@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xizmat/helpers/api.dart';
 import '../../helpers/globals.dart';
 
 class OrderInsideAllSpecialists extends StatefulWidget {
@@ -9,98 +11,126 @@ class OrderInsideAllSpecialists extends StatefulWidget {
 }
 
 class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
+  dynamic users = [];
+
+  getOrder() async {
+    final response = await get('/services/mobile/api/order-executor-list/2/${Get.arguments}');
+    setState(() {
+      users = response;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrder();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                radius: 30.0,
-                backgroundColor: Colors.transparent,
-                child: Image.asset('images/circle_avatar.png'),
-              ),
-              Padding(padding: EdgeInsets.only(right: 10)),
-              Column(
+    return Column(
+      children: [
+        for (var i = 0; i < users.length; i++)
+          GestureDetector(
+            onTap: () {
+              Get.toNamed('/specialist-inside', arguments: users[i]['id']);
+            },
+            child: Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.all(Radius.circular(4))),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(padding: EdgeInsets.only(top: 5)),
-                  Text(
-                    'Абдувасит Абдуманнобзода',
-                    style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w600),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 12),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Color(0xFFF3A919),
-                                size: 18,
-                              ),
-                              Padding(padding: EdgeInsets.only(right: 5)),
-                              Text('4,96', style: TextStyle(color: black, fontWeight: FontWeight.w500))
-                            ],
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 30.0,
+                        backgroundColor: Colors.transparent,
+                        child: Image.asset(
+                          'images/circle_avatar.png',
+                          fit: BoxFit.fill,
                         ),
+                      ),
+                      Padding(padding: EdgeInsets.only(right: 10)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 5)),
+                          Text(
+                            '${users[i]['name']}',
+                            style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w600),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 12),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Color(0xFFF3A919),
+                                        size: 18,
+                                      ),
+                                      Padding(padding: EdgeInsets.only(right: 5)),
+                                      Text('${users[i]['rating']}', style: TextStyle(color: black, fontWeight: FontWeight.w500))
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.feedback_outlined,
+                                      color: lightGrey,
+                                    ),
+                                    Padding(padding: EdgeInsets.only(right: 5)),
+                                    Text('${users[i]['countComments']}', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.feedback_outlined,
-                              color: lightGrey,
+                            Container(
+                              margin: EdgeInsets.only(top: 8),
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                '${users[i]['infoText']}',
+                                style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w500),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            Padding(padding: EdgeInsets.only(right: 5)),
-                            Text('123', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
                           ],
                         ),
+                        // Container(
+                        //   margin: EdgeInsets.only(top: 8),
+                        //   child: Text(
+                        //     'Еще',
+                        //     style: TextStyle(fontSize: 14, color: red, fontWeight: FontWeight.bold),
+                        //     overflow: TextOverflow.ellipsis,
+                        //   ),
+                        // ),
                       ],
                     ),
                   )
                 ],
               ),
-            ],
-          ),
-          SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 8),
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Text(
-                        'Меня зовут Абдувасит, я начинающий курьер. Среднее образование. Быстро',
-                        style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w500),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 8),
-                  child: Text(
-                    'Еще',
-                    style: TextStyle(fontSize: 14, color: red, fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
             ),
-          )
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

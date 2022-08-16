@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       getPages: [
         GetPage(name: '/splash', page: () => const Splash()),
         GetPage(name: '/', page: () => const Dashboard()),

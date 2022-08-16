@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../helpers/globals.dart';
 
 import './order_inside_feedback.dart';
 import './order_inside_all_specialists.dart';
+
+import '../../helpers/globals.dart';
 
 import '../../components/simple_app_bar.dart';
 
@@ -16,11 +17,17 @@ class OrderInside extends StatefulWidget {
 class _OrderInsideState extends State<OrderInside> {
   int currentIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    
-  }
+  // getOrder() async {
+  //   final response = await get('/services/mobile/api/order-executor-list/1/${Get.arguments}');
+  //   await get('/services/mobile/api/order/${Get.arguments}');
+  //   await get('/services/mobile/api/order-executor-list/2/${Get.arguments}');
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getOrder();
+  // }
 
   @override
   Widget build(BuildContext context) {
