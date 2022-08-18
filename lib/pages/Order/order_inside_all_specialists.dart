@@ -33,7 +33,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
         for (var i = 0; i < users.length; i++)
           GestureDetector(
             onTap: () {
-              Get.toNamed('/specialist-inside', arguments: users[i]['id']);
+              Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments});
             },
             child: Container(
               padding: EdgeInsets.all(15),
@@ -45,13 +45,22 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 30.0,
-                        backgroundColor: Colors.transparent,
-                        child: Image.asset(
-                          'images/circle_avatar.png',
-                          fit: BoxFit.fill,
+                      SizedBox(
+                        width: 54,
+                        height: 54,
+                        child: ClipOval(
+                          child: SizedBox.fromSize(
+                            size: Size.fromRadius(50),
+                            child: Image.network(
+                              mainUrl + users[i]['imageUrl'],
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                         ),
+                        // child: ClipRRect(
+                        //   borderRadius: BorderRadius.circular(50),
+                        //   child: Image.network(mainUrl + users[i]['imageUrl']),
+                        // ),
                       ),
                       Padding(padding: EdgeInsets.only(right: 10)),
                       Column(

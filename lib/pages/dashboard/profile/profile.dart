@@ -38,8 +38,8 @@ class _ProfileState extends State<Profile> {
       'icon': Icon(Icons.logout),
     },
   ];
-
   dynamic sendData = {'imageUrl': null};
+  dynamic user = {};
 
   Future pickImage() async {
     final source = await showImageSource(context);
@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
     try {
       XFile? img = await ImagePicker().pickImage(source: source);
       if (img == null) return;
-      final response = await uploadImage('/services/gocashmobile/api/account-image-upload', File(img.path));
+      final response = await uploadImage('/services/mobile/api/upload/image', File(img.path));
       String jsonsDataString = response.toString();
       final jsonData = jsonDecode(jsonsDataString);
       setState(() {
@@ -63,6 +63,20 @@ class _ProfileState extends State<Profile> {
     prefs.remove('access_token');
     prefs.remove('user');
     Get.offAllNamed('/login');
+  }
+
+  getUser() async {
+    final response = await get('/services/mobile/api/get-info');
+    print(response);
+    setState(() {
+      user = response;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
   }
 
   @override
@@ -85,7 +99,10 @@ class _ProfileState extends State<Profile> {
                       height: 86,
                       margin: EdgeInsets.only(top: 20, bottom: 20),
                       padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(color: Color(0xFFF8F8F8), borderRadius: BorderRadius.all(Radius.circular(50))),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF8F8F8),
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                      ),
                       child: Icon(
                         Icons.person,
                         size: 40,
@@ -111,14 +128,14 @@ class _ProfileState extends State<Profile> {
               ),
               Center(
                 child: Text(
-                  'Бахтиёр',
+                  '${user['name'] ?? 'Не задано'}',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: black),
                 ),
               ),
               Padding(padding: EdgeInsets.only(top: 8)),
               Center(
                 child: Text(
-                  '+998 (90) 123 45 67',
+                  '${user['phone'] != null ? formatPhone(user['phone']) : ''}',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: black),
                 ),
               ),
@@ -137,6 +154,9 @@ class _ProfileState extends State<Profile> {
                   for (var i = 0; i < profile.length; i++)
                     GestureDetector(
                       onTap: () {
+                        if (i == 1) {
+                          Get.toNamed('/profile-setting');
+                        }
                         if (i == 2) {
                           logout();
                         }

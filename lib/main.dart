@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'helpers/globals.dart';
 
@@ -16,6 +17,7 @@ import 'pages/dashboard/support.dart';
 import 'pages/Steps/success.dart';
 import 'pages/specialist_inside.dart';
 import 'pages/dashboard/profile/profile.dart';
+import 'pages/dashboard/profile/setting_profile.dart';
 
 import 'pages/categories/categories.dart';
 import 'pages/categories/categories_childs.dart';
@@ -56,6 +58,16 @@ class MyApp extends StatelessWidget {
       translations: Messages(),
       locale: const Locale('ru', 'RU'),
       fallbackLocale: const Locale('uz', 'UZ'),
+      // localizationsDelegates: const [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
+      // supportedLocales: const [
+      //   Locale('ru'), // English
+      //   Locale('uz'), // Hebrew
+      // ],
+
       debugShowCheckedModeBanner: false,
       popGesture: true,
       defaultTransition: Transition.fade,
@@ -88,6 +100,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/success', page: () => const Success()),
         GetPage(name: '/confirmation', page: () => const Confirmation()),
         GetPage(name: '/profile', page: () => const Profile()),
+        GetPage(name: '/profile-setting', page: () => const ProfileSetting()),
         // Register
         GetPage(name: '/registration', page: () => const Register()),
         GetPage(name: '/confirmation', page: () => const Confirmation()),

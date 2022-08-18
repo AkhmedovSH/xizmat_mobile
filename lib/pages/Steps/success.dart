@@ -26,14 +26,14 @@ class _SuccessState extends State<Success> {
               textAlign: TextAlign.center,
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: 22),
-            child: Text(
-              'ID заказа: 098 000!',
-              style: TextStyle(color: Color(0xFF363F4D), fontSize: 16, fontWeight: FontWeight.w500),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          // Container(
+          //   margin: EdgeInsets.only(bottom: 22),
+          //   child: Text(
+          //     'ID заказа: 098 000!',
+          //     style: TextStyle(color: Color(0xFF363F4D), fontSize: 16, fontWeight: FontWeight.w500),
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
           Container(
             margin: EdgeInsets.only(bottom: 22, left: 29, right: 29),
             child: Text(

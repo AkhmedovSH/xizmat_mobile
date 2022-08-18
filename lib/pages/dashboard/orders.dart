@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:xizmat/helpers/api.dart';
 
 import '../../helpers/globals.dart';
 
@@ -16,42 +17,90 @@ class _OrdersState extends State<Orders> {
   IO.Socket? socket;
   dynamic orders = [];
 
+  changeTab(index) {
+    setState(() {
+      currentIndex = index;
+      orders = [];
+    });
+    if (index == 0) {
+      connect();
+    }
+    if (index == 1) {
+      socket!.disconnect();
+      getOtklick();
+    }
+    if (index == 2) {
+      socket!.disconnect();
+      getCompleted();
+    }
+  }
+
+  getOtklick() async {
+    final response = await get('/services/mobile/api/order-list/1');
+    print(response);
+    setState(() {
+      orders = response;
+    });
+  }
+
+  getCompleted() async {
+    final response = await get('/services/mobile/api/order-list/2');
+    setState(() {
+      orders = response;
+    });
+  }
+
+  setComplete(item) async {
+    print(item);
+    final response = await post('/services/mobile/api/order-completed', {
+      "id": item['id'],
+      "executorId": item['executorId'],
+      "rating": 4.5,
+      "rating_text": "buladi",
+    });
+    print(response);
+    getCompleted();
+  }
+
   void connect() async {
     // socket = IO.io('https://xizmat24.uz:9193/user-orders-1?apiKey=f72206f2-f2f7-11ec-9a5f-0242ac12000b', {
     //   "transports": ["websocket"],
     //   "autoConnect": false,
     //   "query": { "token": '/mobile' }
     // });
+    final user = await get('/services/mobile/api/get-info');
     socket = IO.io(
         "http://mb.xizmat24.uz:9193/user-orders-1",
         IO.OptionBuilder()
             .enableForceNew() // <--- this method
             .setTransports(['websocket'])
             .setQuery({
-              "apiKey": "f72206f2-f2f7-11ec-9a5f-0242ac12000b",
+              "apiKey": user['apiKey'],
             })
             .disableAutoConnect()
             .build());
-
     socket!.connect();
     socket!.onConnect((data) {
-      print(data);
-      print('connect');
+      // print(data);
+      // print('connect');
     });
     socket!.on('user-orders-1', (data) {
-      print(data);
       if (mounted) {
-        setState(() {
-          orders = data;
-        });
+        setState(() => {orders = data});
       }
     });
   }
-      
+
   @override
   void initState() {
     super.initState();
     connect();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    socket!.disconnect();
   }
 
   @override
@@ -69,9 +118,7 @@ class _OrdersState extends State<Orders> {
                   length: 3,
                   child: TabBar(
                     onTap: (index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
+                      changeTab(index);
                     },
                     labelColor: black,
                     indicatorColor: orange,
@@ -98,7 +145,11 @@ class _OrdersState extends State<Orders> {
                   for (var i = 0; i < orders.length; i++)
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed('/order-inside', arguments: orders[i]['id']);
+                        if (currentIndex == 2) {
+                          setComplete(orders[i]);
+                        } else {
+                          Get.toNamed('/order-inside', arguments: orders[i]['id']);
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 10),

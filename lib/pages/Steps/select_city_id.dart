@@ -3,13 +3,13 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:xizmat/helpers/api.dart';
 import 'package:xizmat/helpers/globals.dart';
@@ -277,13 +277,38 @@ class _SelectCityIdState extends State<SelectCityId> {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
                     });
-                    DatePicker.showTimePicker(context, showTitleActions: true, showSecondsColumn: false, onChanged: (date) {
-                      print('confirm $date');
-                    }, onConfirm: (date) {
-                      setState(() {
-                        stepOrder['executionTime'] = DateFormat('HH:mm').format(date);
-                      });
-                    }, currentTime: DateTime.now(), locale: LocaleType.ru);
+                    showCupertinoModalPopup<void>(
+                      context: context,
+                      builder: (BuildContext context) => Container(
+                        height: 216,
+                        padding: const EdgeInsets.only(top: 6.0),
+                        // The Bottom margin is provided to align the popup above the system navigation bar.
+                        margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        color: white,
+                        child: SafeArea(
+                          top: false,
+                          child: CupertinoDatePicker(
+                            initialDateTime: DateTime.now(),
+                            mode: CupertinoDatePickerMode.time,
+                            use24hFormat: true,
+                            onDateTimeChanged: (DateTime newTime) {
+                              print(newTime);
+                              setState(() => stepOrder['executionTime'] = DateFormat('HH:mm').format(newTime));
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+
+                    // DatePicker.showTimePicker(context, showTitleActions: true, showSecondsColumn: false, onChanged: (date) {
+                    //   print('confirm $date');
+                    // }, onConfirm: (date) {
+                    //   setState(() {
+                    //     stepOrder['executionTime'] = DateFormat('HH:mm').format(date);
+                    //   });
+                    // }, currentTime: DateTime.now(), locale: LocaleType.ru);
                   },
                   selectedDayPredicate: (day) {
                     return isSameDay(_selectedDay, day);

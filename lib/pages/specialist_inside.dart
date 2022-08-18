@@ -19,14 +19,26 @@ class _SpecialistInsideState extends State<SpecialistInside> {
   dynamic passImageUrlList = [];
   dynamic certUrlList = [];
   dynamic galleryUrlList = [];
+  dynamic educationList = [];
+
+  orderAccept() async {
+    dynamic sendData = {
+      "id": Get.arguments['orderId'],
+      "executorId": Get.arguments['userId'],
+    };
+    print(sendData);
+    final response = await post('/services/mobile/api/order-accept', sendData);
+    print(response);
+  }
 
   getOrder() async {
-    final response = await get('/services/mobile/api/executor/${Get.arguments}');
+    final response = await get('/services/mobile/api/executor/${Get.arguments['userId']}');
     setState(() {
       user = response;
       passImageUrlList = user['passImageUrlList'];
       certUrlList = user['certUrlList'];
       galleryUrlList = user['galleryUrlList'];
+      educationList = user['educationList'];
     });
   }
 
@@ -188,7 +200,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                     ),
                     Column(
                       children: [
-                        for (var i = 0; i < user['educationList'].length; i++)
+                        for (var i = 0; i < educationList.length; i++)
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.symmetric(vertical: 12),
@@ -197,7 +209,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                               top: BorderSide(color: Color(0xFFDADADA), width: 1.0),
                             )),
                             child: Text(
-                              '${user['educationList'][i]['title']}',
+                              '${educationList[i]['title']}',
                               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                             ),
                           )
@@ -227,63 +239,63 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 25, bottom: 15),
-                      child: Text(
-                        'Отзывы об исполнителе',
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        for (var i = 0; i < 5; i++)
-                          Container(
-                            margin: EdgeInsets.only(bottom: 15),
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Text(
-                                      'Гульмирова Гульноза',
-                                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      '02.05.2021',
-                                      style: TextStyle(color: Color(0xFF707070), fontWeight: FontWeight.w500),
-                                    )
-                                  ],
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 5, bottom: 10),
-                                  child: Row(
-                                    children: [
-                                      for (var i = 0; i < 5; i++)
-                                        Container(
-                                          margin: EdgeInsets.only(right: 5),
-                                          child: Icon(
-                                            Icons.star,
-                                            color: yellow,
-                                            size: 16,
-                                          ),
-                                        )
-                                    ],
-                                  ),
-                                ),
-                                Text('Обучает моего сына уже три года. Уровень английского просто на высоте. Настоящий практик и знаток своего дела.',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                    )),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
+                    // Container(
+                    //   margin: EdgeInsets.only(top: 25, bottom: 15),
+                    //   child: Text(
+                    //     'Отзывы об исполнителе',
+                    //     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                    //   ),
+                    // ),
+                    // Column(
+                    //   children: [
+                    //     for (var i = 0; i < 5; i++)
+                    //       Container(
+                    //         margin: EdgeInsets.only(bottom: 15),
+                    //         padding: EdgeInsets.all(15),
+                    //         decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.circular(10)),
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             Row(
+                    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //               children: const [
+                    //                 Text(
+                    //                   'Гульмирова Гульноза',
+                    //                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    //                 ),
+                    //                 Text(
+                    //                   '02.05.2021',
+                    //                   style: TextStyle(color: Color(0xFF707070), fontWeight: FontWeight.w500),
+                    //                 )
+                    //               ],
+                    //             ),
+                    //             Container(
+                    //               margin: EdgeInsets.only(top: 5, bottom: 10),
+                    //               child: Row(
+                    //                 children: [
+                    //                   for (var i = 0; i < 5; i++)
+                    //                     Container(
+                    //                       margin: EdgeInsets.only(right: 5),
+                    //                       child: Icon(
+                    //                         Icons.star,
+                    //                         color: yellow,
+                    //                         size: 16,
+                    //                       ),
+                    //                     )
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             Text('Обучает моего сына уже три года. Уровень английского просто на высоте. Настоящий практик и знаток своего дела.',
+                    //                 style: TextStyle(
+                    //                   fontWeight: FontWeight.w500,
+                    //                   fontSize: 15,
+                    //                 )),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //   ],
+                    // ),
                     Container(
                       margin: EdgeInsets.only(top: 10),
                       child: widgets.OutlinedButton(
@@ -314,7 +326,9 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                           width: MediaQuery.of(context).size.width * 0.5,
                           // margin: EdgeInsets.only(right: 10),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              orderAccept();
+                            },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(vertical: 8),
                               elevation: 0,
