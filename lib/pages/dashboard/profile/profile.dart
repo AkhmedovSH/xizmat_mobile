@@ -38,8 +38,8 @@ class _ProfileState extends State<Profile> {
       'icon': Icon(Icons.logout),
     },
   ];
-  dynamic sendData = {'imageUrl': null};
-  dynamic user = {};
+  dynamic sendData = {'imageUrl': ''};
+  dynamic user = {'imageUrl': null};
 
   Future pickImage() async {
     final source = await showImageSource(context);
@@ -50,9 +50,12 @@ class _ProfileState extends State<Profile> {
       final response = await uploadImage('/services/mobile/api/upload/image', File(img.path));
       String jsonsDataString = response.toString();
       final jsonData = jsonDecode(jsonsDataString);
+      final user = await get('/services/mobile/api/get-info');
       setState(() {
-        sendData['imageUrl'] = jsonData['url'];
+        user['imageUrl'] = jsonData['url'];
       });
+      await put('/services/mobile/api/update-client', user);
+      getUser();
     } on PlatformException catch (e) {
       print('ERROR: $e');
     }
@@ -94,21 +97,34 @@ class _ProfileState extends State<Profile> {
               Stack(
                 children: [
                   Center(
-                    child: Container(
-                      width: 86,
-                      height: 86,
-                      margin: EdgeInsets.only(top: 20, bottom: 20),
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF8F8F8),
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                      ),
-                      child: Icon(
-                        Icons.person,
-                        size: 40,
-                        color: lightGrey,
-                      ),
-                    ),
+                    child: user['imageUrl'] == null
+                        ? Container(
+                            width: 86,
+                            height: 86,
+                            margin: EdgeInsets.only(top: 20, bottom: 20),
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF8F8F8),
+                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                            ),
+                            child: Icon(
+                              Icons.person,
+                              size: 40,
+                              color: lightGrey,
+                            ),
+                          )
+                        : Container(
+                            margin: EdgeInsets.only(top: 20, bottom: 20),
+                            width: 86,
+                            height: 86,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                mainUrl + user['imageUrl'],
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                   ),
                   Positioned(
                     top: 20,

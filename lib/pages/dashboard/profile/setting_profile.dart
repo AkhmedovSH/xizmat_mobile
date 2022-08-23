@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:xizmat/components/simple_app_bar.dart';
+import 'package:xizmat/helpers/api.dart';
 
 import '../../../helpers/globals.dart';
 import '../../../components/widgets.dart' as widgets;
@@ -17,17 +18,22 @@ class ProfileSetting extends StatefulWidget {
 
 class _ProfileSettingState extends State<ProfileSetting> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    'name': '', // Alisher
-    'username': '', // 998 998325455
-    'password': '', // 112233
+    "name": "Alisher",
+    "phone": "998998325455",
+    "gender": 1,
+    "regionId": 10,
+    "cityId": 9,
+    "imageUrl": "imageUrl",
+    "birthDate": "2022-01-01"
   };
   dynamic data = {
+    "nameController": TextEditingController(),
+    "phoneController": TextEditingController(text: '+998 '),
     'birthDateController': TextEditingController(),
     'genderController': TextEditingController(),
   };
-  bool showPassword = true;
   DateTime selectedDate = DateTime.now();
 
   selectDate(BuildContext context) async {
@@ -59,6 +65,42 @@ class _ProfileSettingState extends State<ProfileSetting> {
     }
   }
 
+  updateUser() async {
+    setState(() {
+      sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
+    });
+    print(sendData);
+    final response = await put('/services/mobile/api/update-client', sendData);
+    print(response);
+    if (response != null) {
+      if (response['success']) {
+        Get.back();
+      }
+    }
+  }
+
+  getUser() async {
+    final response = await get('/services/mobile/api/get-info');
+    setState(() {
+      data['nameController'].text = response['name'].toString() != 'null' ? response['name'].toString() : '';
+      data['phoneController'].text = response['phone'].toString() != 'null' ? maskFormatter.maskText(response['phone'].toString()) : '';
+      data['birthDateController'].text = response['birthDate'].toString() != 'null' ? response['birthDate'].toString() : '';
+      data['genderController'].text = response['gender'].toString() != 'null'
+          ? response['gender'].toString() == '0'
+              ? 'male'.tr
+              : 'female'.tr
+          : '';
+      sendData = response;
+      selectedButton = response['gender'].toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,13 +118,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10, top: 10),
-                  child: Text(
-                    'Настройте свой профиль в Xizmat'.tr,
-                    style: TextStyle(color: black, fontSize: 20, fontWeight: FontWeight.w700),
-                  ),
-                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -102,7 +137,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               }
                               return null;
                             },
-                            initialValue: sendData['name'],
+                            controller: data['nameController'],
                             onChanged: (value) {
                               setState(() {
                                 sendData['name'] = value;
@@ -147,10 +182,16 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               }
                               return null;
                             },
-                            initialValue: sendData['username'],
+                            controller: data['phoneController'],
                             onChanged: (value) {
+                              if (value == '') {
+                                setState(() {
+                                  data['phoneController'].text = '+998 ';
+                                  data['phoneController'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                                });
+                              }
                               setState(() {
-                                sendData['username'] = value;
+                                sendData['phone'] = value;
                               });
                             },
                             keyboardType: TextInputType.number,
@@ -172,75 +213,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                 borderSide: BorderSide(color: red),
                               ),
                               labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                              labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                            ),
-                            style: const TextStyle(color: Color(0xFF9C9C9C)),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 25),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            colorScheme: ThemeData().colorScheme.copyWith(
-                                  primary: red,
-                                ),
-                          ),
-                          child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'required_field'.tr;
-                              }
-                              return null;
-                            },
-                            initialValue: sendData['password'],
-                            onChanged: (value) {
-                              setState(() {
-                                sendData['password'] = value;
-                              });
-                            },
-                            obscureText: showPassword,
-                            decoration: InputDecoration(
-                              prefixIcon: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.lock,
-                                ),
-                              ),
-                              suffixIcon: showPassword
-                                  ? IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          showPassword = false;
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.visibility_off,
-                                        // color: red,
-                                      ),
-                                    )
-                                  : IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          showPassword = true;
-                                        });
-                                      },
-                                      icon: const Icon(
-                                        Icons.visibility,
-                                        // color: red,
-                                      ),
-                                    ),
-                              contentPadding: const EdgeInsets.all(18.0),
-                              focusColor: red,
-                              filled: true,
-                              fillColor: Colors.transparent,
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: red),
-                              ),
-                              labelText: 'password'.tr,
                               labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                             style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -289,6 +261,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                 labelText: 'Дата рождения'.tr,
                                 labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
+                              style: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                           ),
                         ),
@@ -327,6 +300,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               labelText: 'Пол'.tr,
                               labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
+                            style: const TextStyle(color: Color(0xFF9C9C9C)),
                           ),
                         ),
                       ),
@@ -350,7 +324,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
               margin: EdgeInsets.only(bottom: 10),
               child: widgets.Button(
                 text: 'Сохранить',
-                onClick: () {},
+                onClick: () {
+                  updateUser();
+                },
               ),
             ),
           ],

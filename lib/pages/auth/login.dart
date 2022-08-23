@@ -23,10 +23,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    'username': '998998198858', // 998 998325455
-    'password': '1232', // 112233
+    'username': '', // 998 998325455
+    'password': '', // 112233
+  };
+  dynamic data = {
+    'username': TextEditingController(text: '+998 '), // 998 998325455
+    'password': '', // 112233
   };
   bool showPassword = true;
 
@@ -121,8 +125,14 @@ class _LoginState extends State<Login> {
                             }
                             return null;
                           },
-                          initialValue: sendData['username'],
+                          controller: data['username'],
                           onChanged: (value) {
+                            if (value == '') {
+                              setState(() {
+                                data['username'].text = '+998 ';
+                                data['username'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                              });
+                            }
                             setState(() {
                               sendData['username'] = value;
                             });

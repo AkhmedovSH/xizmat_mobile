@@ -90,7 +90,7 @@ class _SelectCityIdState extends State<SelectCityId> {
       regions = response;
       regionId = response[0]['id'];
     });
-    getCities(response[0]['id']);
+    getCities(response[0]['id']); 
   }
 
   createOrder() async {
