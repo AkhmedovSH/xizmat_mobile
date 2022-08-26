@@ -52,6 +52,10 @@ class _ProfileState extends State<Profile> {
       final jsonData = jsonDecode(jsonsDataString);
       final user = await get('/services/mobile/api/get-info');
       setState(() {
+        user['regionId'] = 0;
+        user['regionName'] = '';
+        user['cityId'] = 0;
+        user['cityName'] = '';
         user['imageUrl'] = jsonData['url'];
       });
       await put('/services/mobile/api/update-client', user);

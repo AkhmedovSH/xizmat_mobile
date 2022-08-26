@@ -119,24 +119,25 @@ class _DashboardState extends State<Dashboard> {
             topRight: Radius.circular(10.0),
           ),
           child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              // showSelectedLabels: false,
-              // showUnselectedLabels: false,
-              onTap: changeIndex,
-              currentIndex: currentIndex,
-              backgroundColor: white,
-              selectedItemColor: black,
-              selectedIconTheme: IconThemeData(color: black),
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                    ),
-                    label: 'Главная'),
-                BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFF828282)), label: 'Мои заказы'),
-                BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFF828282)), label: 'Профиль'),
-                BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),
-              ]),
+            type: BottomNavigationBarType.fixed,
+            // showSelectedLabels: false,
+            // showUnselectedLabels: false,
+            onTap: changeIndex,
+            currentIndex: currentIndex,
+            backgroundColor: white,
+            selectedItemColor: black,
+            selectedIconTheme: IconThemeData(color: black),
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                  label: 'Главная'),
+              BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFF828282)), label: 'Мои заказы'),
+              BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFF828282)), label: 'Профиль'),
+              BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),
+            ],
+          ),
         ),
       ),
     );
@@ -163,9 +164,14 @@ class _DashboardState extends State<Dashboard> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        onTap: () => {
+        onTap: () {
           // Navigator.pop(context),
-          Get.offAllNamed(routeName)
+          if (routeName == '/orders') {
+            Navigator.pop(context);
+            changeIndex(1);
+            return;
+          }
+          Get.offAllNamed(routeName);
         },
       ),
     );
