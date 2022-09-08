@@ -33,10 +33,6 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-  openDrawerBar() {
-    scaffoldKey.currentState!.openDrawer();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,67 +40,63 @@ class _DashboardState extends State<Dashboard> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          currentIndex == 0
-              ? Index(
-                  openDrawerBar: openDrawerBar,
-                )
-              : Container(),
+          currentIndex == 0 ? Index() : Container(),
           currentIndex == 1 ? const Orders() : Container(),
           currentIndex == 2 ? const Profile() : Container(),
           currentIndex == 3 ? const Support() : Container(),
         ],
       ),
-      drawer: currentIndex == 0
-          ? Container(
-              padding: const EdgeInsets.all(0),
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: Drawer(
-                child: SafeArea(
-                  child: Container(
-                    color: Colors.white,
-                    child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        buildListTile(
-                          context,
-                          'Быстрый поиск',
-                          Icons.search,
-                          '/fast-search',
-                        ),
-                        buildListTile(
-                          context,
-                          'Категории услуг',
-                          Icons.category,
-                          '/categories',
-                        ),
-                        buildListTile(
-                          context,
-                          'Мои заказы',
-                          Icons.list_alt,
-                          '/orders',
-                        ),
-                        buildListTile(
-                          context,
-                          'Заказать через менеджера',
-                          Icons.support_agent,
-                          '/order-by-manager',
-                        ),
-                        buildListTile(
-                          context,
-                          'Поддержка',
-                          Icons.settings_suggest,
-                          '/support',
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
-          : Container(),
+      // drawer: currentIndex == 0
+      //     ? Container(
+      //         padding: const EdgeInsets.all(0),
+      //         width: MediaQuery.of(context).size.width * 0.75,
+      //         child: Drawer(
+      //           child: SafeArea(
+      //             child: Container(
+      //               color: Colors.white,
+      //               child: Column(
+      //                 //mainAxisAlignment: MainAxisAlignment.center,
+      //                 children: [
+      //                   SizedBox(
+      //                     height: 20,
+      //                   ),
+      //                   buildListTile(
+      //                     context,
+      //                     'Быстрый поиск',
+      //                     Icons.search,
+      //                     '/fast-search',
+      //                   ),
+      //                   buildListTile(
+      //                     context,
+      //                     'Категории услуг',
+      //                     Icons.category,
+      //                     '/categories',
+      //                   ),
+      //                   buildListTile(
+      //                     context,
+      //                     'Мои заказы',
+      //                     Icons.list_alt,
+      //                     '/orders',
+      //                   ),
+      //                   buildListTile(
+      //                     context,
+      //                     'Заказать через менеджера',
+      //                     Icons.support_agent,
+      //                     '/order-by-manager',
+      //                   ),
+      //                   buildListTile(
+      //                     context,
+      //                     'Поддержка',
+      //                     Icons.settings_suggest,
+      //                     '/support',
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //       )
+      //     : Container(),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           // color: white,

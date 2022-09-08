@@ -155,7 +155,8 @@ class _ProfileState extends State<Profile> {
               Padding(padding: EdgeInsets.only(top: 8)),
               Center(
                 child: Text(
-                  '${user['phone'] != null ? formatPhone(user['phone']) : ''}',
+                  // '${user['phone'] != null ? formatPhone(user['phone']) : ''}',
+                  '',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: black),
                 ),
               ),

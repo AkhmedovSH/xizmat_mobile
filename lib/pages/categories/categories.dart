@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../helpers/globals.dart';
+import 'package:xizmat/helpers/api.dart';
 
 import '../../components/simple_app_bar.dart';
 
@@ -13,6 +14,24 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
+  dynamic categories = [];
+
+  getCategories() async {
+    final response = await get('/services/mobile/api/category-list');
+    if (response != null) {
+      print(response);
+      setState(() {
+        categories = response;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCategories();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +53,7 @@ class _CategoriesState extends State<Categories> {
               // crossAxisSpacing: 4,
               crossAxisCount: 2,
               children: [
-                for (var i = 1; i < 8; i++)
+                for (var i = 0; i < categories.length; i++)
                   GestureDetector(
                     onTap: () {
                       Get.toNamed('/step-1');
@@ -50,19 +69,28 @@ class _CategoriesState extends State<Categories> {
                             Container(
                               margin: EdgeInsets.all(8),
                               child: Text(
-                                'Услуги курьеров ',
+                                '${categories[i]['name'] ?? ''} ',
                                 style: TextStyle(fontWeight: FontWeight.w700, color: black),
                               ),
                             ),
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: Image.asset(
-                                'images/c$i.png',
-                                height: 80,
-                                width: 100,
-                                fit: BoxFit.cover,
-                              ),
+                              child: categories[i]['imageUrl'] != null
+                                  ? Image.network(
+                                      mainUrl + categories[i]['imageUrl'],
+                                      height: 80,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container(
+                                      // child: Image.asset(
+                                      //   'images/build-logo.png',
+                                      //   height: 80,
+                                      //   width: 100,
+                                      //   fit: BoxFit.cover,
+                                      // ),
+                                      ),
                             ),
                             Padding(padding: EdgeInsets.only(top: 10)),
                           ],

@@ -23,8 +23,8 @@ class _ProfileSettingState extends State<ProfileSetting> {
     "name": "Alisher",
     "phone": "998998325455",
     "gender": 1,
-    "regionId": 10,
-    "cityId": 9,
+    "regionId": '0',
+    "cityId": '0',
     "imageUrl": "imageUrl",
     "birthDate": "2022-01-01"
   };
@@ -34,16 +34,24 @@ class _ProfileSettingState extends State<ProfileSetting> {
     'birthDateController': TextEditingController(),
     'genderController': TextEditingController(),
   };
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())) - 16);
+
+  List regions = [
+    {'name': '', 'id': '0'}
+  ];
+
+  List cities = [
+    {'name': '', 'id': '0'}
+  ];
 
   selectDate(BuildContext context) async {
     DateTime date = DateTime.now();
-    final year = DateFormat('yyyy').format(date);
+    dynamic year = DateFormat('yyyy').format(date);
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1950),
-      lastDate: DateTime(int.parse(year) + 1),
+      lastDate: DateTime(int.parse(year) - 16),
       // locale: const Locale("fr", "FR"),
       builder: (context, child) {
         return Theme(
@@ -79,11 +87,49 @@ class _ProfileSettingState extends State<ProfileSetting> {
     }
   }
 
+  getRegions({id}) async {
+    final response = await get('/services/mobile/api/region-helper');
+    if (id == null || id == 'null' || id == '0' || id == 0) {
+      await getCities(response[0]['id']);
+    }
+    print(id != null || id != 'null' || id != '0' || id != 0);
+    setState(() {
+      if (id != null && id != 'null' && id != '0' && id != 0) {
+        sendData['regionId'] = id.toString();
+      } else {
+        sendData['regionId'] = response[0]['id'].toString();
+      }
+      regions = response;
+    });
+  }
+
+  getCities(id, {cityid}) async {
+    final response = await get('/services/mobile/api/city-helper/$id');
+    setState(() {
+      if (cityid != null) {
+        sendData['cityId'] = cityid.toString();
+      } else {
+        sendData['cityId'] = response[0]['id'].toString();
+      }
+      cities = response;
+    });
+    return;
+  }
+
   getUser() async {
     final response = await get('/services/mobile/api/get-info');
+    if (response['regionId'] != null && response['regionId'] != '0' && response['regionId'] != 0) {
+      getRegions(id: response['regionId']);
+    } else {
+      getRegions();
+    }
+    if (response['cityId'] != null && response['cityId'] != '0' && response['cityId'] != 0) {
+      getCities(response['regionId'], cityid: response['cityId']);
+    }
     setState(() {
       data['nameController'].text = response['name'].toString() != 'null' ? response['name'].toString() : '';
-      data['phoneController'].text = response['phone'].toString() != 'null' ? maskFormatter.maskText(response['phone'].toString()) : '';
+      data['phoneController'].text =
+          response['phone'].toString() != 'null' ? maskFormatter.maskText(response['phone'].substring(3, response['phone'].length)) : '';
       data['birthDateController'].text = response['birthDate'].toString() != 'null' ? response['birthDate'].toString() : '';
       data['genderController'].text = response['gender'].toString() != 'null'
           ? response['gender'].toString() == '0'
@@ -98,6 +144,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
   @override
   void initState() {
     super.initState();
+    // getRegions();
     getUser();
   }
 
@@ -166,59 +213,59 @@ class _ProfileSettingState extends State<ProfileSetting> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            colorScheme: ThemeData().colorScheme.copyWith(
-                                  primary: red,
-                                ),
-                          ),
-                          child: TextFormField(
-                            inputFormatters: [maskFormatter],
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'required_field'.tr;
-                              }
-                              return null;
-                            },
-                            controller: data['phoneController'],
-                            onChanged: (value) {
-                              if (value == '') {
-                                setState(() {
-                                  data['phoneController'].text = '+998 ';
-                                  data['phoneController'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
-                                });
-                              }
-                              setState(() {
-                                sendData['phone'] = value;
-                              });
-                            },
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              prefixIcon: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.phone_iphone,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.all(18.0),
-                              focusColor: red,
-                              filled: true,
-                              fillColor: Colors.transparent,
-                              enabledBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: red),
-                              ),
-                              labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                              labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                            ),
-                            style: const TextStyle(color: Color(0xFF9C9C9C)),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   margin: const EdgeInsets.only(bottom: 20),
+                      //   child: Theme(
+                      //     data: Theme.of(context).copyWith(
+                      //       colorScheme: ThemeData().colorScheme.copyWith(
+                      //             primary: red,
+                      //           ),
+                      //     ),
+                      //     child: TextFormField(
+                      //       inputFormatters: [maskFormatter],
+                      //       validator: (value) {
+                      //         if (value == null || value.isEmpty) {
+                      //           return 'required_field'.tr;
+                      //         }
+                      //         return null;
+                      //       },
+                      //       controller: data['phoneController'],
+                      //       onChanged: (value) {
+                      //         if (value == '') {
+                      //           setState(() {
+                      //             data['phoneController'].text = '+998 ';
+                      //             data['phoneController'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                      //           });
+                      //         }
+                      //         setState(() {
+                      //           sendData['phone'] = value;
+                      //         });
+                      //       },
+                      //       keyboardType: TextInputType.number,
+                      //       decoration: InputDecoration(
+                      //         prefixIcon: IconButton(
+                      //           onPressed: () {},
+                      //           icon: const Icon(
+                      //             Icons.phone_iphone,
+                      //           ),
+                      //         ),
+                      //         contentPadding: const EdgeInsets.all(18.0),
+                      //         focusColor: red,
+                      //         filled: true,
+                      //         fillColor: Colors.transparent,
+                      //         enabledBorder: const UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                      //         ),
+                      //         focusedBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: red),
+                      //         ),
+                      //         labelText: 'telephone_number'.tr + '(9* *** ** **)',
+                      //         labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                      //       ),
+                      //       style: const TextStyle(color: Color(0xFF9C9C9C)),
+                      //     ),
+                      //   ),
+                      // ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 25),
                         // height: 45,
@@ -304,6 +351,94 @@ class _ProfileSettingState extends State<ProfileSetting> {
                           ),
                         ),
                       ),
+                      regions.isNotEmpty && sendData['regionId'] != '0' && sendData['regionId'] != 0
+                          ? Container(
+                              margin: const EdgeInsets.only(bottom: 25),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: const Color(0xFF9C9C9C),
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: ButtonTheme(
+                                  alignedDropdown: true,
+                                  child: DropdownButton(
+                                    value: sendData['regionId'],
+                                    isExpanded: true,
+                                    hint: Text('${regions[0]['name']}'),
+                                    icon: const Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      size: 28,
+                                      color: Color(0xFF9C9C9C),
+                                    ),
+                                    iconSize: 24,
+                                    iconEnabledColor: grey,
+                                    elevation: 16,
+                                    style: const TextStyle(color: Color(0xFF313131)),
+                                    underline: Container(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        sendData['regionId'] = newValue;
+                                      });
+                                      getCities(newValue);
+                                    },
+                                    items: regions.map((item) {
+                                      return DropdownMenuItem<String>(
+                                        value: '${item['id']}',
+                                        child: Text(item['name']),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      cities.isNotEmpty && sendData['cityId'] != '0' && sendData['cityId'] != 0
+                          ? Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: const Color(0xFF9C9C9C),
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButton(
+                                  value: sendData['cityId'],
+                                  isExpanded: true,
+                                  hint: Text('${cities[0]['name']}'),
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 28,
+                                    color: Color(0xFF9C9C9C),
+                                  ),
+                                  iconSize: 24,
+                                  iconEnabledColor: grey,
+                                  elevation: 16,
+                                  style: const TextStyle(color: Color(0xFF313131)),
+                                  underline: Container(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      sendData['cityId'] = newValue;
+                                    });
+                                  },
+                                  items: cities.map((item) {
+                                    return DropdownMenuItem<String>(
+                                      value: '${item['id']}',
+                                      child: Text(item['name']),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            )
+                          : Container(),
                       SizedBox(
                         height: 70,
                       )
@@ -363,6 +498,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       genderSetState(() {
                         selectedButton = '0';
                         sendData['gender'] = '0';
+                        data['genderController'].text = 'male'.tr;
                       });
                       Get.back();
                     },
@@ -384,6 +520,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       genderSetState(() {
                         selectedButton = '1';
                         sendData['gender'] = '1';
+                        data['genderController'].text = 'female'.tr;
                       });
                       Get.back();
                     },

@@ -13,4 +13,9 @@ final ru = {
   'no_thanks': 'НЕТ, СПАСИБО',
   'update': 'ОБНОВИТЬ',
   'confirm_password': 'Подтвердить пароль',
+  'error.login.used': 'Телефон номер уже используется',
+  'incorrect_login_or_password': 'Неверный телефон или пароль',
+  'male': 'Мужчина',
+  'female': 'Женщина',
+  'gender': 'Пол',
 };

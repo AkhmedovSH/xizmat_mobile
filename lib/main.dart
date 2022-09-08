@@ -25,6 +25,8 @@ import 'pages/categories/categories_childs.dart';
 import 'pages/auth/register.dart';
 import 'pages/auth/confirmation.dart';
 import 'pages/auth/login.dart';
+import 'pages/auth/reset_password/reset_password_init.dart';
+import 'pages/auth/reset_password/reset_password_finish.dart';
 
 import 'pages/dashboard/orders.dart';
 import 'pages/Order/order_inside.dart';
@@ -105,6 +107,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/registration', page: () => const Register()),
         GetPage(name: '/confirmation', page: () => const Confirmation()),
         GetPage(name: '/login', page: () => const Login()),
+        GetPage(name: '/reset-password-init', page: () => const ResetPasswordInit()),
+        GetPage(name: '/reset-password-finish', page: () => const ResetPasswordFinish()),
         // Order
         GetPage(name: '/specialist-inside', page: () => const SpecialistInside()),
         GetPage(name: '/orders', page: () => const Orders()),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -129,8 +130,10 @@ uploadImage(url, File file) async {
 
 statuscheker(e) async {
   print(e.response?.statusCode);
+  String jsonsDataString = e.response.toString();
+  final jsonData = jsonDecode(jsonsDataString);
   if (e.response?.statusCode == 400) {
-    showErrorToast(e.message);
+    showErrorToast(jsonData['message'].toString().tr);
   }
   if (e.response?.statusCode == 401) {
     showErrorToast('incorrect_login_or_password'.tr);

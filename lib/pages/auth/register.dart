@@ -18,12 +18,19 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
     'phone': '',
   };
+  dynamic data = {
+    'phone': TextEditingController(text: '+998 '),
+  };
 
   register() async {
+    final checkLogin = await guestGet('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
+    if (checkLogin == null) {
+      return;
+    }
     setState(() {
       sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
     });
@@ -70,8 +77,14 @@ class _RegisterState extends State<Register> {
                             }
                             return null;
                           },
-                          initialValue: sendData['phone'],
+                          controller: data['phone'],
                           onChanged: (value) {
+                            if (value == '') {
+                              setState(() {
+                                data['phone'].text = '+998 ';
+                                data['phone'].selection = TextSelection.fromPosition(TextPosition(offset: data['phone'].text.length));
+                              });
+                            }
                             setState(() {
                               sendData['phone'] = value;
                             });
@@ -169,7 +182,6 @@ class _RegisterState extends State<Register> {
                               sendData['confirmPassword'] = value;
                             });
                           },
-                          keyboardType: TextInputType.number,
                           scrollPadding: const EdgeInsets.all(50),
                           obscureText: true,
                           decoration: InputDecoration(

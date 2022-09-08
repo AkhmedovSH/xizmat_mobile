@@ -6,4 +6,8 @@ final uz = {
   'while_downloading_updates_you_can_still_use_it': 'Yangilanishlarni yuklab olayotganda siz undan foydalanishingiz mumkin',
   'no_thanks': 'YO\'Q, RAHMAT',
   'update': 'YANGILANISH',
+  'incorrect_login_or_password': 'Telefon yoki parol noto\'g\'ri',
+  'male': 'Erkak',
+  'female': 'Ayol',
+  'gender': 'Jinsingiz',
 };
