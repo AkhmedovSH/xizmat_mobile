@@ -268,26 +268,35 @@ class _IndexState extends State<Index> {
                               ),
                               child: Stack(
                                 children: [
-                                  Container(
-                                    margin: const EdgeInsets.all(8),
-                                    child: Text(
-                                      '${topCategories[i]['name']}',
-                                      style: TextStyle(fontWeight: FontWeight.w700, color: black),
-                                    ),
-                                  ),
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
                                     child: topCategories[i]['imageUrl'] != null
-                                        ? Image.network(
-                                            mainUrl + topCategories[i]['imageUrl'],
-                                            height: 80,
-                                            width: 100,
+                                        ? ClipRRect(
+                                            borderRadius: BorderRadius.circular(15),
+                                            child: Image.network(
+                                              mainUrl + topCategories[i]['imageUrl'],
+                                              height: 125,
+                                              width: 130,
+                                              fit: BoxFit.fill,
+                                            ),
                                           )
                                         : SizedBox(
-                                            height: 80,
-                                            width: 100,
+                                            height: 125,
+                                            width: 130,
                                           ),
+                                  ),
+                                  Positioned(
+                                    top: 8,
+                                    left: 8,
+                                    child: SizedBox(
+                                      // margin: const EdgeInsets.all(8),
+                                      width: 130,
+                                      child: Text(
+                                        '${topCategories[i]['name']}',
+                                        style: TextStyle(fontWeight: FontWeight.w700, color: black),
+                                      ),
+                                    ),
                                   ),
                                   const Padding(padding: EdgeInsets.only(top: 10)),
                                 ],

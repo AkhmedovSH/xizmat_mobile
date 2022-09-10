@@ -20,13 +20,13 @@ class _ProfileSettingState extends State<ProfileSetting> {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
   dynamic sendData = {
-    "name": "Alisher",
-    "phone": "998998325455",
+    "name": "",
+    "phone": "",
     "gender": 1,
     "regionId": '0',
     "cityId": '0',
-    "imageUrl": "imageUrl",
-    "birthDate": "2022-01-01"
+    "imageUrl": "",
+    "birthDate": "",
   };
   dynamic data = {
     "nameController": TextEditingController(),
@@ -36,13 +36,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
   };
   DateTime selectedDate = DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())) - 16);
 
-  List regions = [
-    {'name': '', 'id': '0'}
-  ];
+  List regions = [];
 
-  List cities = [
-    {'name': '', 'id': '0'}
-  ];
+  List cities = [];
 
   selectDate(BuildContext context) async {
     DateTime date = DateTime.now();
@@ -305,6 +301,12 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: red),
                                 ),
+                                errorBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: red),
+                                ),
+                                errorStyle: TextStyle(
+                                  color: Theme.of(context).errorColor,
+                                ),
                                 labelText: 'Дата рождения'.tr,
                                 labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
@@ -460,7 +462,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
               child: widgets.Button(
                 text: 'Сохранить',
                 onClick: () {
-                  updateUser();
+                  if (_formKey.currentState!.validate()) {
+                    updateUser();
+                  }
                 },
               ),
             ),

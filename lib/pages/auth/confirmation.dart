@@ -34,7 +34,7 @@ class _ConfirmationState extends State<Confirmation> {
           showErrorToast('Введен неправильный код');
         }
         if (response['success']) {
-          Get.offAllNamed('/dashboard', arguments: 2);
+          Get.offAllNamed('/login');
         }
       }
     }
@@ -94,7 +94,7 @@ class _ConfirmationState extends State<Confirmation> {
                       if (value == null || value.isEmpty) {
                         return 'required_field'.tr;
                       }
-                      return null; 
+                      return null;
                     },
                     onChanged: (value) {
                       setState(() {

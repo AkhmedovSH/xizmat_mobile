@@ -174,9 +174,10 @@ class _ProfileState extends State<Profile> {
                 children: [
                   for (var i = 0; i < profile.length; i++)
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         if (i == 1) {
-                          Get.toNamed('/profile-setting');
+                          await Get.toNamed('/profile-setting');
+                          getUser();
                         }
                         if (i == 2) {
                           logout();

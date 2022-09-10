@@ -44,21 +44,18 @@ class _CategoriesState extends State<Categories> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GridView.count(
-              childAspectRatio: 1.25,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              primary: false,
-              padding: const EdgeInsets.all(0),
-              // crossAxisSpacing: 4,
-              crossAxisCount: 2,
+            Wrap(
+              alignment: WrapAlignment.start,
               children: [
                 for (var i = 0; i < categories.length; i++)
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/step-1');
-                    },
-                    child: Container(
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: 140,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/categories-childs', arguments: categories[i]);
+                      },
+                      child: Container(
                         margin: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),
                         decoration: BoxDecoration(
                           color: Color(0xFFF4F7FA),
@@ -66,22 +63,19 @@ class _CategoriesState extends State<Categories> {
                         ),
                         child: Stack(
                           children: [
-                            Container(
-                              margin: EdgeInsets.all(8),
-                              child: Text(
-                                '${categories[i]['name'] ?? ''} ',
-                                style: TextStyle(fontWeight: FontWeight.w700, color: black),
-                              ),
-                            ),
                             Positioned(
                               bottom: 0,
                               right: 0,
                               child: categories[i]['imageUrl'] != null
-                                  ? Image.network(
-                                      mainUrl + categories[i]['imageUrl'],
-                                      height: 80,
-                                      width: 100,
-                                      fit: BoxFit.cover,
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.network(
+                                        mainUrl + categories[i]['imageUrl'],
+                                        height: 130,
+                                        width: MediaQuery.of(context).size.width * 0.46,
+                                        fit: BoxFit.fill,
+                                        // fit: BoxFit.fill,
+                                      ),
                                     )
                                   : Container(
                                       // child: Image.asset(
@@ -92,12 +86,26 @@ class _CategoriesState extends State<Categories> {
                                       // ),
                                       ),
                             ),
+                            Positioned(
+                              top: 8,
+                              left: 8,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: Text(
+                                  '${categories[i]['name'] ?? ''} ',
+                                  style: TextStyle(fontWeight: FontWeight.w700, color: black),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
                             Padding(padding: EdgeInsets.only(top: 10)),
                           ],
-                        )),
-                  )
+                        ),
+                      ),
+                    ),
+                  ),
               ],
-            ),
+            )
           ],
         ),
       ),

@@ -209,31 +209,6 @@ class _OrdersState extends State<Orders> {
           ),
         ),
       ),
-      floatingActionButton: currentIndex == 0
-          ? FloatingActionButton(
-              onPressed: () {},
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFFF5353),
-                      Color(0xFFF99247),
-                    ],
-                    begin: FractionalOffset(0.0, 1.0),
-                    end: FractionalOffset(1.0, 0.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.add,
-                  size: 26,
-                ),
-              ))
-          : Container(),
     );
   }
 }

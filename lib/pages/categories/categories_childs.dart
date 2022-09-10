@@ -24,7 +24,7 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
   getChildCategories() async {
     dynamic category = Get.arguments;
     final response = await get('/services/mobile/api/category-child-list/${category['id']}');
-    print('category-child-list${response}');
+    print('category-child-list$response');
     setState(() {
       categories = response;
     });
@@ -83,9 +83,13 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                categories[i]['name'],
-                                style: TextStyle(color: black, fontSize: 18),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: Text(
+                                  categories[i]['name'],
+                                  style: TextStyle(color: black, fontSize: 18),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               Icon(Icons.arrow_forward, color: black)
                             ],

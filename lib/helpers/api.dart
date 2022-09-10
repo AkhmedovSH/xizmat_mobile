@@ -142,6 +142,9 @@ statuscheker(e) async {
   if (e.response?.statusCode == 404) {
     showErrorToast('not_found'.tr);
   }
+  if (e.response?.statusCode == 413) {
+    showErrorToast('large_size'.tr);
+  }
   if (e.response?.statusCode == 415) {
     showErrorToast('error'.tr);
   }
