@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
 
 import '../../helpers/api.dart';
@@ -53,10 +55,11 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                   child: TextField(
                     decoration: InputDecoration(
                       prefixIcon: IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: Icon(Icons.arrow_back)),
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(Icons.arrow_back),
+                      ),
                       suffixIcon: Icon(Icons.cancel_sharp, color: red, size: 20),
                       contentPadding: EdgeInsets.all(12.0),
                       enabledBorder: OutlineInputBorder(

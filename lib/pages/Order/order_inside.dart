@@ -117,7 +117,9 @@ class _OrderInsideState extends State<OrderInside> {
                       ),
                     ),
                     Column(
-                      children: [currentIndex == 0 ? OrderInsideFeedback() : OrderInsideAllSpecialists()],
+                      children: [
+                        currentIndex == 0 ? OrderInsideFeedback() : OrderInsideAllSpecialists(),
+                      ],
                     )
                   ],
                 ),

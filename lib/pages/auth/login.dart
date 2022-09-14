@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../helpers/globals.dart';
 import '../../helpers/api.dart';
@@ -21,9 +22,10 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  AnimationController? animationController;
   dynamic sendData = {
     'username': '', // 998 998325455
     'password': '', // 112233
@@ -35,8 +37,12 @@ class _LoginState extends State<Login> {
     'isRemember': false,
   };
   bool showPassword = true;
+  bool loading = false;
 
   login() async {
+    setState(() {
+      loading = true;
+    });
     if (maskFormatter.getUnmaskedText().length > 3) {
       setState(() {
         sendData['username'] = '998' + maskFormatter.getUnmaskedText();
@@ -45,8 +51,6 @@ class _LoginState extends State<Login> {
     final prefs = await SharedPreferences.getInstance();
     final response = await guestPost('/auth/login', sendData);
     if (response != null) {
-      prefs.setString('access_token', response['access_token'].toString());
-      prefs.setString('user', jsonEncode(sendData));
       var account = await get('/services/uaa/api/account');
       var checkAccess = false;
       for (var i = 0; i < account['authorities'].length; i++) {
@@ -54,7 +58,12 @@ class _LoginState extends State<Login> {
           checkAccess = true;
         }
       }
+      setState(() {
+        loading = false;
+      });
       if (checkAccess) {
+        prefs.setString('access_token', response['access_token'].toString());
+        prefs.setString('user', jsonEncode(sendData));
         LocalNotificationService.initialize(context);
         FirebaseMessaging.instance.getInitialMessage().then((message) {
           if (message != null) {
@@ -76,7 +85,13 @@ class _LoginState extends State<Login> {
         // await put('/services/gocashmobile/api/firebase-token', {'token': firebaseToken});
 
         Get.offAllNamed('/');
+      } else {
+        showErrorToast('Нет доступа');
       }
+    } else {
+      setState(() {
+        loading = false;
+      });
     }
   }
 
@@ -102,251 +117,276 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     checkIsRemember();
+    setState(() {
+      animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController!.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: TransperentAppBar(
-        appBar: AppBar(),
-        leading: false,
-      ),
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                child: Text(
-                  'Добро пожаловать в xizmat'.tr,
-                  style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'Войдите в систему чтобы продолжить'.tr,
-                  style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ThemeData().colorScheme.copyWith(
-                                primary: red,
-                              ),
-                        ),
-                        child: TextFormField(
-                          inputFormatters: [maskFormatter],
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'required_field'.tr;
-                            }
-                            return null;
-                          },
-                          controller: data['username'],
-                          onChanged: (value) {
-                            if (value == '') {
-                              setState(() {
-                                data['username'].text = '+998 ';
-                                data['username'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
-                              });
-                            }
-                            setState(() {
-                              sendData['username'] = value;
-                            });
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            prefixIcon: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.phone_iphone,
-                                )),
-                            contentPadding: const EdgeInsets.all(18.0),
-                            focusColor: red,
-                            filled: true,
-                            fillColor: Colors.transparent,
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: red),
-                            ),
-                            labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                            labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                          ),
-                          style: const TextStyle(color: Color(0xFF9C9C9C)),
-                        ),
-                      ),
+    return Stack(
+      children: [
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: TransperentAppBar(
+            appBar: AppBar(),
+            leading: false,
+          ),
+          body: SafeArea(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'Добро пожаловать в xizmat'.tr,
+                      style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 25),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ThemeData().colorScheme.copyWith(
-                                primary: red,
-                              ),
-                        ),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'required_field'.tr;
-                            }
-                            return null;
-                          },
-                          controller: data['password'],
-                          onChanged: (value) {
-                            setState(() {
-                              sendData['password'] = value;
-                            });
-                          },
-                          obscureText: showPassword,
-                          decoration: InputDecoration(
-                            prefixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.lock,
-                              ),
-                            ),
-                            suffixIcon: showPassword
-                                ? IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        showPassword = false;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.visibility_off,
-                                      // color: red,
-                                    ),
-                                  )
-                                : IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        showPassword = true;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.visibility,
-                                      // color: red,
-                                    ),
-                                  ),
-                            contentPadding: const EdgeInsets.all(18.0),
-                            focusColor: red,
-                            filled: true,
-                            fillColor: Colors.transparent,
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: red),
-                            ),
-                            labelText: 'password'.tr,
-                            labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                          ),
-                          style: const TextStyle(color: Color(0xFF9C9C9C)),
-                        ),
-                      ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      'Войдите в систему чтобы продолжить'.tr,
+                      style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              checkColor: Colors.white,
-                              activeColor: red,
-                              value: sendData['isRemember'],
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ThemeData().colorScheme.copyWith(
+                                    primary: red,
+                                  ),
+                            ),
+                            child: TextFormField(
+                              inputFormatters: [maskFormatter],
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'required_field'.tr;
+                                }
+                                return null;
+                              },
+                              controller: data['username'],
                               onChanged: (value) {
+                                if (value == '') {
+                                  setState(() {
+                                    data['username'].text = '+998 ';
+                                    data['username'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                                  });
+                                }
                                 setState(() {
-                                  sendData['isRemember'] = !sendData['isRemember'];
+                                  sendData['username'] = value;
                                 });
                               },
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                prefixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.phone_iphone,
+                                    )),
+                                contentPadding: const EdgeInsets.all(18.0),
+                                focusColor: red,
+                                filled: true,
+                                fillColor: Colors.transparent,
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: red),
+                                ),
+                                labelText: 'telephone_number'.tr + '(9* *** ** **)',
+                                labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                              ),
+                              style: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
-                            const Text(
-                              'Запомнить',
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ],
+                          ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed('/reset-password-init');
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: red,
-                                  width: 1,
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 25),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ThemeData().colorScheme.copyWith(
+                                    primary: red,
+                                  ),
+                            ),
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'required_field'.tr;
+                                }
+                                return null;
+                              },
+                              controller: data['password'],
+                              onChanged: (value) {
+                                setState(() {
+                                  sendData['password'] = value;
+                                });
+                              },
+                              obscureText: showPassword,
+                              decoration: InputDecoration(
+                                prefixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.lock,
+                                  ),
+                                ),
+                                suffixIcon: showPassword
+                                    ? IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            showPassword = false;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.visibility_off,
+                                          // color: red,
+                                        ),
+                                      )
+                                    : IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            showPassword = true;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.visibility,
+                                          // color: red,
+                                        ),
+                                      ),
+                                contentPadding: const EdgeInsets.all(18.0),
+                                focusColor: red,
+                                filled: true,
+                                fillColor: Colors.transparent,
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: red),
+                                ),
+                                labelText: 'password'.tr,
+                                labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                              ),
+                              style: const TextStyle(color: Color(0xFF9C9C9C)),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  checkColor: Colors.white,
+                                  activeColor: red,
+                                  value: sendData['isRemember'],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      sendData['isRemember'] = !sendData['isRemember'];
+                                    });
+                                  },
+                                ),
+                                const Text(
+                                  'Запомнить',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed('/reset-password-init');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: red,
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Забыли пароль?',
+                                  style: TextStyle(
+                                    color: red,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
-                            child: Text(
-                              'Забыли пароль?',
-                              style: TextStyle(
-                                color: red,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: Container(
-        margin: EdgeInsets.only(left: 32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: widgets.Button(
-                text: 'Войти',
-                onClick: () {
-                  login();
-                },
+                  ),
+                ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          floatingActionButton: Container(
+            margin: EdgeInsets.only(left: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'Нет аккаунта'.tr + '?',
-                  style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/registration');
-                  },
-                  child: Text(
-                    'Регистрация'.tr,
-                    style: TextStyle(color: red, fontWeight: FontWeight.w500, fontSize: 16),
+                Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: widgets.Button(
+                    text: 'Войти',
+                    onClick: () {
+                      login();
+                    },
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Нет аккаунта'.tr + '?',
+                      style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/registration');
+                      },
+                      child: Text(
+                        'Регистрация'.tr,
+                        style: TextStyle(color: red, fontWeight: FontWeight.w500, fontSize: 16),
+                      ),
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
+            ),
+          ),
         ),
-      ),
+        loading
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.black.withOpacity(0.4),
+                child: SpinKitThreeBounce(
+                  color: red,
+                  size: 35.0,
+                  controller: animationController,
+                ),
+              )
+            : Container()
+      ],
     );
   }
 }
