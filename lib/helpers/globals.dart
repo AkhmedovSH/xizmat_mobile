@@ -19,6 +19,8 @@ Color inputColor = Color(0xFFF3F7FA);
 Color yellow = Color(0xFFF3A919);
 Color shimmerColor = Colors.grey[300]!;
 
+Color warning = Color.fromARGB(255, 251, 197, 35).withOpacity(0.5);
+
 dynamic locale = 'ru_RU';
 
 formatUnixTime(unixTime) {

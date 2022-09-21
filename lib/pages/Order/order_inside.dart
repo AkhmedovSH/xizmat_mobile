@@ -21,7 +21,7 @@ class _OrderInsideState extends State<OrderInside> {
   dynamic order = {};
 
   getOrder() async {
-    final response = await get('/services/mobile/api/order/${Get.arguments}');
+    final response = await get('/services/mobile/api/order/${Get.arguments['id']}');
     setState(() {
       order = response;
     });

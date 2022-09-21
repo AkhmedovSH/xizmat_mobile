@@ -15,7 +15,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
   dynamic users = [];
 
   getOrder() async {
-    final response = await get('/services/mobile/api/order-executor-list/1/${Get.arguments}');
+    final response = await get('/services/mobile/api/order-executor-list/1/${Get.arguments['id']}');
     setState(() {
       users = response;
     });
@@ -35,7 +35,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
           for (var i = 0; i < users.length; i++)
             GestureDetector(
               onTap: () {
-                Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments});
+                Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments['id']});
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: 15),

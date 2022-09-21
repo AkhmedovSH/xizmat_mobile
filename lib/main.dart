@@ -30,6 +30,7 @@ import 'pages/auth/reset_password/reset_password_finish.dart';
 
 import 'pages/dashboard/orders.dart';
 import 'pages/Order/order_inside.dart';
+import 'pages/Order/order_detail.dart';
 import 'pages/Order/order_by_manager.dart';
 import 'pages/Order/order_by_manager_success.dart';
 
@@ -113,6 +114,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/specialist-inside', page: () => const SpecialistInside()),
         GetPage(name: '/orders', page: () => const Orders()),
         GetPage(name: '/order-inside', page: () => const OrderInside()),
+        GetPage(name: '/order-detail', page: () => const OrderDetail()),
         GetPage(name: '/order-by-manager', page: () => const OrderByManager()),
         GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
         // Steps

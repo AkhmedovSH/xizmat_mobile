@@ -49,20 +49,23 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       });
     }
     final prefs = await SharedPreferences.getInstance();
+
     final response = await guestPost('/auth/login', sendData);
+    prefs.setString('access_token', response['access_token'].toString());
     if (response != null) {
       var account = await get('/services/uaa/api/account');
       var checkAccess = false;
-      for (var i = 0; i < account['authorities'].length; i++) {
-        if (account['authorities'][i] == 'ROLE_CLIENT') {
-          checkAccess = true;
+      if (account != null) {
+        for (var i = 0; i < account['authorities'].length; i++) {
+          if (account['authorities'][i] == 'ROLE_CLIENT') {
+            checkAccess = true;
+          }
         }
       }
       setState(() {
         loading = false;
       });
       if (checkAccess) {
-        prefs.setString('access_token', response['access_token'].toString());
         prefs.setString('user', jsonEncode(sendData));
         LocalNotificationService.initialize(context);
         FirebaseMessaging.instance.getInitialMessage().then((message) {
@@ -86,6 +89,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
         Get.offAllNamed('/');
       } else {
+        setState(() {
+          loading = false;
+        });
         showErrorToast('Нет доступа');
       }
     } else {

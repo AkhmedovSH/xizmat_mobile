@@ -145,17 +145,25 @@ class _OrdersState extends State<Orders> {
                   for (var i = 0; i < orders.length; i++)
                     GestureDetector(
                       onTap: () {
-                        if (currentIndex == 2) {
-                          setComplete(orders[i]);
-                        } else {
-                          Get.toNamed('/order-inside', arguments: orders[i]['id']);
+                        if (currentIndex == 1 || currentIndex == 2) {
+                          Get.toNamed('/order-detail', arguments: {
+                            'id': orders[i]['id'],
+                            'value': currentIndex,
+                          });
+                          return;
+                        }
+                        if (currentIndex == 0) {
+                          Get.toNamed('/order-inside', arguments: {
+                            'id': orders[i]['id'],
+                            'value': currentIndex,
+                          });
                         }
                       },
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(12, 0, 12, 10),
+                        margin: EdgeInsets.fromLTRB(12, 0, 12, 15),
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
-                          color: inputColor,
+                          color: orders[i]['orderStatus'] == 2 ? inputColor : warning,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         child: Column(

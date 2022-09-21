@@ -14,7 +14,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
   dynamic users = [];
 
   getOrder() async {
-    final response = await get('/services/mobile/api/order-executor-list/2/${Get.arguments}');
+    final response = await get('/services/mobile/api/order-executor-list/2/${Get.arguments['id']}');
     setState(() {
       users = response;
     });
@@ -33,7 +33,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
         for (var i = 0; i < users.length; i++)
           GestureDetector(
             onTap: () {
-              Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments, 'value': 2});
+              Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments['id'], 'value': 2});
             },
             child: Container(
               padding: EdgeInsets.all(15),

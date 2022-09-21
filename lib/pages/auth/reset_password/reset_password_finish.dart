@@ -10,7 +10,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../helpers/api.dart';
 import '../../../helpers/globals.dart';
-import '../../../components/widgets.dart';
 
 class ResetPasswordFinish extends StatefulWidget {
   const ResetPasswordFinish({Key? key}) : super(key: key);
@@ -65,22 +64,24 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
       children: [
         Scaffold(
           appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarIconBrightness: Brightness.dark,
-                statusBarColor: white,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: white,
+            ),
+            backgroundColor: white,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: black,
               ),
-              backgroundColor: white,
-              elevation: 0,
-              leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: black,
-                  ))),
+            ),
+          ),
           body: SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -131,25 +132,24 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                 },
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  prefixIcon: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.phone_iphone,
-                                      )),
-                                  contentPadding: const EdgeInsets.all(18.0),
-                                  focusColor: red,
-                                  filled: true,
-                                  fillColor: Colors.transparent,
                                   enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: red),
+                                  focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
-                                  labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                                  labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                  focusedErrorBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  errorBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  filled: true,
+                                  fillColor: white,
+                                  contentPadding: const EdgeInsets.all(16),
+                                  hintText: 'SMS kodni yozing',
+                                  hintStyle: TextStyle(color: grey),
                                 ),
-                                style: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
                             ),
                           ),
@@ -176,47 +176,39 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                 obscureText: showPassword,
                                 scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom / 1.5),
                                 decoration: InputDecoration(
-                                  prefixIcon: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.lock,
-                                    ),
-                                  ),
-                                  suffixIcon: showPassword
-                                      ? IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              showPassword = false;
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            Icons.visibility_off,
-                                            // color: red,
-                                          ),
-                                        )
-                                      : IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              showPassword = true;
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            Icons.visibility,
-                                            // color: red,
-                                          ),
-                                        ),
-                                  contentPadding: const EdgeInsets.all(18.0),
-                                  focusColor: red,
-                                  filled: true,
-                                  fillColor: Colors.transparent,
                                   enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: red),
+                                  focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
                                   ),
-                                  labelText: 'password'.tr,
-                                  labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                  focusedErrorBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  errorBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  filled: true,
+                                  fillColor: white,
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showPassword = !showPassword;
+                                      });
+                                    },
+                                    icon: showPassword
+                                        ? Icon(
+                                            Icons.visibility_off,
+                                            color: black,
+                                          )
+                                        : Icon(
+                                            Icons.visibility,
+                                            color: black,
+                                          ),
+                                  ),
+                                  contentPadding: const EdgeInsets.all(16),
+                                  hintText: 'Yangi parolingizni yozing',
+                                  hintStyle: TextStyle(color: grey),
                                 ),
                               ),
                             ),
@@ -229,15 +221,21 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
               ),
             ),
           ),
-          floatingActionButton: Container(
-            margin: EdgeInsets.only(left: 32),
-            child: Button(
-              text: 'Продолжить',
-              onClick: () {
-                if (_formKey.currentState!.validate()) {
-                  checkActivationCode();
-                }
-              },
+          floatingActionButton: GestureDetector(
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                checkActivationCode();
+              }
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 32),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                'Tizimga kirish',
+                style: TextStyle(color: white, fontWeight: FontWeight.w500, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
