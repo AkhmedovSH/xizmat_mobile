@@ -51,8 +51,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     final prefs = await SharedPreferences.getInstance();
 
     final response = await guestPost('/auth/login', sendData);
-    prefs.setString('access_token', response['access_token'].toString());
     if (response != null) {
+      prefs.setString('access_token', response['access_token'].toString());
       var account = await get('/services/uaa/api/account');
       var checkAccess = false;
       if (account != null) {
@@ -61,10 +61,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             checkAccess = true;
           }
         }
+      } else {
+        setState(() {
+          loading = false;
+        });
       }
-      setState(() {
-        loading = false;
-      });
       if (checkAccess) {
         prefs.setString('user', jsonEncode(sendData));
         LocalNotificationService.initialize(context);
@@ -130,8 +131,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     animationController!.dispose();
+    super.dispose();
   }
 
   @override

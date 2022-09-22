@@ -59,6 +59,12 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
   }
 
   @override
+  dispose() {
+    animationController!.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [

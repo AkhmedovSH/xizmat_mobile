@@ -66,6 +66,12 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
   }
 
   @override
+  dispose() {
+    animationController!.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
