@@ -20,6 +20,8 @@ Color yellow = Color(0xFFF3A919);
 Color shimmerColor = Colors.grey[300]!;
 
 Color warning = Color.fromARGB(255, 251, 197, 35).withOpacity(0.5);
+Color danger = const Color(0xFFf46a6a);
+Color success = const Color(0xFF34c38f);
 
 dynamic locale = 'ru_RU';
 
@@ -52,7 +54,7 @@ showSuccessToast(message) {
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.TOP,
     timeInSecForIosWeb: 1,
-    backgroundColor: const Color(0xFF28a745),
+    backgroundColor: const Color(0xFF34c38f),
     textColor: Colors.white,
     fontSize: 16.0,
   );

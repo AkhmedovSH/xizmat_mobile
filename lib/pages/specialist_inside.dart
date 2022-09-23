@@ -118,7 +118,13 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                               size: 18,
                                             ),
                                             Padding(padding: EdgeInsets.only(right: 5)),
-                                            Text('${user['rating']}', style: TextStyle(color: black, fontWeight: FontWeight.w500))
+                                            Text(
+                                              '${user['rating']}',
+                                              style: TextStyle(
+                                                color: black,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -129,7 +135,13 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                                             color: lightGrey,
                                           ),
                                           Padding(padding: EdgeInsets.only(right: 5)),
-                                          Text('${user['countComments']}', style: TextStyle(color: lightGrey, fontWeight: FontWeight.w500))
+                                          Text(
+                                            '${user['countComments']}',
+                                            style: TextStyle(
+                                              color: lightGrey,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ],
@@ -145,7 +157,10 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 25),
                     padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(color: inputColor, borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(
+                      color: inputColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +169,11 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                           margin: EdgeInsets.only(bottom: 5),
                           child: Text(
                             'О себе',
-                            style: TextStyle(color: black, fontSize: 15, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              color: black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                         Text(
@@ -181,21 +200,27 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                         for (var i = 0; i < passImageUrlList.length; i++)
                           Container(
                             margin: EdgeInsets.only(right: 15),
-                            child: Image.network(
-                              mainUrl + user['passImageUrlList'][i]['fileUrl'],
-                              height: 100,
-                              width: 80,
-                              fit: BoxFit.fill,
+                            child: InteractiveViewer(
+                              clipBehavior: Clip.none,
+                              child: Image.network(
+                                mainUrl + user['passImageUrlList'][i]['fileUrl'],
+                                height: 100,
+                                width: 80,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         for (var i = 0; i < certUrlList.length; i++)
                           Container(
                             margin: EdgeInsets.only(right: 15),
-                            child: Image.network(
-                              mainUrl + user['certUrlList'][i]['fileUrl'],
-                              height: 100,
-                              width: 80,
-                              fit: BoxFit.fill,
+                            child: InteractiveViewer(
+                              clipBehavior: Clip.none,
+                              child: Image.network(
+                                mainUrl + user['certUrlList'][i]['fileUrl'],
+                                height: 100,
+                                width: 80,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                       ],
@@ -334,6 +359,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
+                    height: 45,
                     // margin: EdgeInsets.only(right: 10),
                     child: ElevatedButton(
                       onPressed: () {
@@ -354,6 +380,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
+                    height: 45,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(

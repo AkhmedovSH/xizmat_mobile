@@ -52,7 +52,9 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
 
   sendAgain() async {
     final response = await guestPost('/services/mobile/api/register-client', Get.arguments);
-    if (response != null) {}
+    if (response != null) {
+      showSuccessToast('Код повторно отправлен');
+    }
   }
 
   @override
@@ -120,6 +122,7 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
                             sendData['activationCode'] = value;
                           });
                         },
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(18.0),
                           enabledBorder: OutlineInputBorder(
@@ -160,10 +163,6 @@ class _ConfirmationState extends State<Confirmation> with TickerProviderStateMix
                           ),
                         ),
                       ),
-                      Text(
-                        '1:59',
-                        style: TextStyle(color: Color(0xFF808080), fontWeight: FontWeight.w500),
-                      )
                     ],
                   )
                 ],

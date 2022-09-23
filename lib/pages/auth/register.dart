@@ -192,13 +192,37 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                                         sendData['password'] = value;
                                       });
                                     },
-                                    obscureText: true,
+                                    obscureText: showPassword,
                                     decoration: InputDecoration(
                                       prefixIcon: IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.lock,
-                                          )),
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.lock,
+                                        ),
+                                      ),
+                                      suffixIcon: showPassword
+                                          ? IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  showPassword = false;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.visibility_off,
+                                                // color: red,
+                                              ),
+                                            )
+                                          : IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  showPassword = true;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.visibility,
+                                                // color: red,
+                                              ),
+                                            ),
                                       contentPadding: const EdgeInsets.all(18.0),
                                       focusColor: red,
                                       filled: true,
@@ -243,13 +267,37 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                                       });
                                     },
                                     scrollPadding: const EdgeInsets.all(50),
-                                    obscureText: true,
+                                    obscureText: showConfirmPassword,
                                     decoration: InputDecoration(
                                       prefixIcon: IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.lock,
-                                          )),
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.lock,
+                                        ),
+                                      ),
+                                      suffixIcon: showConfirmPassword
+                                          ? IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  showConfirmPassword = false;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.visibility_off,
+                                                // color: red,
+                                              ),
+                                            )
+                                          : IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  showConfirmPassword = true;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                Icons.visibility,
+                                                // color: red,
+                                              ),
+                                            ),
                                       contentPadding: const EdgeInsets.all(18.0),
                                       focusColor: red,
                                       filled: true,

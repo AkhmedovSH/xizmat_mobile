@@ -116,9 +116,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (items[i]['optionType'] == 6) {
       return calendar(i);
     }
-    if (items[i]['optionType'] == 7) {
-      
-    }
+    if (items[i]['optionType'] == 7) {}
     if (items[i]['optionType'] == 8) {
       return range(i);
     }
@@ -968,7 +966,6 @@ class _StepLayoutState extends State<StepLayout> {
     });
     for (var i = 0; i < inputValues.length; i++) {
       setState(() {
-        inputValues[i]['controller'].text = '';
         inputValues[i]['focus'].unfocus();
         inputValues[i]['focus'] = FocusNode();
       });

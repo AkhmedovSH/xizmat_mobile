@@ -209,35 +209,122 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<ImageSource?> showImageSource(BuildContext context) async {
-    if (Platform.isIOS) {
-      return showCupertinoModalPopup<ImageSource>(
-        context: context,
-        builder: (context) => CupertinoActionSheet(
-          actions: [
-            CupertinoActionSheetAction(onPressed: () => Navigator.of(context).pop(ImageSource.camera), child: Text('kamera'.tr)),
-            CupertinoActionSheetAction(onPressed: () => Navigator.of(context).pop(ImageSource.gallery), child: Text('galereya'.tr))
-          ],
-        ),
-      );
-    } else {
-      return showModalBottomSheet(
-        context: context,
-        builder: (context) => Column(
+    return showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      builder: (context) => Container(
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 35),
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: Text('kamera'.tr),
-              onTap: () => Navigator.of(context).pop(ImageSource.camera),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Color(0xFFF2F2F2),
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Добавить из галереи'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.camera_alt,
+                      color: lightGrey,
+                      size: 18,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            ListTile(
-              leading: const Icon(Icons.image),
-              title: Text('galereya'.tr),
-              onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Color(0xFFF2F2F2),
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Сделать снимок'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.image,
+                      color: lightGrey,
+                      size: 18,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              style: TextButton.styleFrom(
+                minimumSize: Size.zero,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Отмена'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.close,
+                      color: lightGrey,
+                      size: 18,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
-      );
-    }
+      ),
+    );
   }
 }

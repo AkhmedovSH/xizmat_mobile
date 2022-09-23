@@ -117,7 +117,7 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
                               margin: EdgeInsets.only(top: 8),
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
-                                '${users[i]['infoText']}',
+                                '${users[i]['infoText'] ?? ''}',
                                 style: TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w500),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,

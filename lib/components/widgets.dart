@@ -22,7 +22,7 @@ class _ButtonState extends State<Button> {
           widget.onClick!();
         },
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(vertical: 20),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -104,7 +104,6 @@ class InputState extends State<Input> {
     );
   }
 }
-
 
 class Shimmer extends StatefulWidget {
   const Shimmer({Key? key}) : super(key: key);

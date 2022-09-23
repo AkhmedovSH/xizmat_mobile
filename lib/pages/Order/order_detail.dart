@@ -28,37 +28,47 @@ class _OrderDetailState extends State<OrderDetail> {
   CameraPosition kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
 
   orderCompleted() async {
-    final response = await post('/services/mobile/api/order-completed', {
-      "id": Get.arguments['id'],
-    });
-    if (response != null) {
-      Get.back(result: 2);
+    final result = await Get.toNamed('/order-review', arguments: Get.arguments['id']);
+    if (result != null) {
+      if (result == 2) {
+        Get.back(result: 2);
+      }
     }
   }
 
   getOrder() async {
-    final response = await get('/services/mobile/api/order/${Get.arguments['id']}');
+    if (Get.arguments['id'] != null) {
+      final response = await get('/services/mobile/api/order/${Get.arguments['id']}');
 
-    final GoogleMapController controller = await _controller.future;
-    dynamic newPosition = CameraPosition(
-      target: LatLng(response['gpsPointX'], response['gpsPointY']),
-      zoom: 14,
-    );
-    controller.animateCamera(CameraUpdate.newCameraPosition(newPosition));
+      if (response != null) {
+        final GoogleMapController controller = await _controller.future;
+        if (response['gpsPointX'] != null && response['gpsPointY'] != null) {
+          dynamic newPosition = CameraPosition(
+            target: LatLng(response['gpsPointX'], response['gpsPointY']),
+            zoom: 14,
+          );
+          controller.animateCamera(CameraUpdate.newCameraPosition(newPosition));
+        }
 
-    setState(() {
-      order = response;
-      markers.add(
-        Marker(
-          markerId: MarkerId(LatLng(response['gpsPointX'], response['gpsPointY']).toString()),
-          position: LatLng(response['gpsPointX'], response['gpsPointY']),
-        ),
-      );
-      kGooglePlex = CameraPosition(
-        target: LatLng(response['gpsPointX'], response['gpsPointY']),
-        zoom: 13.0,
-      );
-    });
+        setState(() {
+          order = response;
+          if (response['gpsPointX'] != null && response['gpsPointY'] != null) {
+            markers.add(
+              Marker(
+                markerId: MarkerId(LatLng(response['gpsPointX'], response['gpsPointY']).toString()),
+                position: LatLng(response['gpsPointX'], response['gpsPointY']),
+              ),
+            );
+            kGooglePlex = CameraPosition(
+              target: LatLng(response['gpsPointX'], response['gpsPointY']),
+              zoom: 13.0,
+            );
+          }
+        });
+      } else {
+        getOrder();
+      }
+    }
   }
 
   @override
@@ -195,7 +205,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     Container(
                       margin: EdgeInsets.only(bottom: 12),
                       child: Text(
-                        'Заказчик',
+                        'Исполнитель',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey),
                       ),
                     ),
@@ -259,7 +269,7 @@ class _OrderDetailState extends State<OrderDetail> {
                 ),
               ),
             ),
-            Get.arguments['value'] == 2 && order['orderStatus'] == 2
+            Get.arguments != null && Get.arguments != 2 && Get.arguments['value'] == 2 && order['orderStatus'] == 2
                 ? Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
@@ -278,10 +288,11 @@ class _OrderDetailState extends State<OrderDetail> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.9,
+                            height: 45,
                             // margin: EdgeInsets.only(right: 10),
                             child: ElevatedButton(
                               onPressed: () {
-                                if (Get.arguments['value'] == 1) {
+                                if (Get.arguments['value'] == 2) {
                                   orderCompleted();
                                 }
                               },
@@ -294,7 +305,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                 ),
                               ),
                               child: Text(
-                                Get.arguments['value'] == 1 ? 'Завершить' : 'Откликнуться',
+                                Get.arguments['value'] == 2 ? 'Подтвердить' : 'Откликнуться',
                                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
                               ),
                             ),

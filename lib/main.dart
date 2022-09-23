@@ -33,6 +33,7 @@ import 'pages/Order/order_inside.dart';
 import 'pages/Order/order_detail.dart';
 import 'pages/Order/order_by_manager.dart';
 import 'pages/Order/order_by_manager_success.dart';
+import 'pages/Order/order_review.dart';
 
 import 'pages/Steps/step_layout.dart';
 import 'pages/Steps/google_map.dart';
@@ -117,6 +118,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-detail', page: () => const OrderDetail()),
         GetPage(name: '/order-by-manager', page: () => const OrderByManager()),
         GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
+        GetPage(name: '/order-review', page: () => const OrderReview()),
         // Steps
         GetPage(name: '/step-layout', page: () => StepLayout()),
         GetPage(name: '/google-map', page: () => const Map()),

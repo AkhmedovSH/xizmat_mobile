@@ -86,6 +86,7 @@ class _OrdersState extends State<Orders> {
     });
     socket!.on('user-orders-1', (data) {
       if (mounted) {
+        print(data);
         setState(() => {orders = data});
       }
     });
@@ -144,13 +145,18 @@ class _OrdersState extends State<Orders> {
                 children: [
                   for (var i = 0; i < orders.length; i++)
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         if (currentIndex == 1 || currentIndex == 2) {
-                          Get.toNamed('/order-detail', arguments: {
+                          final result = await Get.toNamed('/order-detail', arguments: {
                             'id': orders[i]['id'],
                             'value': currentIndex,
                           });
-                          return;
+                          if (currentIndex == 1) {
+                            getOtklick();
+                          }
+                          if (currentIndex == 2) {
+                            getCompleted();
+                          }
                         }
                         if (currentIndex == 0) {
                           Get.toNamed('/order-inside', arguments: {
@@ -163,7 +169,7 @@ class _OrdersState extends State<Orders> {
                         margin: EdgeInsets.fromLTRB(12, 0, 12, 15),
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                         decoration: BoxDecoration(
-                          color: orders[i]['orderStatus'] == 2 ? inputColor : warning,
+                          color: orders[i]['orderStatus'] != 2 ? inputColor : warning,
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
                         child: Column(
@@ -175,7 +181,11 @@ class _OrdersState extends State<Orders> {
                                 children: [
                                   Text(
                                     '№ ${orders[i]['orderNumber']}',
-                                    style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                      color: black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   currentIndex == 0
                                       ? Row(
@@ -189,8 +199,13 @@ class _OrdersState extends State<Orders> {
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
-                                            Text('${orders[i]['countExecutors']} откликов',
-                                                style: TextStyle(color: Color(0xFFE32F45), fontWeight: FontWeight.w500)),
+                                            Text(
+                                              '${orders[i]['countExecutors']} откликов',
+                                              style: TextStyle(
+                                                color: Color(0xFFE32F45),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                           ],
                                         )
                                       : Container(),
