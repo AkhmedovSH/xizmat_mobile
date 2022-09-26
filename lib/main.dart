@@ -91,6 +91,15 @@ class MyApp extends StatelessWidget {
             primary: red,
           ),
         ),
+        timePickerTheme: TimePickerThemeData(
+          hourMinuteTextColor: red,
+          dialHandColor: Colors.transparent,
+          dayPeriodColor: red,
+          entryModeIconColor: red,
+          dialTextColor: red,
+          dayPeriodTextColor: red,
+          hourMinuteColor: Colors.transparent,
+        ),
       ),
       initialRoute: '/splash',
       getPages: [

@@ -52,8 +52,8 @@ class _SelectCityIdState extends State<SelectCityId> {
   }
 
   final kToday = DateTime.now();
-  final kFirstDay = DateTime(DateTime.now().year, DateTime.now().month - 3, DateTime.now().day);
-  final kLastDay = DateTime(DateTime.now().year, DateTime.now().month + 3, DateTime.now().day);
+  final kFirstDay = DateTime.now().subtract(Duration());
+  final kLastDay = DateTime(2100);
   final Set<DateTime> selectedDays = LinkedHashSet<DateTime>(
     equals: isSameDay,
   );
@@ -90,7 +90,7 @@ class _SelectCityIdState extends State<SelectCityId> {
       regions = response;
       regionId = response[0]['id'];
     });
-    getCities(response[0]['id']); 
+    getCities(response[0]['id']);
   }
 
   createOrder() async {
@@ -272,35 +272,24 @@ class _SelectCityIdState extends State<SelectCityId> {
                   //   return selectedDays.contains(day);
                   // },
                   // onDaySelected: _onDaySelected,
-                  onDaySelected: (selectedDay, focusedDay) {
+                  onDaySelected: (selectedDay, focusedDay) async {
                     setState(() {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
                     });
-                    showCupertinoModalPopup<void>(
+                    final result = await showTimePicker(
                       context: context,
-                      builder: (BuildContext context) => Container(
-                        height: 216,
-                        padding: const EdgeInsets.only(top: 6.0),
-                        // The Bottom margin is provided to align the popup above the system navigation bar.
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        color: white,
-                        child: SafeArea(
-                          top: false,
-                          child: CupertinoDatePicker(
-                            initialDateTime: DateTime.now(),
-                            mode: CupertinoDatePickerMode.time,
-                            use24hFormat: true,
-                            onDateTimeChanged: (DateTime newTime) {
-                              print(newTime);
-                              setState(() => stepOrder['executionTime'] = DateFormat('HH:mm').format(newTime));
-                            },
-                          ),
-                        ),
-                      ),
+                      initialTime: TimeOfDay.now(),
+                      builder: (context, child) {
+                        return MediaQuery(
+                          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                          child: child ?? Container(),
+                        );
+                      },
                     );
+                    if (result != null) {
+                      stepOrder['executionTime'] = result.format(context);
+                    }
 
                     // DatePicker.showTimePicker(context, showTitleActions: true, showSecondsColumn: false, onChanged: (date) {
                     //   print('confirm $date');
@@ -316,7 +305,7 @@ class _SelectCityIdState extends State<SelectCityId> {
                 ),
               ),
               SizedBox(
-                height: 70,
+                height: 80,
               )
             ],
           ),

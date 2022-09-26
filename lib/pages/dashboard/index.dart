@@ -316,7 +316,7 @@ class _IndexState extends State<Index> {
                     ),
                   ),
                   GridView.count(
-                    childAspectRatio: 0.92,
+                    childAspectRatio: 0.82,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     primary: false,
