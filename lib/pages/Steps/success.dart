@@ -47,7 +47,7 @@ class _SuccessState extends State<Success> {
             margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed('/', arguments: 1);
+                  Get.offAllNamed('/', arguments: 1);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 16),

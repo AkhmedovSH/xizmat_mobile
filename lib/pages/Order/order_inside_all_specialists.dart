@@ -33,7 +33,12 @@ class _OrderInsideAllSpecialistsState extends State<OrderInsideAllSpecialists> {
         for (var i = 0; i < users.length; i++)
           GestureDetector(
             onTap: () {
-              Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments['id'], 'value': 2});
+              Get.toNamed('/specialist-inside', arguments: {
+                'userId': users[i]['id'],
+                'orderId': Get.arguments['id'],
+                'value': 2,
+                'interested': !users[i]['interested'],
+              });
             },
             child: Container(
               padding: EdgeInsets.all(15),

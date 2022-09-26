@@ -31,13 +31,13 @@ class _SpecialistInsideState extends State<SpecialistInside> {
     if (Get.arguments['value'] == 2) {
       final interested = await post('/services/mobile/api/order-interested', sendData);
       if (interested != null) {
-        Get.back();
+        Get.offAllNamed('/', arguments: 1);
       }
       return;
     }
     final response = await post('/services/mobile/api/order-accept', sendData);
     if (response != null) {
-      Get.back();
+      Get.offAllNamed('/', arguments: 1);
     }
   }
 
@@ -335,6 +335,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                     margin: EdgeInsets.only(top: 10),
                     child: widgets.OutlinedButton(
                       text: 'Показать еще отзывы',
+                      onClick: () {},
                     ),
                   )
                 ],
@@ -343,64 +344,66 @@ class _SpecialistInsideState extends State<SpecialistInside> {
           ),
           Positioned(
             bottom: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-                boxShadow: const [
-                  BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: 45,
-                    // margin: EdgeInsets.only(right: 10),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        orderAccept();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        'Предложить заказ',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
+            child: Get.arguments['interested']
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                        elevation: 0,
-                        primary: white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: black),
-                          borderRadius: BorderRadius.circular(7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: 45,
+                          // margin: EdgeInsets.only(right: 10),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              orderAccept();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'Предложить заказ',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Написать',
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
-                      ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 45,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                              elevation: 0,
+                              primary: white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: black),
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                            ),
+                            child: Text(
+                              'Написать',
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   )
-                ],
-              ),
-            ),
+                : Container(),
           )
         ],
       ),

@@ -136,90 +136,103 @@ class _OrderInsideState extends State<OrderInside> {
               ),
             ),
           ),
-          // Positioned(
-          //   bottom: 0,
-          //   child: Container(
-          //     width: MediaQuery.of(context).size.width,
-          //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-          //     decoration: BoxDecoration(
-          //       color: white,
-          //       borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-          //       boxShadow: const [
-          //         BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
-          //       ],
-          //     ),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         SizedBox(
-          //           width: MediaQuery.of(context).size.width * 0.5,
-          //           // margin: EdgeInsets.only(right: 10),
-          //           child: ElevatedButton(
-          //             onPressed: () {},
-          //             style: ElevatedButton.styleFrom(
-          //               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          //               elevation: 0,
-          //               primary: white,
-          //               shape: RoundedRectangleBorder(
-          //                 side: BorderSide(color: red),
-          //                 borderRadius: BorderRadius.circular(7),
-          //               ),
-          //             ),
-          //             child: Text(
-          //               'Написать специалисту',
-          //               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: red),
-          //             ),
-          //           ),
-          //         ),
-          //         SizedBox(
-          //           width: MediaQuery.of(context).size.width * 0.4,
-          //           child: ElevatedButton(
-          //             onPressed: () {},
-          //             style: ElevatedButton.styleFrom(
-          //               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          //               elevation: 0,
-          //               primary: white,
-          //               shape: RoundedRectangleBorder(
-          //                 side: BorderSide(color: black),
-          //                 borderRadius: BorderRadius.circular(7),
-          //               ),
-          //             ),
-          //             child: Text(
-          //               'Отменить заказ',
-          //               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
-          //             ),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // )
+          order['orderStatus'] == 0
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black38, spreadRadius: -3, blurRadius: 5),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * 0.5,
+                        //   height: 45,
+                        //   // margin: EdgeInsets.only(right: 10),
+                        //   child: ElevatedButton(
+                        //     onPressed: () {
+                        //       Get.toNamed('/', arguments: {
+                        //         'id': order['categoryChildId'],
+                        //         'value': 1,
+                        //       });
+                        //     },
+                        //     style: ElevatedButton.styleFrom(
+                        //       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                        //       elevation: 0,
+                        //       primary: white,
+                        //       shape: RoundedRectangleBorder(
+                        //         side: BorderSide(color: red),
+                        //         borderRadius: BorderRadius.circular(7),
+                        //       ),
+                        //     ),
+                        //     child: Text(
+                        //       'Редактировать заказ',
+                        //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: red),
+                        //     ),
+                        //   ),
+                        // ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 45,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              orderCancel();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                              elevation: 0,
+                              primary: white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: black),
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                            ),
+                            child: Text(
+                              'Удалить заказ',
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : Container()
         ],
       ),
-      floatingActionButton: Container(
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(left: 32),
-        height: 45,
-        child: ElevatedButton(
-          onPressed: () {
-            orderCancel();
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            elevation: 0,
-            primary: danger,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: danger),
-              borderRadius: BorderRadius.circular(7),
-            ),
-          ),
-          child: Text(
-            'Отменить заказ',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: white),
-          ),
-        ),
-      ),
+      // floatingActionButton: order['orderStatus'] == 0
+      //     ? Container(
+      //         width: MediaQuery.of(context).size.width,
+      //         margin: EdgeInsets.only(left: 32),
+      //         height: 45,
+      //         child: ElevatedButton(
+      //           onPressed: () {
+      //             orderCancel();
+      //           },
+      //           style: ElevatedButton.styleFrom(
+      //             padding: EdgeInsets.symmetric(vertical: 8),
+      //             elevation: 0,
+      //             primary: danger,
+      //             shape: RoundedRectangleBorder(
+      //               side: BorderSide(color: danger),
+      //               borderRadius: BorderRadius.circular(7),
+      //             ),
+      //           ),
+      //           child: Text(
+      //             'Удалить заказ',
+      //             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: white),
+      //           ),
+      //         ),
+      //       )
+      //     : Container(),
     );
   }
 }

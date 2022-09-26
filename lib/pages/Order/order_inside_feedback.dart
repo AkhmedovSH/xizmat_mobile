@@ -35,7 +35,14 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
           for (var i = 0; i < users.length; i++)
             GestureDetector(
               onTap: () {
-                Get.toNamed('/specialist-inside', arguments: {'userId': users[i]['id'], 'orderId': Get.arguments['id']});
+                Get.toNamed(
+                  '/specialist-inside',
+                  arguments: {
+                    'userId': users[i]['id'],
+                    'orderId': Get.arguments['id'],
+                    'interested': !users[i]['interested'],
+                  },
+                );
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: 15),
