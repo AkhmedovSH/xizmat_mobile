@@ -21,12 +21,20 @@ class _ButtonState extends State<Button> {
         onPressed: () {
           widget.onClick!();
         },
+
+        // onPressed: widget.onClick == null
+        //     ? () {
+        //         widget.onClick!();
+        //       }
+        //     : null,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 20),
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
+          // onSurface: red,
+          // disabledBackgroundColor: widget.onClick == null ? red.withOpacity(0.5) : red,
         ),
         child: Text(
           '${widget.text}',

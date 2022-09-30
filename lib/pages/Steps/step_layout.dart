@@ -163,8 +163,7 @@ class _StepLayoutState extends State<StepLayout> {
         currentStep = currentStep - 1;
         stepOrder['cityId'] = 10;
       });
-      final result = await Get.toNamed('/select-city', arguments: stepOrder);
-      print(item);
+      final result = await Get.toNamed('/select-region', arguments: {'stepOrder': stepOrder});
       if (result == null) {
         setState(() {
           loading = false;

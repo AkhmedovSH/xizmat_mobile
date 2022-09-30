@@ -1,37 +1,40 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/foundation.dart';
+
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../../helpers/globals.dart';
-import '../../components/widgets.dart' as widgets;
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 
 import '../../components/simple_app_bar.dart';
+import '../../components/widgets.dart';
 
 class Map extends StatefulWidget {
   const Map({Key? key}) : super(key: key);
 
   @override
-  _MapState createState() => _MapState();
+  State<Map> createState() => _MapState();
 }
 
 class _MapState extends State<Map> {
   final Completer<GoogleMapController> _controller = Completer();
-  List<Marker> marker = [Marker(markerId: MarkerId(LatLng(41.311081, 69.240562).toString()), position: LatLng(41.311081, 69.240562))];
-  double latitude = 0.0;
-  double longitude = 0.0;
-  // var geolacator = geolocator.Geolocator();
-
-  static final CameraPosition _kGooglePlex = CameraPosition(target: LatLng(41.311081, 69.240562), zoom: 13.0);
-  static final CameraPosition _kLake =
-      CameraPosition(bearing: 192.8334901395799, target: LatLng(41.311081, 69.240562), tilt: 59.440717697143555, zoom: 19.0);
+  dynamic position = {
+    'gpsPointX': '',
+    'gpsPointY': '',
+  };
+  List<Marker> marker = [];
+  CameraPosition kGooglePlex = CameraPosition(
+    target: LatLng(41.311081, 69.240562),
+    zoom: 13.0,
+  );
 
   handleTab(LatLng tappedPoint) {
     setState(() {
-      latitude = tappedPoint.latitude;
-      longitude = tappedPoint.longitude;
+      position['gpsPointX'] = tappedPoint.latitude.toString();
+      position['gpsPointY'] = tappedPoint.longitude.toString();
       marker = [];
       marker.add(
         Marker(markerId: MarkerId(tappedPoint.toString()), position: tappedPoint),
@@ -39,102 +42,85 @@ class _MapState extends State<Map> {
     });
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-    setState(() {
-      marker = [];
-      marker.add(
-        Marker(markerId: MarkerId(LatLng(41.311081, 69.240562).toString()), position: LatLng(41.311081, 69.240562)),
-      );
-    });
+  getPermission() async {
+    // if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
+    //   print('has permission');
+    // } else {
+    //   print('else');
+    // }
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+    if (permission != LocationPermission.deniedForever && permission != LocationPermission.denied) {
+      final GoogleMapController controller = await _controller.future;
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      if (mounted) {
+        setState(() {
+          handleTab(LatLng(position.latitude, position.longitude));
+          kGooglePlex = CameraPosition(
+            target: LatLng(position.latitude, position.longitude),
+            zoom: 13.0,
+          );
+          controller.animateCamera(CameraUpdate.newCameraPosition(kGooglePlex));
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    getPermission();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: SimpleAppBar(
-        title: 'Добавить геолокацию',
-        appBar: AppBar(),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - AppBar().preferredSize.height,
-                  child: GoogleMap(
-                    myLocationButtonEnabled: true,
-                    zoomControlsEnabled: false,
-                    mapType: MapType.normal,
-                    initialCameraPosition: _kGooglePlex,
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
-                    markers: Set.from(marker),
-                    onTap: handleTab,
-                  ),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: SimpleAppBar(
+            appBar: AppBar(),
+            title: 'Выберите место назначения',
+            bg: Colors.transparent,
+            style: false,
+          ),
+          body: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: GoogleMap(
+              myLocationButtonEnabled: true,
+              zoomControlsEnabled: false,
+              mapType: MapType.normal,
+              compassEnabled: false,
+              myLocationEnabled: true,
+              mapToolbarEnabled: false,
+              initialCameraPosition: kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                Factory<OneSequenceGestureRecognizer>(
+                  () => EagerGestureRecognizer(),
                 ),
-                Positioned(
-                    bottom: 0,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 19),
-                      decoration: BoxDecoration(
-                          color: white, borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              'Укажите адрес',
-                              style: TextStyle(color: black, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(bottom: 20),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.search),
-                                suffixIcon: Icon(
-                                  Icons.cancel_sharp,
-                                  color: red,
-                                  size: 20,
-                                ),
-                                contentPadding: EdgeInsets.all(8.0),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: BorderSide(color: Color(0xFFECECEC), width: 0.0),
-                                ),
-                                filled: true,
-                                fillColor: Color(0xFFF7F7F7),
-                                hintText: 'Улица Бахтияра',
-                                hintStyle: TextStyle(color: black, fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              style: TextStyle(color: lightGrey),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: widgets.Button(
-                              text: 'Подтвердить адрес',
-                              onClick: () {
-                                Get.toNamed('/step-4');
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ))
-              ],
-            )
-          ],
+              },
+              markers: Set.from(marker),
+              onTap: handleTab,
+            ),
+          ),
+          floatingActionButton: Container(
+            margin: EdgeInsets.only(left: 32),
+            child: Button(
+              onClick: () {
+                setState(() {
+                  Get.arguments['stepOrder']['gpsPointX'] = position['gpsPointX'];
+                  Get.arguments['stepOrder']['gpsPointY'] = position['gpsPointY'];
+                });
+                Get.toNamed('/calendar', arguments: {'stepOrder': Get.arguments['stepOrder']});
+              },
+              text: 'Продолжить',
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

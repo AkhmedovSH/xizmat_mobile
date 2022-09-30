@@ -43,11 +43,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     setState(() {
       loading = true;
     });
-    if (maskFormatter.getUnmaskedText().length > 3) {
-      setState(() {
-        sendData['username'] = '998' + maskFormatter.getUnmaskedText();
-      });
-    }
     final prefs = await SharedPreferences.getInstance();
 
     final response = await guestPost('/auth/login', sendData);
@@ -355,7 +350,16 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   child: widgets.Button(
                     text: 'Войти',
                     onClick: () {
-                      login();
+                      if (maskFormatter.getUnmaskedText().length > 3) {
+                        setState(() {
+                          sendData['username'] = '998' + maskFormatter.getUnmaskedText();
+                        });
+                      }
+                      if (sendData['username'].length == 12) {
+                        if (_formKey.currentState!.validate()) {
+                          login();
+                        }
+                      }
                     },
                   ),
                 ),

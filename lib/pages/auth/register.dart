@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
     setState(() {
       loading = true;
     });
-    final checkLogin = await guestGet('/services/executor/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
+    final checkLogin = await guestGet('/services/mobile/api/check-login?login=${'998' + maskFormatter.getUnmaskedText()}');
     if (checkLogin == null) {
       setState(() {
         loading = false;
@@ -348,8 +348,10 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
             child: Button(
               text: 'Продолжить',
               onClick: () {
-                if (_formKey.currentState!.validate()) {
-                  register();
+                if (sendData['phone'].length == 17) {
+                  if (_formKey.currentState!.validate()) {
+                    register();
+                  }
                 }
               },
             ),

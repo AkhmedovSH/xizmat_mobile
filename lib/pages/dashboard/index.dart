@@ -370,19 +370,19 @@ class _IndexState extends State<Index> {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: double.infinity,
-                                      child: Text(
-                                        '123 44 +',
-                                        style: TextStyle(
-                                          color: Color(0xFF9C9C9C),
-                                          fontFamily: 'ProDisplay',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
+                                    // const SizedBox(
+                                    //   width: double.infinity,
+                                    //   child: Text(
+                                    //     '123 44 +',
+                                    //     style: TextStyle(
+                                    //       color: Color(0xFF9C9C9C),
+                                    //       fontFamily: 'ProDisplay',
+                                    //       fontSize: 14,
+                                    //       fontWeight: FontWeight.bold,
+                                    //     ),
+                                    //     textAlign: TextAlign.center,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 Positioned(
@@ -395,7 +395,7 @@ class _IndexState extends State<Index> {
                                     ),
                                     padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
                                     child: const Icon(
-                                      Icons.build,
+                                      Icons.check,
                                       color: Color(0xFF9C9C9C),
                                     ),
                                   ),

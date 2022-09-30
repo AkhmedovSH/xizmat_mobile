@@ -14,7 +14,7 @@ import 'pages/dashboard/dashboard.dart';
 import 'pages/fast_search.dart';
 import 'pages/tutor.dart';
 import 'pages/dashboard/support.dart';
-import 'pages/Steps/success.dart';
+import 'pages/order/success.dart';
 import 'pages/specialist_inside.dart';
 import 'pages/dashboard/profile/profile.dart';
 import 'pages/dashboard/profile/setting_profile.dart';
@@ -29,16 +29,17 @@ import 'pages/auth/reset_password/reset_password_init.dart';
 import 'pages/auth/reset_password/reset_password_finish.dart';
 
 import 'pages/dashboard/orders.dart';
-import 'pages/Order/order_inside.dart';
-import 'pages/Order/order_detail.dart';
-import 'pages/Order/order_by_manager.dart';
-import 'pages/Order/order_by_manager_success.dart';
-import 'pages/Order/order_review.dart';
+import 'pages/order/order_inside.dart';
+import 'pages/order/order_detail.dart';
+import 'pages/order/order_by_manager.dart';
+import 'pages/order/order_by_manager_success.dart';
+import 'pages/order/order_review.dart';
 
-import 'pages/Steps/step_layout.dart';
-import 'pages/Steps/google_map.dart';
-import 'pages/Steps/search_result.dart';
-import 'pages/Steps/select_city_id.dart';
+import 'pages/steps/step_layout.dart';
+import 'pages/steps/google_map.dart';
+import 'pages/steps/select_region.dart';
+import 'pages/steps/select_city.dart';
+import 'pages/steps/calendar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -131,8 +132,9 @@ class MyApp extends StatelessWidget {
         // Steps
         GetPage(name: '/step-layout', page: () => StepLayout()),
         GetPage(name: '/google-map', page: () => const Map()),
-        GetPage(name: '/search-result', page: () => const SearchResult(), transition: Transition.downToUp),
-        GetPage(name: '/select-city', page: () => const SelectCityId()),
+        GetPage(name: '/select-region', page: () => const SelectRegion()),
+        GetPage(name: '/select-city', page: () => const SelectCity()),
+        GetPage(name: '/calendar', page: () => const Calendar()),
       ],
       // home: Index(),
     );
