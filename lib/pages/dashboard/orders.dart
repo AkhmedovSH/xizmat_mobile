@@ -127,15 +127,15 @@ class _OrdersState extends State<Orders> {
                     labelStyle: TextStyle(fontSize: 14.0, color: black, fontWeight: FontWeight.w500),
                     unselectedLabelStyle: TextStyle(fontSize: 14.0, color: Color(0xFF9B9B9B)),
                     // controller: ,
-                    tabs: const [
+                    tabs: [
                       Tab(
-                        text: 'Новые',
+                        text: 'new'.tr,
                       ),
                       Tab(
-                        text: 'Текущие',
+                        text: 'current'.tr,
                       ),
                       Tab(
-                        text: 'Завершенные',
+                        text: 'completed'.tr,
                       ),
                     ],
                   ),
@@ -200,7 +200,7 @@ class _OrdersState extends State<Orders> {
                                               ),
                                             ),
                                             Text(
-                                              '${orders[i]['countExecutors']} откликов',
+                                              '${orders[i]['countExecutors']}' + 'feedback'.tr,
                                               style: TextStyle(
                                                 color: Color(0xFFE32F45),
                                                 fontWeight: FontWeight.w500,

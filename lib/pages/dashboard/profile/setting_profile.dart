@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:xizmat/components/simple_app_bar.dart';
 import 'package:xizmat/helpers/api.dart';
@@ -18,7 +19,11 @@ class ProfileSetting extends StatefulWidget {
 
 class _ProfileSettingState extends State<ProfileSetting> {
   final _formKey = GlobalKey<FormState>();
-  var maskFormatter = MaskTextInputFormatter(mask: '+998 ## ### ## ##', filter: {'#': RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
+  var maskFormatter = MaskTextInputFormatter(
+    mask: '+998 ## ### ## ##',
+    filter: {'#': RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy,
+  );
   dynamic sendData = {
     "name": "",
     "phone": "",
@@ -39,6 +44,30 @@ class _ProfileSettingState extends State<ProfileSetting> {
   List regions = [];
 
   List cities = [];
+
+  List languages = [
+    {'id': '1', 'name': 'Uzbek', 'locale': const Locale('uz-Latn-UZ', ''), 'active': false},
+    {'id': '2', 'name': 'Русский', 'locale': const Locale('ru', ''), 'active': false},
+  ];
+  dynamic currentLocale = '1';
+
+  changeLocale(id) async {
+    int newIndex = int.parse(id);
+    final prefs = await SharedPreferences.getInstance();
+    Get.updateLocale(languages[newIndex - 1]['locale']);
+    prefs.setInt('locale', int.parse(languages[newIndex - 1]['id']));
+    setState(() {
+      currentLocale = id;
+      if (Get.locale == const Locale('ru', '')) {
+        languages[1]['active'] = true;
+        languages[0]['active'] = false;
+      }
+      if (Get.locale == const Locale('uz-Latn-UZ', '')) {
+        languages[0]['active'] = true;
+        languages[1]['active'] = false;
+      }
+    });
+  }
 
   selectDate(BuildContext context) async {
     DateTime date = DateTime.now();
@@ -137,11 +166,26 @@ class _ProfileSettingState extends State<ProfileSetting> {
     });
   }
 
+  getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt('locale') != null) {
+      setState(() {
+        if (prefs.getInt('locale') == 1) {
+          currentLocale = '1';
+        }
+        if (prefs.getInt('locale') == 2) {
+          currentLocale = '2';
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     // getRegions();
     getUser();
+    getData();
   }
 
   @override
@@ -150,7 +194,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
       extendBodyBehindAppBar: true,
       appBar: SimpleAppBar(
         appBar: AppBar(),
-        title: 'Настройка',
+        title: 'setting'.tr,
         leading: true,
       ),
       body: SingleChildScrollView(
@@ -202,7 +246,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: red),
                               ),
-                              labelText: 'Имя'.tr,
+                              labelText: 'name'.tr,
                               labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                             style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -307,7 +351,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                 errorStyle: TextStyle(
                                   color: Theme.of(context).errorColor,
                                 ),
-                                labelText: 'Дата рождения'.tr,
+                                labelText: 'date_of_birth'.tr,
                                 labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
                               style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -346,7 +390,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: red),
                               ),
-                              labelText: 'Пол'.tr,
+                              labelText: 'gender'.tr,
                               labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                             style: const TextStyle(color: Color(0xFF9C9C9C)),
@@ -401,6 +445,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                           : Container(),
                       cities.isNotEmpty && sendData['cityId'] != '0' && sendData['cityId'] != 0
                           ? Container(
+                              margin: const EdgeInsets.only(bottom: 25),
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 border: Border(
@@ -441,6 +486,44 @@ class _ProfileSettingState extends State<ProfileSetting> {
                               ),
                             )
                           : Container(),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: const Color(0xFF9C9C9C),
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        child: ButtonTheme(
+                          alignedDropdown: true,
+                          child: DropdownButton(
+                            value: currentLocale,
+                            isExpanded: true,
+                            hint: Text('${languages[0]['name']}'),
+                            icon: const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              size: 28,
+                              color: Color(0xFF9C9C9C),
+                            ),
+                            iconSize: 24,
+                            iconEnabledColor: grey,
+                            elevation: 16,
+                            style: const TextStyle(color: Color(0xFF313131)),
+                            underline: Container(),
+                            onChanged: (newValue) {
+                              changeLocale(newValue);
+                            },
+                            items: languages.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: '${item['id']}',
+                                child: Text(item['name']),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 70,
                       )
@@ -460,7 +543,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
             Container(
               margin: EdgeInsets.only(bottom: 10),
               child: widgets.Button(
-                text: 'Сохранить',
+                text: 'save'.tr,
                 onClick: () {
                   if (_formKey.currentState!.validate()) {
                     updateUser();

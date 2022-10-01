@@ -45,7 +45,7 @@ class _FastSearchState extends State<FastSearch> {
                   ),
                   filled: true,
                   fillColor: Color(0xFFF7F7F7),
-                  hintText: 'Специалист или услуга',
+                  hintText: 'specialist_or_service'.tr,
                   hintStyle: TextStyle(color: lightGrey),
                 ),
               ),
@@ -64,12 +64,12 @@ class _FastSearchState extends State<FastSearch> {
                 labelStyle: TextStyle(fontSize: 16.0, color: Color(0xFF272727), fontWeight: FontWeight.bold),
                 unselectedLabelStyle: TextStyle(fontSize: 16.0, color: Color(0xFF9B9B9B)),
                 // controller: ,
-                tabs: const [
+                tabs: [
                   Tab(
-                    text: 'Категории услуг',
+                    text: 'service_categories'.tr,
                   ),
                   Tab(
-                    text: 'История',
+                    text: 'story'.tr,
                   ),
                 ],
               ),
@@ -87,7 +87,7 @@ class _FastSearchState extends State<FastSearch> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Репетитор',
+                          'tutor'.tr,
                           style: TextStyle(color: black, fontSize: 18),
                         ),
                         Icon(Icons.arrow_forward, color: black)

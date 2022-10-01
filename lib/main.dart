@@ -61,8 +61,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: Messages(),
-      locale: const Locale('ru', 'RU'),
-      fallbackLocale: const Locale('uz', 'UZ'),
+      locale: const Locale('ru', ''),
+      fallbackLocale: const Locale('uz-Latn-UZ', ''),
       // localizationsDelegates: const [
       //   GlobalMaterialLocalizations.delegate,
       //   GlobalCupertinoLocalizations.delegate,

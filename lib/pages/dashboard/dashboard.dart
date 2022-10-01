@@ -119,15 +119,34 @@ class _DashboardState extends State<Dashboard> {
             backgroundColor: white,
             selectedItemColor: black,
             selectedIconTheme: IconThemeData(color: black),
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: 'Главная'),
-              BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFF828282)), label: 'Мои заказы'),
-              BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFF828282)), label: 'Профиль'),
-              BottomNavigationBarItem(icon: Icon(Icons.headset_mic, color: Color(0xFF828282)), label: 'Поддержка'),
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'home'.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.list_alt,
+                  color: Color(0xFF828282),
+                ),
+                label: 'my_orders'.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                  color: Color(0xFF828282),
+                ),
+                label: 'profile'.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.headset_mic,
+                  color: Color(0xFF828282),
+                ),
+                label: 'support'.tr,
+              ),
             ],
           ),
         ),

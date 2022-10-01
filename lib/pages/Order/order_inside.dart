@@ -90,7 +90,7 @@ class _OrderInsideState extends State<OrderInside> {
                                 Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Отклики',
+                                    'responses'.tr,
                                     style: TextStyle(fontSize: 16, color: currentIndex == 0 ? black : lightGrey, fontWeight: FontWeight.w600),
                                     textAlign: TextAlign.center,
                                   ),
@@ -115,7 +115,7 @@ class _OrderInsideState extends State<OrderInside> {
                                 Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Все специалисты',
+                                    'all_specialists'.tr,
                                     style: TextStyle(fontSize: 16, color: currentIndex == 1 ? black : lightGrey, fontWeight: FontWeight.w600),
                                     textAlign: TextAlign.center,
                                   ),
@@ -153,34 +153,39 @@ class _OrderInsideState extends State<OrderInside> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // SizedBox(
-                        //   width: MediaQuery.of(context).size.width * 0.5,
-                        //   height: 45,
-                        //   // margin: EdgeInsets.only(right: 10),
-                        //   child: ElevatedButton(
-                        //     onPressed: () {
-                        //       Get.toNamed('/', arguments: {
-                        //         'id': order['categoryChildId'],
-                        //         'value': 1,
-                        //       });
-                        //     },
-                        //     style: ElevatedButton.styleFrom(
-                        //       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                        //       elevation: 0,
-                        //       primary: white,
-                        //       shape: RoundedRectangleBorder(
-                        //         side: BorderSide(color: red),
-                        //         borderRadius: BorderRadius.circular(7),
-                        //       ),
-                        //     ),
-                        //     child: Text(
-                        //       'Редактировать заказ',
-                        //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: red),
-                        //     ),
-                        //   ),
-                        // ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: 45,
+                          // margin: EdgeInsets.only(right: 10),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              print(order);
+                              final category = await get(
+                                '/services/mobile/api/category-child-list/${order['categoryId']}',
+                              );
+                              print(category);
+                              Get.toNamed('/step-layout', arguments: {
+                                'category': category[0],
+                                'value': 1,
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                              elevation: 0,
+                              primary: white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: red),
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                            ),
+                            child: Text(
+                              'edit_order'.tr,
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: red),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
                           height: 45,
                           child: ElevatedButton(
                             onPressed: () {
@@ -196,7 +201,7 @@ class _OrderInsideState extends State<OrderInside> {
                               ),
                             ),
                             child: Text(
-                              'Удалить заказ',
+                              'delete_order'.tr,
                               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
                             ),
                           ),

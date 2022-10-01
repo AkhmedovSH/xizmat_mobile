@@ -68,7 +68,7 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                       ),
                       filled: true,
                       fillColor: Color(0xFFF7F7F7),
-                      hintText: 'Введите услугу',
+                      hintText: 'enter_a_service'.tr,
                       hintStyle: TextStyle(color: lightGrey),
                     ),
                   ),
@@ -78,7 +78,7 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                     for (var i = 0; i < categories.length; i++)
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed('/step-layout', arguments: categories[i]);
+                          Get.toNamed('/step-layout', arguments: {'category': categories[i]});
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 21),

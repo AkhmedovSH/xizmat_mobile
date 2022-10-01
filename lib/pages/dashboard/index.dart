@@ -16,7 +16,6 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _SearchDemoSearchDelegate delegate = _SearchDemoSearchDelegate();
 
   dynamic topCategories = [];
   dynamic categories = [];
@@ -142,7 +141,7 @@ class _IndexState extends State<Index> {
                   bottom: 120,
                   child: user['name'] != null
                       ? Text(
-                          'Здравствуйте, ${user['name'] ?? ''}',
+                          'hello'.tr + ', ${user['name'] ?? ''}',
                           style: TextStyle(color: grey, fontWeight: FontWeight.w500),
                         )
                       : Text(''),
@@ -150,7 +149,7 @@ class _IndexState extends State<Index> {
                 Positioned(
                     bottom: 80,
                     child: Text(
-                      'Какую услугу ищете?',
+                      'what_service_are_you_looking_for'.tr + '?',
                       style: TextStyle(color: grey, fontWeight: FontWeight.bold, fontSize: 24),
                     )),
                 Positioned(
@@ -201,7 +200,7 @@ class _IndexState extends State<Index> {
                           ),
                           filled: true,
                           fillColor: inputColor,
-                          hintText: 'Специалист или услуга',
+                          hintText: 'specialist_or_service'.tr,
                           hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                         ),
                         style: TextStyle(color: lightGrey),
@@ -222,7 +221,7 @@ class _IndexState extends State<Index> {
                         Container(
                           padding: const EdgeInsets.all(0),
                           child: Text(
-                            'Популярное',
+                            'popular'.tr,
                             style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -235,7 +234,7 @@ class _IndexState extends State<Index> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Все категории',
+                                  'all_categories'.tr,
                                   style: TextStyle(color: red, fontSize: 15, fontWeight: FontWeight.w600),
                                 ),
                                 Icon(
@@ -311,7 +310,7 @@ class _IndexState extends State<Index> {
                       bottom: 15,
                     ),
                     child: Text(
-                      'Услуги',
+                      'services'.tr,
                       style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -415,110 +414,6 @@ class _IndexState extends State<Index> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _SearchDemoSearchDelegate extends SearchDelegate {
-  final List<int> _data = List<int>.generate(100001, (int i) => i).reversed.toList();
-  final List<int> _history = <int>[42607, 85604, 66374, 44, 174];
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      tooltip: 'Back',
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
-      onPressed: () {
-        Get.back();
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final Iterable<int> suggestions = query.isEmpty ? _history : _data.where((int i) => '$i'.startsWith(query));
-
-    return _SuggestionList(
-      query: query,
-      suggestions: suggestions.map<String>((int i) => '$i').toList(),
-      onSelected: (String suggestion) {
-        query = suggestion;
-        showResults(context);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    final int? searched = int.tryParse(query);
-    if (searched == null || !_data.contains(searched)) {
-      return const Center(
-        child: Text(
-          'Не найдено',
-          textAlign: TextAlign.center,
-        ),
-      );
-    }
-
-    return ListView(
-      children: const [
-        Text('data'),
-        Text('data'),
-        Text('data'),
-      ],
-    );
-  }
-
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return <Widget>[
-      if (query.isNotEmpty)
-        IconButton(
-          tooltip: 'Clear',
-          icon: const Icon(Icons.clear),
-          onPressed: () {
-            query = '';
-            showSuggestions(context);
-          },
-        ),
-    ];
-  }
-}
-
-class _SuggestionList extends StatelessWidget {
-  const _SuggestionList({this.suggestions, this.query, this.onSelected});
-
-  final List<String>? suggestions;
-  final String? query;
-  final ValueChanged<String>? onSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: suggestions!.length,
-      itemBuilder: (BuildContext context, int i) {
-        final String suggestion = suggestions![i];
-        return ListTile(
-          title: RichText(
-            text: TextSpan(
-              text: suggestion.substring(0, query!.length),
-              // style: theme.textTheme.subhead.copyWith(fontWeight: FontWeight.bold),
-              children: const [
-                TextSpan(
-                  text: '111',
-                  style: TextStyle(),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            onSelected!(suggestion);
-          },
-        );
-      },
     );
   }
 }

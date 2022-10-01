@@ -79,7 +79,7 @@ class _MapState extends State<Map> {
         Scaffold(
           appBar: SimpleAppBar(
             appBar: AppBar(),
-            title: 'Выберите место назначения',
+            title: 'choose_your_destination'.tr,
             bg: Colors.transparent,
             style: false,
           ),
@@ -116,7 +116,7 @@ class _MapState extends State<Map> {
                 });
                 Get.toNamed('/calendar', arguments: {'stepOrder': Get.arguments['stepOrder']});
               },
-              text: 'Продолжить',
+              text: 'proceed'.tr,
             ),
           ),
         ),

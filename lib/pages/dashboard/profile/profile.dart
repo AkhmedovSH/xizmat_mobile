@@ -24,17 +24,17 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   dynamic profile = [
     {
-      'name': 'Уведомления',
+      'name': 'notifications'.tr,
       'icon': Icon(Icons.notifications),
       'function': () {},
     },
     {
-      'name': 'Настройки',
+      'name': 'settings'.tr,
       'icon': Icon(Icons.settings),
       'function': () {},
     },
     {
-      'name': 'Выйти',
+      'name': 'go_out'.tr,
       'icon': Icon(Icons.logout),
     },
   ];
@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Поддержка',
+        title: 'support'.tr,
         appBar: AppBar(),
         leading: false,
       ),
@@ -148,7 +148,7 @@ class _ProfileState extends State<Profile> {
               ),
               Center(
                 child: Text(
-                  '${user['name'] ?? 'Не задано'}',
+                  '${user['name'] ?? 'not_set'.tr}',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: black),
                 ),
               ),
@@ -241,7 +241,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Добавить из галереи'.tr,
+                      'add_from_gallery'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -278,7 +278,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Сделать снимок'.tr,
+                      'take_photo'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,
@@ -307,7 +307,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Отмена'.tr,
+                      'cancel'.tr,
                       style: TextStyle(
                         fontSize: 16,
                         color: black,

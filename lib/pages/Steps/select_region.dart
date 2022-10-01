@@ -59,7 +59,7 @@ class _SelectRegionState extends State<SelectRegion> {
     return Scaffold(
         appBar: SimpleAppBar(
           appBar: AppBar(),
-          title: 'Выберите районы',
+          title: 'select_districts'.tr,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -113,7 +113,7 @@ class _SelectRegionState extends State<SelectRegion> {
             onClick: () {
               setRegions();
             },
-            text: 'Продолжить',
+            text: 'proceed'.tr,
           ),
         ));
   }

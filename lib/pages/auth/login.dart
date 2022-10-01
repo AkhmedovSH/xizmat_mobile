@@ -140,203 +140,212 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             appBar: AppBar(),
             leading: false,
           ),
-          body: SafeArea(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      'Добро пожаловать в xizmat'.tr,
-                      style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
+          body: SingleChildScrollView(
+            child: SafeArea(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        'welcome_to_xizmat'.tr,
+                        style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      'Войдите в систему чтобы продолжить'.tr,
-                      style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        'sign_in_to_continue'.tr,
+                        style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
                     ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 20),
-                          child: Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: ThemeData().colorScheme.copyWith(
-                                    primary: red,
-                                  ),
-                            ),
-                            child: TextFormField(
-                              inputFormatters: [maskFormatter],
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'required_field'.tr;
-                                }
-                                return null;
-                              },
-                              controller: data['username'],
-                              onChanged: (value) {
-                                if (value == '') {
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ThemeData().colorScheme.copyWith(
+                                      primary: red,
+                                    ),
+                              ),
+                              child: TextFormField(
+                                inputFormatters: [maskFormatter],
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'required_field'.tr;
+                                  }
+                                  return null;
+                                },
+                                controller: data['username'],
+                                onChanged: (value) {
+                                  if (value == '') {
+                                    setState(() {
+                                      data['username'].text = '+998 ';
+                                      data['username'].selection = TextSelection.fromPosition(
+                                        TextPosition(
+                                          offset: data['username'].text.length,
+                                        ),
+                                      );
+                                    });
+                                  }
                                   setState(() {
-                                    data['username'].text = '+998 ';
-                                    data['username'].selection = TextSelection.fromPosition(TextPosition(offset: data['username'].text.length));
+                                    sendData['username'] = value;
                                   });
-                                }
-                                setState(() {
-                                  sendData['username'] = value;
-                                });
-                              },
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                prefixIcon: IconButton(
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  prefixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.phone_iphone,
+                                      )),
+                                  contentPadding: const EdgeInsets.all(18.0),
+                                  focusColor: red,
+                                  filled: true,
+                                  fillColor: Colors.transparent,
+                                  enabledBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: red),
+                                  ),
+                                  labelText: 'telephone_number'.tr + '(9* *** ** **)',
+                                  labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                ),
+                                style: const TextStyle(color: Color(0xFF9C9C9C)),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 25),
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ThemeData().colorScheme.copyWith(
+                                      primary: red,
+                                    ),
+                              ),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'required_field'.tr;
+                                  }
+                                  return null;
+                                },
+                                controller: data['password'],
+                                onChanged: (value) {
+                                  setState(() {
+                                    sendData['password'] = value;
+                                  });
+                                },
+                                obscureText: showPassword,
+                                decoration: InputDecoration(
+                                  prefixIcon: IconButton(
                                     onPressed: () {},
                                     icon: const Icon(
-                                      Icons.phone_iphone,
-                                    )),
-                                contentPadding: const EdgeInsets.all(18.0),
-                                focusColor: red,
-                                filled: true,
-                                fillColor: Colors.transparent,
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                      Icons.lock,
+                                    ),
+                                  ),
+                                  suffixIcon: showPassword
+                                      ? IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              showPassword = false;
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.visibility_off,
+                                            // color: red,
+                                          ),
+                                        )
+                                      : IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              showPassword = true;
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            Icons.visibility,
+                                            // color: red,
+                                          ),
+                                        ),
+                                  contentPadding: const EdgeInsets.all(18.0),
+                                  focusColor: red,
+                                  filled: true,
+                                  fillColor: Colors.transparent,
+                                  enabledBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF9C9C9C)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: red),
+                                  ),
+                                  labelText: 'password'.tr,
+                                  labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: red),
-                                ),
-                                labelText: 'telephone_number'.tr + '(9* *** ** **)',
-                                labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
+                                style: const TextStyle(color: Color(0xFF9C9C9C)),
                               ),
-                              style: const TextStyle(color: Color(0xFF9C9C9C)),
                             ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 25),
-                          child: Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: ThemeData().colorScheme.copyWith(
-                                    primary: red,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Checkbox(
+                                    checkColor: Colors.white,
+                                    activeColor: red,
+                                    value: sendData['isRemember'],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        sendData['isRemember'] = !sendData['isRemember'];
+                                      });
+                                    },
                                   ),
-                            ),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'required_field'.tr;
-                                }
-                                return null;
-                              },
-                              controller: data['password'],
-                              onChanged: (value) {
-                                setState(() {
-                                  sendData['password'] = value;
-                                });
-                              },
-                              obscureText: showPassword,
-                              decoration: InputDecoration(
-                                prefixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.lock,
+                                  Text(
+                                    'remember'.tr,
+                                    style: TextStyle(fontWeight: FontWeight.w500),
                                   ),
-                                ),
-                                suffixIcon: showPassword
-                                    ? IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            showPassword = false;
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.visibility_off,
-                                          // color: red,
-                                        ),
-                                      )
-                                    : IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            showPassword = true;
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          Icons.visibility,
-                                          // color: red,
-                                        ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed('/reset-password-init');
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: red,
+                                        width: 1,
                                       ),
-                                contentPadding: const EdgeInsets.all(18.0),
-                                focusColor: red,
-                                filled: true,
-                                fillColor: Colors.transparent,
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xFF9C9C9C)),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: red),
-                                ),
-                                labelText: 'password'.tr,
-                                labelStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                              ),
-                              style: const TextStyle(color: Color(0xFF9C9C9C)),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Checkbox(
-                                  checkColor: Colors.white,
-                                  activeColor: red,
-                                  value: sendData['isRemember'],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      sendData['isRemember'] = !sendData['isRemember'];
-                                    });
-                                  },
-                                ),
-                                const Text(
-                                  'Запомнить',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed('/reset-password-init');
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'forgot_your_password'.tr + '?',
+                                    style: TextStyle(
                                       color: red,
-                                      width: 1,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                child: Text(
-                                  'Забыли пароль?',
-                                  style: TextStyle(
-                                    color: red,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          SizedBox(
+                            height: 120,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -348,7 +357,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: widgets.Button(
-                    text: 'Войти',
+                    text: 'login'.tr,
                     onClick: () {
                       if (maskFormatter.getUnmaskedText().length > 3) {
                         setState(() {
@@ -361,13 +370,14 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         }
                       }
                     },
+                    disabled: sendData['username'].length == 12 || sendData['username'].length == 17 && sendData['password'].length > 3,
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Нет аккаунта'.tr + '?',
+                      'no_account'.tr + '?',
                       style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
                     ),
                     GestureDetector(
@@ -375,12 +385,12 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         Get.toNamed('/registration');
                       },
                       child: Text(
-                        'Регистрация'.tr,
+                        'registration'.tr,
                         style: TextStyle(color: red, fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

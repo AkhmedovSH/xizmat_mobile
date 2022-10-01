@@ -104,7 +104,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     Container(
                       margin: EdgeInsets.only(bottom: 15),
                       child: Text(
-                        'бюджет: ${order['orderAmount'] ?? '0'} сум',
+                        'budget'.tr + ': ${order['orderAmount'] ?? '0'} сум',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Дата исполнения',
+                        'due_date'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -137,7 +137,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     Container(
                       margin: EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Место оказания услуги',
+                        'place_of_service'.tr,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -205,7 +205,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     Container(
                       margin: EdgeInsets.only(bottom: 12),
                       child: Text(
-                        'Исполнитель',
+                        'executor'.tr,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey),
                       ),
                     ),
@@ -250,7 +250,7 @@ class _OrderDetailState extends State<OrderDetail> {
                     Container(
                       margin: EdgeInsets.only(bottom: 12),
                       child: Text(
-                        'Примечание',
+                        'note'.tr,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: globals.lightGrey),
                       ),
                     ),
@@ -305,7 +305,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                 ),
                               ),
                               child: Text(
-                                Get.arguments['value'] == 2 ? 'Подтвердить' : 'Откликнуться',
+                                Get.arguments['value'] == 2 ? 'confirm'.tr : 'respond'.tr,
                                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: globals.white),
                               ),
                             ),

@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
       children: [
         Scaffold(
           appBar: SimpleAppBar(
-            title: 'Регистрация',
+            title: 'registration'.tr,
             appBar: AppBar(),
           ),
           body: SingleChildScrollView(
@@ -323,7 +323,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                     child: Container(
                       margin: EdgeInsets.only(bottom: 11),
                       child: Text(
-                        'Есть аккаунт?',
+                        'have_an_account'.tr + '?',
                         style: TextStyle(color: lightGrey, fontSize: 17),
                       ),
                     ),
@@ -334,7 +334,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                         Get.toNamed('/login');
                       },
                       child: Text(
-                        'Войти',
+                        'login'.tr,
                         style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -346,7 +346,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
           floatingActionButton: Container(
             margin: EdgeInsets.only(left: 32),
             child: Button(
-              text: 'Продолжить',
+              text: 'proceed'.tr,
               onClick: () {
                 if (sendData['phone'].length == 17) {
                   if (_formKey.currentState!.validate()) {
@@ -354,6 +354,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                   }
                 }
               },
+              disabled: sendData['phone'].length == 17,
             ),
           ),
         ),

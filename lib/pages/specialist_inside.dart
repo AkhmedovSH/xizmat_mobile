@@ -62,7 +62,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Об исполнителе',
+        title: 'about_the_executor'.tr,
         appBar: AppBar(),
       ),
       body: Stack(
@@ -168,7 +168,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                         Container(
                           margin: EdgeInsets.only(bottom: 5),
                           child: Text(
-                            'О себе',
+                            'about_myself'.tr,
                             style: TextStyle(
                               color: black,
                               fontSize: 15,
@@ -177,7 +177,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                           ),
                         ),
                         Text(
-                          'Имею большой опыт работы в Ташкенте с 2017 года в сфере репетиторства.',
+                          '',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
@@ -189,7 +189,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                   Container(
                     margin: EdgeInsets.only(bottom: 15),
                     child: Text(
-                      'Сертификаты и документы',
+                      'certificates_and_documents'.tr,
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                     ),
                   ),
@@ -229,7 +229,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                   Container(
                     margin: EdgeInsets.only(top: 25, bottom: 15),
                     child: Text(
-                      'Услуги',
+                      'services'.tr,
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
                   ),
@@ -253,7 +253,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                   Container(
                     margin: EdgeInsets.only(top: 25, bottom: 15),
                     child: Text(
-                      'Портфолио',
+                      'portfolio'.tr,
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
                   ),
@@ -334,7 +334,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: widgets.OutlinedButton(
-                      text: 'Показать еще отзывы',
+                      text: 'show_more_reviews'.tr,
                       onClick: () {},
                     ),
                   )
@@ -375,7 +375,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                               ),
                             ),
                             child: Text(
-                              'Предложить заказ',
+                              'offer_an_order'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                             ),
                           ),
@@ -395,7 +395,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                               ),
                             ),
                             child: Text(
-                              'Написать',
+                              'write'.tr,
                               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: black),
                             ),
                           ),

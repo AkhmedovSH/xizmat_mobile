@@ -57,7 +57,7 @@ class _CalendarState extends State<Calendar> {
     return Scaffold(
       appBar: SimpleAppBar(
         appBar: AppBar(),
-        title: 'Выберите день',
+        title: 'choose_day'.tr,
         bg: Colors.transparent,
         style: false,
       ),
@@ -148,7 +148,7 @@ class _CalendarState extends State<Calendar> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 32),
         child: Button(
-          text: 'Продолжить',
+          text: 'proceed'.tr,
           onClick: () {
             createOrder();
           },

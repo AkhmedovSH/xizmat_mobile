@@ -5,7 +5,8 @@ import '../helpers/globals.dart';
 class Button extends StatefulWidget {
   final String? text;
   final Function? onClick;
-  const Button({Key? key, this.text, this.onClick}) : super(key: key);
+  final bool? disabled;
+  const Button({Key? key, this.text, this.onClick, this.disabled = true}) : super(key: key);
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -18,15 +19,14 @@ class _ButtonState extends State<Button> {
       margin: EdgeInsets.all(0),
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
-          widget.onClick!();
-        },
-
-        // onPressed: widget.onClick == null
-        //     ? () {
-        //         widget.onClick!();
-        //       }
-        //     : null,
+        // onPressed: () {
+        //   widget.onClick!();
+        // },
+        onPressed: widget.disabled!
+            ? () {
+                widget.onClick!();
+              }
+            : null,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 20),
           elevation: 0,
@@ -34,11 +34,15 @@ class _ButtonState extends State<Button> {
             borderRadius: BorderRadius.circular(12),
           ),
           // onSurface: red,
-          // disabledBackgroundColor: widget.onClick == null ? red.withOpacity(0.5) : red,
+          disabledBackgroundColor: red.withOpacity(0.5),
         ),
         child: Text(
           '${widget.text}',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+            color: white,
+          ),
         ),
       ),
     );

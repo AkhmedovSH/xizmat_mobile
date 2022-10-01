@@ -77,7 +77,7 @@ class _OrderInsideFeedbackState extends State<OrderInsideFeedback> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Специалист окликнулся',
+                              'the_specialist_called_out'.tr,
                               style: TextStyle(fontSize: 14, color: lightGrey, fontWeight: FontWeight.w600),
                             ),
                             Padding(padding: EdgeInsets.only(top: 5)),

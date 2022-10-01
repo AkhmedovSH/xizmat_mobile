@@ -145,11 +145,11 @@ class _StepLayoutState extends State<StepLayout> {
       position = {};
       inputValues = [];
       rangeData = {
-        'fromTextEditingController': TextEditingController(text: 'от  сум'),
-        'toTextEditingController': TextEditingController(text: 'до  сум')
+        'fromTextEditingController': TextEditingController(text: 'from_sum'.tr),
+        'toTextEditingController': TextEditingController(text: 'to_sum'.tr)
       };
-      fromTextEditingController = TextEditingController(text: 'от  сум');
-      toTextEditingController = TextEditingController(text: 'до  сум');
+      fromTextEditingController = TextEditingController(text: 'from_sum'.tr);
+      toTextEditingController = TextEditingController(text: 'to_sum'.tr);
     });
   }
 
@@ -213,7 +213,7 @@ class _StepLayoutState extends State<StepLayout> {
     super.initState();
     setState(() {
       shimmerLoading = true;
-      category = Get.arguments;
+      category = Get.arguments['category'];
     });
     getStep();
   }
@@ -320,7 +320,7 @@ class _StepLayoutState extends State<StepLayout> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Продолжить',
+                  'proceed'.tr,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                 ),
                 loading
@@ -491,7 +491,7 @@ class _StepLayoutState extends State<StepLayout> {
       }
     }
     if (optionList.length == 0) {
-      showWarningToast('Выберите один вариант');
+      showWarningToast('choose_one_option'.tr);
       return;
     }
     setState(() {
@@ -637,7 +637,7 @@ class _StepLayoutState extends State<StepLayout> {
 
   nextStepMap() async {
     if (position['gpsPointX'] == null || position['gpsPointX'] == '') {
-      showWarningToast('Выберите место назначения');
+      showWarningToast('choose_your_destination'.tr);
       return;
     }
     // setState(() {
@@ -724,7 +724,7 @@ class _StepLayoutState extends State<StepLayout> {
 
   nextStepCalendar() async {
     if (days.length == 0) {
-      showWarningToast('Выберите дату');
+      showWarningToast('select_date'.tr);
       return;
     }
     setState(() {
@@ -826,12 +826,12 @@ class _StepLayoutState extends State<StepLayout> {
   );
 
   dynamic rangeData = {
-    'fromTextEditingController': TextEditingController(text: 'от  сум'),
-    'toTextEditingController': TextEditingController(text: 'до  сум')
+    'fromTextEditingController': TextEditingController(text: 'from_sum'.tr),
+    'toTextEditingController': TextEditingController(text: 'to_sum'.tr)
   };
 
-  TextEditingController fromTextEditingController = TextEditingController(text: 'от  сум');
-  TextEditingController toTextEditingController = TextEditingController(text: 'до  сум');
+  TextEditingController fromTextEditingController = TextEditingController(text: 'from_sum'.tr);
+  TextEditingController toTextEditingController = TextEditingController(text: 'to_sum'.tr);
 
   nextStepRange() async {
     setState(() {
@@ -880,7 +880,8 @@ class _StepLayoutState extends State<StepLayout> {
               onChanged: (value) {
                 if (value.replaceAll(RegExp(r'[^0-9]'), '') != '0') {
                   setState(() {
-                    rangeData['fromTextEditingController'].text = 'от ' + value.replaceAll(RegExp(r'[^0-9]'), '').toString() + ' сум';
+                    rangeData['fromTextEditingController'].text =
+                        'from'.tr + ' ' + value.replaceAll(RegExp(r'[^0-9]'), '').toString() + ' ' + 'sum'.tr;
                     rangeData['fromTextEditingController'].selection = TextSelection.fromPosition(
                       TextPosition(offset: rangeData['fromTextEditingController'].text.length - 4),
                     );
@@ -895,7 +896,7 @@ class _StepLayoutState extends State<StepLayout> {
                 }
               },
               keyboardType: TextInputType.number,
-              decoration: inputDecoration(hintText: 'от 0 сум'),
+              decoration: inputDecoration(hintText: 'from'.tr + '0' + 'sum'.tr),
               style: TextStyle(color: lightGrey),
             ),
           ),
@@ -1166,9 +1167,9 @@ class _StepLayoutState extends State<StepLayout> {
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
-                    'Добавить фото или файл',
+                    'add_photo_or_file'.tr,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -1221,7 +1222,7 @@ class _StepLayoutState extends State<StepLayout> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Добавить из галереи'.tr,
+                              'add_from_gallery'.tr,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: black,
@@ -1251,7 +1252,7 @@ class _StepLayoutState extends State<StepLayout> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Сделать снимок'.tr,
+                              'take_photo'.tr,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: black,
@@ -1280,7 +1281,7 @@ class _StepLayoutState extends State<StepLayout> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Отмена'.tr,
+                              'cancel'.tr,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: black,
@@ -1313,7 +1314,7 @@ class _StepLayoutState extends State<StepLayout> {
     ),
   );
 
-  inputDecoration({hintText = 'Другое'}) {
+  inputDecoration({hintText = ''}) {
     return InputDecoration(
       contentPadding: EdgeInsets.all(12.0),
       enabledBorder: OutlineInputBorder(

@@ -21,7 +21,7 @@ class _SuccessState extends State<Success> {
           Container(
             margin: EdgeInsets.only(bottom: 7),
             child: Text(
-              'Ваш заказ размещен!',
+              'your_order_has_been_placed'.tr + '!',
               style: TextStyle(color: Color(0xFF363F4D), fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -37,7 +37,7 @@ class _SuccessState extends State<Success> {
           Container(
             margin: EdgeInsets.only(bottom: 22, left: 29, right: 29),
             child: Text(
-              'Вы можете отслеживать отклики на заказ в вашем профиле в разделе \n“Мои заказы”!',
+              'you_can_track_order_responses_in_your_profile_under_my_orders'.tr + '!',
               style: TextStyle(color: lightGrey, fontSize: 16, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
@@ -57,7 +57,7 @@ class _SuccessState extends State<Success> {
                   ),
                 ),
                 child: Text(
-                  'Мои заказы',
+                  'my_orders'.tr,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   textAlign: TextAlign.center,
                 )),
@@ -72,7 +72,7 @@ class _SuccessState extends State<Success> {
                 child: Container(
                   margin: EdgeInsets.only(right: 5),
                   child: Text(
-                    'Выбрать другую услугу',
+                    'choose_another_service'.tr,
                     style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),

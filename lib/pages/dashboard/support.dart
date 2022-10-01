@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 import '../../helpers/globals.dart';
 import '../../../components/simple_app_bar.dart';
@@ -17,7 +18,7 @@ class _SupportState extends State<Support> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Поддержка',
+        title: 'support'.tr,
         appBar: AppBar(),
         leading: false,
       ),
@@ -28,7 +29,7 @@ class _SupportState extends State<Support> {
           Container(
             margin: EdgeInsets.only(bottom: 25),
             child: Text(
-              'Телефон: +998 55 500 00 89',
+              'telephone'.tr + ': +998 55 500 00 89',
               style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -52,13 +53,13 @@ class _SupportState extends State<Support> {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.phone),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
-                    'Позвонить',
+                    'call'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   )
                 ],

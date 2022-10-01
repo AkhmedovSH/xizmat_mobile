@@ -36,7 +36,7 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(
-        title: 'Категории услуг',
+        title: 'service_categories'.tr,
         appBar: AppBar(),
       ),
       body: SingleChildScrollView(

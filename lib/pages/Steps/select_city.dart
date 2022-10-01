@@ -60,7 +60,7 @@ class _SelectCityState extends State<SelectCity> {
     return Scaffold(
       appBar: SimpleAppBar(
         appBar: AppBar(),
-        title: 'Выберите город',
+        title: 'choose_city'.tr,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -114,7 +114,7 @@ class _SelectCityState extends State<SelectCity> {
           onClick: () {
             setcities();
           },
-          text: 'Продолжить',
+          text: 'proceed'.tr,
         ),
       ),
     );

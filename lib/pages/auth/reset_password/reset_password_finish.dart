@@ -98,15 +98,23 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: Text(
-                        'Imtihon',
-                        style: TextStyle(color: black, fontSize: 22, fontWeight: FontWeight.w700),
+                        '',
+                        style: TextStyle(
+                          color: black,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(bottom: 20),
                       child: Text(
-                        'Raqamingizga yuborgan kodni yozing',
-                        style: TextStyle(color: black, fontSize: 16, fontWeight: FontWeight.w600),
+                        'enter_the_code_sent_to_your_number'.tr,
+                        style: TextStyle(
+                          color: black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                     Form(
@@ -125,7 +133,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                 inputFormatters: [maskFormatter],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Majburiy maydon';
+                                    return 'required_field'.tr;
                                   }
                                   return null;
                                 },
@@ -153,7 +161,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                   filled: true,
                                   fillColor: white,
                                   contentPadding: const EdgeInsets.all(16),
-                                  hintText: 'SMS kodni yozing',
+                                  hintText: 'enter_sms_code'.tr,
                                   hintStyle: TextStyle(color: grey),
                                 ),
                               ),
@@ -170,7 +178,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Majburiy maydon';
+                                    return 'required_field'.tr;
                                   }
                                   return null;
                                 },
@@ -213,7 +221,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
                                           ),
                                   ),
                                   contentPadding: const EdgeInsets.all(16),
-                                  hintText: 'Yangi parolingizni yozing',
+                                  hintText: 'enter_a_new_password'.tr,
                                   hintStyle: TextStyle(color: grey),
                                 ),
                               ),
@@ -238,7 +246,7 @@ class _ResetPasswordFinishState extends State<ResetPasswordFinish> with TickerPr
               padding: const EdgeInsets.symmetric(vertical: 16),
               width: MediaQuery.of(context).size.width,
               child: Text(
-                'Tizimga kirish',
+                'save'.tr,
                 style: TextStyle(color: white, fontWeight: FontWeight.w500, fontSize: 16),
                 textAlign: TextAlign.center,
               ),
