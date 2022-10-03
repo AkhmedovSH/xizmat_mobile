@@ -108,7 +108,7 @@ class _IndexState extends State<Index> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
           statusBarColor: Colors.transparent,
         ),
         backgroundColor: Colors.transparent,

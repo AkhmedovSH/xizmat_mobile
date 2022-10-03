@@ -192,6 +192,7 @@ class _ResetPasswordInitState extends State<ResetPasswordInit> with TickerProvid
                   resetPasswordInit();
                 }
               },
+              disabled: data['phone'].text.length >= 17,
             ),
           ),
         ),

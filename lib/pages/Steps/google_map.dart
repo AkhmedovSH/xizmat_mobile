@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/foundation.dart';
 
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+
+import '../../helpers/globals.dart';
 
 import '../../components/simple_app_bar.dart';
 import '../../components/widgets.dart';
@@ -42,6 +43,24 @@ class _MapState extends State<Map> {
     });
   }
 
+  void getCurrentLocation() async {
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+    if (permission != LocationPermission.deniedForever && permission != LocationPermission.denied) {
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      final GoogleMapController controller = await _controller.future;
+      dynamic newPosition = CameraPosition(
+        target: LatLng(position.latitude, position.longitude),
+        zoom: 17,
+      );
+      setState(() {
+        Get.arguments['stepOrder']['gpsPointX'] = position.latitude.toString();
+        Get.arguments['stepOrder']['gpsPointY'] = position.longitude.toString();
+      });
+      controller.animateCamera(CameraUpdate.newCameraPosition(newPosition));
+    }
+  }
+
   getPermission() async {
     // if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
     //   print('has permission');
@@ -74,39 +93,62 @@ class _MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: SimpleAppBar(
-            appBar: AppBar(),
-            title: 'choose_your_destination'.tr,
-            bg: Colors.transparent,
-            style: false,
-          ),
-          body: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: GoogleMap(
-              myLocationButtonEnabled: true,
-              zoomControlsEnabled: false,
-              mapType: MapType.normal,
-              compassEnabled: false,
-              myLocationEnabled: true,
-              mapToolbarEnabled: false,
-              initialCameraPosition: kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-                Factory<OneSequenceGestureRecognizer>(
-                  () => EagerGestureRecognizer(),
-                ),
-              },
-              markers: Set.from(marker),
-              onTap: handleTab,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: SimpleAppBar(
+        appBar: AppBar(),
+        title: 'choose_your_destination'.tr,
+        bg: Colors.transparent,
+        style: false,
+      ),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: GoogleMap(
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: false,
+          mapType: MapType.normal,
+          compassEnabled: false,
+          myLocationEnabled: true,
+          mapToolbarEnabled: false,
+          initialCameraPosition: kGooglePlex,
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+            Factory<OneSequenceGestureRecognizer>(
+              () => EagerGestureRecognizer(),
+            ),
+          },
+          markers: Set.from(marker),
+          onTap: handleTab,
+        ),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          GestureDetector(
+            onTap: () {
+              getCurrentLocation();
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 20),
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: red,
+              ),
+              child: Icon(
+                Icons.my_location,
+                color: white,
+              ),
             ),
           ),
-          floatingActionButton: Container(
+          Container(
             margin: EdgeInsets.only(left: 32),
             child: Button(
               onClick: () {
@@ -119,8 +161,8 @@ class _MapState extends State<Map> {
               text: 'proceed'.tr,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

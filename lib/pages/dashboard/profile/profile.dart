@@ -34,6 +34,11 @@ class _ProfileState extends State<Profile> {
       'function': () {},
     },
     {
+      'name': 'language'.tr,
+      'icon': Icon(Icons.settings),
+      'function': () {},
+    },
+    {
       'name': 'go_out'.tr,
       'icon': Icon(Icons.logout),
     },
@@ -166,7 +171,7 @@ class _ProfileState extends State<Profile> {
             bottom: 0,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.5,
               decoration:
                   BoxDecoration(color: inputColor, borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
@@ -181,6 +186,9 @@ class _ProfileState extends State<Profile> {
                         }
                         if (i == 2) {
                           logout();
+                        }
+                        if (i == 3) {
+                          openLanguageDialog();
                         }
                       },
                       child: Container(
@@ -205,6 +213,34 @@ class _ProfileState extends State<Profile> {
           )
         ],
       ),
+    );
+  }
+
+  openLanguageDialog() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

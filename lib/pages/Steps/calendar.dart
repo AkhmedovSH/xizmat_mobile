@@ -61,88 +61,103 @@ class _CalendarState extends State<Calendar> {
         bg: Colors.transparent,
         style: false,
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(0),
-              margin: EdgeInsets.only(top: 20),
-              width: MediaQuery.of(context).size.width,
-              child: TableCalendar(
-                locale: locale,
-                firstDay: kFirstDay,
-                lastDay: kLastDay,
-                focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                calendarStyle: CalendarStyle(
-                  isTodayHighlighted: false,
-                  selectedDecoration: BoxDecoration(
-                    color: red,
-                    shape: BoxShape.circle,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(0),
+                width: MediaQuery.of(context).size.width,
+                child: TableCalendar(
+                  locale: locale,
+                  firstDay: kFirstDay,
+                  lastDay: kLastDay,
+                  focusedDay: _focusedDay,
+                  calendarFormat: _calendarFormat,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  calendarStyle: CalendarStyle(
+                    isTodayHighlighted: false,
+                    selectedDecoration: BoxDecoration(
+                      color: red,
+                      shape: BoxShape.circle,
+                    ),
+                    selectedTextStyle: TextStyle(color: Colors.white),
+                    defaultTextStyle: TextStyle(color: black),
+                    weekendTextStyle: TextStyle(color: black),
+                    disabledTextStyle: TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
+                    outsideTextStyle: TextStyle(color: black),
+                    holidayTextStyle: TextStyle(color: danger),
                   ),
-                  selectedTextStyle: TextStyle(color: Colors.white),
-                  defaultTextStyle: TextStyle(color: black),
-                  weekendTextStyle: TextStyle(color: black),
-                  disabledTextStyle: TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
-                  outsideTextStyle: TextStyle(color: black),
-                  holidayTextStyle: TextStyle(color: danger),
-                ),
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  formatButtonShowsNext: false,
-                ),
-                onDaySelected: (selectedDay, focusedDay) async {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = focusedDay;
-                  });
-                  // final result = await showTimePicker(
-                  //   context: context,
-                  //   initialTime: TimeOfDay.now(),
-                  //   builder: (context, child) {
-                  //     return MediaQuery(
-                  //       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                  //       child: child ?? Container(),
-                  //     );
-                  //   },
-                  // );
-                  // if (result != null) {
-                  //   Get.arguments['stepOrder']['executionTime'] = result.format(context);
-                  // }
+                  headerStyle: HeaderStyle(
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    formatButtonShowsNext: false,
+                  ),
+                  onDaySelected: (selectedDay, focusedDay) async {
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
+                    // final result = await showTimePicker(
+                    //   context: context,
+                    //   initialTime: TimeOfDay.now(),
+                    //   builder: (context, child) {
+                    //     return MediaQuery(
+                    //       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                    //       child: child ?? Container(),
+                    //     );
+                    //   },
+                    // );
+                    // if (result != null) {
+                    //   Get.arguments['stepOrder']['executionTime'] = result.format(context);
+                    // }
 
-                  // DatePicker.showTimePicker(context, showTitleActions: true, showSecondsColumn: false, onChanged: (date) {
-                  //   print('confirm $date');
-                  // }, onConfirm: (date) {
-                  //   setState(() {
-                  //     stepOrder['executionTime'] = DateFormat('HH:mm').format(date);
-                  //   });
-                  // }, currentTime: DateTime.now(), locale: LocaleType.ru);
-                },
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
+                    // DatePicker.showTimePicker(context, showTitleActions: true, showSecondsColumn: false, onChanged: (date) {
+                    //   print('confirm $date');
+                    // }, onConfirm: (date) {
+                    //   setState(() {
+                    //     stepOrder['executionTime'] = DateFormat('HH:mm').format(date);
+                    //   });
+                    // }, currentTime: DateTime.now(), locale: LocaleType.ru);
+                  },
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
+                  },
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-              child: TimePickerSpinner(
-                is24HourMode: true,
-                normalTextStyle: TextStyle(fontSize: 24, color: black),
-                highlightedTextStyle: TextStyle(fontSize: 24, color: red),
-                spacing: 50,
-                itemHeight: 45,
-                isForce2Digits: true,
-                onTimeChange: (time) {
-                  setState(() {
-                    Get.arguments['stepOrder']['executionTime'] = DateFormat('HH:mm').format(time);
-                    // _dateTime = time;
-                  });
-                },
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: Text(
+                  'choose_time'.tr,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: black,
+                  ),
+                ),
               ),
-            ),
-          ],
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: TimePickerSpinner(
+                  is24HourMode: true,
+                  normalTextStyle: TextStyle(fontSize: 24, color: black),
+                  highlightedTextStyle: TextStyle(fontSize: 24, color: red),
+                  spacing: 50,
+                  itemHeight: 45,
+                  isForce2Digits: true,
+                  onTimeChange: (time) {
+                    setState(() {
+                      Get.arguments['stepOrder']['executionTime'] = DateFormat('HH:mm').format(time);
+                      // _dateTime = time;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 80,
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: Container(

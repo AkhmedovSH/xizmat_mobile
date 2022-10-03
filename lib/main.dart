@@ -72,7 +72,6 @@ class MyApp extends StatelessWidget {
       //   Locale('ru'), // English
       //   Locale('uz'), // Hebrew
       // ],
-
       debugShowCheckedModeBanner: false,
       popGesture: true,
       defaultTransition: Transition.fade,

@@ -308,9 +308,16 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                       });
                                     },
                                   ),
-                                  Text(
-                                    'remember'.tr,
-                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        sendData['isRemember'] = !sendData['isRemember'];
+                                      });
+                                    },
+                                    child: Text(
+                                      'remember'.tr,
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -374,12 +381,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'no_account'.tr + '?',
-                      style: TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 14),
-                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed('/registration');
