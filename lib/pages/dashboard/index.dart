@@ -457,7 +457,7 @@ class _IndexState extends State<Index> {
                                         ),
                                         child: Icon(
                                           IconData(
-                                            categories[i]['iconName'] ?? 0xe156,
+                                            int.parse(categories[i]['iconCode'] ?? 0xe156),
                                             fontFamily: 'MaterialIcons',
                                           ),
                                         ),
