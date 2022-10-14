@@ -255,7 +255,9 @@ class _IndexState extends State<Index> {
                         for (var i = 0; i < topCategories.length; i++)
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed('/categories-childs', arguments: topCategories[i]);
+                              if (topCategories[i]['activated']) {
+                                Get.toNamed('/categories-childs', arguments: topCategories[i]);
+                              }
                             },
                             child: Container(
                               width: 130,
@@ -270,11 +272,11 @@ class _IndexState extends State<Index> {
                                   Positioned(
                                     bottom: 0,
                                     right: 0,
-                                    child: topCategories[i]['imageUrl'] != null
+                                    child: topCategories[i]['popularImageUrl'] != null
                                         ? ClipRRect(
                                             borderRadius: BorderRadius.circular(15),
                                             child: Image.network(
-                                              mainUrl + topCategories[i]['imageUrl'],
+                                              mainUrl + topCategories[i]['popularImageUrl'],
                                               height: 125,
                                               width: 130,
                                               fit: BoxFit.fill,
@@ -315,7 +317,7 @@ class _IndexState extends State<Index> {
                     ),
                   ),
                   GridView.count(
-                    childAspectRatio: 0.82,
+                    childAspectRatio: 0.80,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     primary: false,
@@ -340,24 +342,80 @@ class _IndexState extends State<Index> {
                               children: [
                                 Column(
                                   children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(0),
-                                      child: categories[i]['imageUrl'] != null
-                                          ? Image.network(
-                                              mainUrl + categories[i]['imageUrl'],
-                                              height: 105,
-                                              width: double.infinity,
-                                              fit: BoxFit.fill,
-                                            )
-                                          : SizedBox(
-                                              height: 105,
-                                              width: double.infinity,
-                                            ),
-                                      // child: Image.asset('images/p$i.png', height: 105, width: double.infinity, fit: BoxFit.fill),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(0),
+                                          child: categories[i]['mainImageUrl'] != null
+                                              ? Image.network(
+                                                  mainUrl + categories[i]['mainImageUrl'],
+                                                  height: 105,
+                                                  width: double.infinity,
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : SizedBox(
+                                                  height: 105,
+                                                  width: double.infinity,
+                                                ),
+                                          // child: Image.asset('images/p$i.png', height: 105, width: double.infinity, fit: BoxFit.fill),
+                                        ),
+                                        !categories[i]['activated']
+                                            ? Positioned.fill(
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Container(
+                                                    color: lightGrey.withOpacity(0.5),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(),
+                                        !categories[i]['activated']
+                                            ? Positioned.fill(
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Container(
+                                                    padding: EdgeInsets.symmetric(
+                                                      horizontal: 6,
+                                                      vertical: 6,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      color: white.withOpacity(0.5),
+                                                      border: Border.all(
+                                                        color: white.withOpacity(0.5),
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(50),
+                                                    ),
+                                                    child: Text(
+                                                      'soon'.tr,
+                                                      style: TextStyle(
+                                                        color: Colors.black54,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Container(),
+                                        // Positioned.fill(
+                                        //   right: 0,
+                                        //   top: 0,
+                                        //   child: RotationTransition(
+                                        //     turns: AlwaysStoppedAnimation(10 / 360),
+                                        //     child: Align(
+                                        //       alignment: Alignment.topRight,
+                                        //       child: Container(
+                                        //         padding: EdgeInsets.all(6),
+                                        //         color: red,
+                                        //         child: Text('data',),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // )
+                                      ],
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      margin: const EdgeInsets.only(top: 23, bottom: 10, right: 11, left: 11),
+                                      margin: const EdgeInsets.only(top: 30, bottom: 10, right: 11, left: 11),
                                       padding: const EdgeInsets.symmetric(horizontal: 11),
                                       child: Text(
                                         '${categories[i]['name'] ?? ''}',
@@ -384,21 +442,62 @@ class _IndexState extends State<Index> {
                                     // ),
                                   ],
                                 ),
-                                Positioned(
-                                  top: 80,
-                                  left: MediaQuery.of(context).size.width * 0.18,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: white,
-                                      borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
-                                    child: const Icon(
-                                      Icons.check,
-                                      color: Color(0xFF9C9C9C),
+                                Positioned.fill(
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: white,
+                                        borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+                                      child: IconTheme(
+                                        data: IconThemeData(
+                                          color: Color(0xFF9C9C9C),
+                                        ),
+                                        child: Icon(
+                                          IconData(
+                                            categories[i]['iconName'] ?? 0xe156,
+                                            fontFamily: 'MaterialIcons',
+                                          ),
+                                        ),
+                                      ),
+
+                                      // child: const Icon(
+                                      //   Icons.check,
+                                      //   color: Color(0xFF9C9C9C),
+                                      // ),
                                     ),
                                   ),
                                 ),
+                                categories[i]['newIcon'] != null && categories[i]['newIcon']
+                                    ? Positioned.fill(
+                                        child: Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Container(
+                                            // width: double.infinity,
+                                            margin: const EdgeInsets.only(
+                                              bottom: 15,
+                                              right: 11,
+                                              left: 11,
+                                            ),
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 12,
+                                              vertical: 6,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: red,
+                                              borderRadius: BorderRadius.circular(50),
+                                            ),
+                                            child: Text(
+                                              'new_2'.tr,
+                                              style: TextStyle(fontFamily: 'ProDisplay', fontSize: 14, fontWeight: FontWeight.bold, color: white),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Container(),
                               ],
                             ),
                           ),

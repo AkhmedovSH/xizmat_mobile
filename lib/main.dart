@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
             ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: red,
+            backgroundColor: red,
           ),
         ),
         timePickerTheme: TimePickerThemeData(

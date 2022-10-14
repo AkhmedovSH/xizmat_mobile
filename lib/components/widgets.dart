@@ -71,7 +71,7 @@ class _OutlinedButtonState extends State<OutlinedButton> {
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 16),
           elevation: 0,
-          primary: white,
+          backgroundColor: white,
           shape: RoundedRectangleBorder(
             side: BorderSide(color: red),
             borderRadius: BorderRadius.circular(7),

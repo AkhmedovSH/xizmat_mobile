@@ -185,10 +185,10 @@ class _ProfileState extends State<Profile> {
                           getUser();
                         }
                         if (i == 2) {
-                          logout();
+                          openLanguageDialog();
                         }
                         if (i == 3) {
-                          openLanguageDialog();
+                          logout();
                         }
                       },
                       child: Container(
@@ -224,21 +224,17 @@ class _ProfileState extends State<Profile> {
         return AlertDialog(
           title: const Text('AlertDialog Title'),
           content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+              child: Row(
+            children: [],
+          )),
+          // actions: <Widget>[
+          //   TextButton(
+          //     child: const Text('Approve'),
+          //     onPressed: () {
+          //       Navigator.of(context).pop();
+          //     },
+          //   ),
+          // ],
         );
       },
     );

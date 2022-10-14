@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'package:xizmat/helpers/api.dart';
 import 'package:xizmat/helpers/globals.dart';
@@ -22,12 +24,19 @@ class _SplashState extends State<Splash> {
   dynamic vesrion = '';
   dynamic url = '';
   bool isRequired = false;
+  bool ios = false;
 
   @override
   void initState() {
     super.initState();
     // login();
     checkVersion();
+    if (Platform.isAndroid) {
+    } else if (Platform.isIOS) {
+      setState(() {
+        ios = true;
+      });
+    }
     // startTimer();
   }
 
@@ -148,7 +157,7 @@ class _SplashState extends State<Splash> {
                                     onPressed: () {
                                       Get.back();
                                     },
-                                    style: TextButton.styleFrom(primary: const Color(0xFF00865F)),
+                                    style: TextButton.styleFrom(backgroundColor: const Color(0xFF00865F)),
                                     child: Text(
                                       'no_thanks'.tr,
                                       style: const TextStyle(fontWeight: FontWeight.w500),
@@ -157,10 +166,19 @@ class _SplashState extends State<Splash> {
                                 ),
                           ElevatedButton(
                             onPressed: () {
-                              launch(url);
+                              if (ios) {
+                              final uri = Uri.parse(
+                                  'https://apps.apple.com/app/id6443604263');
+                              launchUrl(uri);
+                            } else {
+                              StoreRedirect.redirect(
+                                androidAppId: "uz.redeem.client",
+                                iOSAppId: "6443604263",
+                              );
+                            }
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xFF00865F),
+                              backgroundColor: const Color(0xFF00865F),
                               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),

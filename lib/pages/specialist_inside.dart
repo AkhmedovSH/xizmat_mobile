@@ -388,7 +388,7 @@ class _SpecialistInsideState extends State<SpecialistInside> {
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                               elevation: 0,
-                              primary: white,
+                              backgroundColor: white,
                               shape: RoundedRectangleBorder(
                                 side: BorderSide(color: black),
                                 borderRadius: BorderRadius.circular(7),

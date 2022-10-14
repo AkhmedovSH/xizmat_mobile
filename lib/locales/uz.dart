@@ -82,8 +82,7 @@ final uz = {
   'service_completed': 'Xizmat tugallandi',
   'your_comment': 'Sharhingiz',
   'your_order_has_been_placed': 'Buyurtmangiz joylashtirildi',
-  'you_can_track_order_responses_in_your_profile_under_my_orders':
-      '“Buyurtma” menyusida ko\'rishingiz mumkin.',
+  'you_can_track_order_responses_in_your_profile_under_my_orders': '“Buyurtma” menyusida ko\'rishingiz mumkin.',
   'choose_another_service': 'Boshqa xizmatni tanlang',
   'choose_day': 'Kunni tanlang',
   'choose_your_destination': 'Belgilangan manzilni tanlang',
@@ -104,4 +103,6 @@ final uz = {
   'show_more_reviews': 'Ko\'proq sharhlarni ko\'rsatish',
   'offer_an_order': 'Buyurtmani taklif qilish',
   'write': 'Yozing',
+  'soon': 'Tez kunda',
+  'new_2': 'Yangi',
 };

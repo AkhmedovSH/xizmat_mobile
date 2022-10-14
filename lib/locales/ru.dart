@@ -104,4 +104,6 @@ final ru = {
   'show_more_reviews': 'Показать еще отзывы',
   'offer_an_order': 'Предложить заказ',
   'write': 'Написать',
+  'soon': 'Cкоро',
+  'new_2': 'Новый',
 };
