@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:store_redirect/store_redirect.dart';
 
 import 'package:xizmat/helpers/api.dart';
 import 'package:xizmat/helpers/globals.dart';
@@ -171,10 +170,13 @@ class _SplashState extends State<Splash> {
                                   'https://apps.apple.com/app/id6443604263');
                               launchUrl(uri);
                             } else {
-                              StoreRedirect.redirect(
-                                androidAppId: "uz.redeem.client",
-                                iOSAppId: "6443604263",
-                              );
+                              final uri = Uri.parse(
+                                  'https://play.google.com/store/apps/details?id=uz.redeem.client');
+                              launchUrl(uri);
+                              // StoreRedirect.redirect(
+                              //   androidAppId: "uz.redeem.client",
+                              //   iOSAppId: "6443604263",
+                              // );
                             }
                             },
                             style: ElevatedButton.styleFrom(
