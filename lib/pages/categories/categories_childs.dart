@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
@@ -18,18 +19,21 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
 
   searchCategories(value) async {
     final response = await get('/services/mobile/api/category-child-search-list', payload: {'search': value});
-    setState(() {
-      categories = response;
-    });
+    if (response != null) {
+      setState(() {
+        categories = response;
+      });
+    }
   }
 
   getChildCategories() async {
     dynamic category = Get.arguments;
-    final response = await get('/services/mobile/api/category-child-list/${category['id']}');
-    print('category-child-list$response');
-    setState(() {
-      categories = response;
-    });
+    final response = await guestGet('/services/mobile/api/category-child-list/${category['id']}');
+    if (response != null) {
+      setState(() {
+        categories = response;
+      });
+    }
   }
 
   @override
@@ -94,7 +98,10 @@ class _CategoriesChildsState extends State<CategoriesChilds> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              Icon(Icons.arrow_forward, color: black)
+                              SvgPicture.asset(
+                                'images/icons/arrow_right.svg',
+                              )
+                              // Icon(Icons.arrow_forward, color: black)
                             ],
                           ),
                         ),

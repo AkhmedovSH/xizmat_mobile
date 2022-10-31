@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../helpers/globals.dart';
 
@@ -117,34 +119,48 @@ class _DashboardState extends State<Dashboard> {
             onTap: changeIndex,
             currentIndex: currentIndex,
             backgroundColor: white,
-            selectedItemColor: black,
-            selectedIconTheme: IconThemeData(color: black),
+            selectedItemColor: red,
+            selectedIconTheme: IconThemeData(color: red),
+            selectedFontSize: 12,
             items: [
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
+                icon: currentIndex != 0
+                    ? SvgPicture.asset(
+                        'images/icons/home.svg',
+                      )
+                    : SvgPicture.asset(
+                        'images/icons/home_active.svg',
+                      ),
                 label: 'home'.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.list_alt,
-                  color: Color(0xFF828282),
-                ),
+                icon: currentIndex != 1
+                    ? SvgPicture.asset(
+                        'images/icons/list.svg',
+                      )
+                    : SvgPicture.asset(
+                        'images/icons/list_active.svg',
+                      ),
                 label: 'my_orders'.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person,
-                  color: Color(0xFF828282),
-                ),
+                icon: currentIndex != 2
+                    ? SvgPicture.asset(
+                        'images/icons/profile.svg',
+                      )
+                    : SvgPicture.asset(
+                        'images/icons/profile_active.svg',
+                      ),
                 label: 'profile'.tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.headset_mic,
-                  color: Color(0xFF828282),
-                ),
+                icon: currentIndex != 3
+                    ? SvgPicture.asset(
+                        'images/icons/support.svg',
+                      )
+                    : SvgPicture.asset(
+                        'images/icons/support_active.svg',
+                      ),
                 label: 'support'.tr,
               ),
             ],

@@ -21,17 +21,28 @@ var dio = Dio(options);
 
 final Controller controller = getx.Get.put(Controller());
 
-Future get(String url, {payload}) async {
+Future get(String url, {payload, guest = false}) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  print(url);
+  if (!guest) {
+    if (prefs.getString('user') == null) {
+      getx.Get.toNamed('/login');
+      return;
+    }
+  }
   try {
     print(getx.Get.locale.toString());
-    final response = await dio.get(hostUrl + url,
-        queryParameters: payload,
-        options: Options(headers: {
+    final response = await dio.get(
+      hostUrl + url,
+      queryParameters: payload,
+      options: Options(
+        headers: {
           "authorization": "Bearer ${prefs.getString('access_token')}",
           "Language": getx.Get.locale.toString(),
           "Accept-Language": getx.Get.locale.toString(),
-        }));
+        },
+      ),
+    );
     // log(response.data.toString());
     return response.data;
   } on DioError catch (e) {
@@ -39,8 +50,14 @@ Future get(String url, {payload}) async {
   }
 }
 
-Future post(String url, dynamic payload) async {
+Future post(String url, dynamic payload, {guest = false}) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (!guest) {
+    if (prefs.getString('user') == null) {
+      getx.Get.toNamed('/login');
+      return;
+    }
+  }
   try {
     print(getx.Get.locale.toString());
     final response = await dio.post(hostUrl + url,
@@ -81,7 +98,7 @@ Future guestPost(String url, dynamic payload) async {
       hostUrl + url,
       data: payload,
       options: Options(
-        headers: { 
+        headers: {
           "Language": getx.Get.locale.toString(),
           "Accept-Language": getx.Get.locale.toString(),
         },

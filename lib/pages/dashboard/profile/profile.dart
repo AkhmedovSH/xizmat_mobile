@@ -79,10 +79,12 @@ class _ProfileState extends State<Profile> {
 
   getUser() async {
     final response = await get('/services/mobile/api/get-info');
-    print(response);
-    setState(() {
-      user = response;
-    });
+    if (response != null) {
+      print(response);
+      setState(() {
+        user = response;
+      });
+    }
   }
 
   @override
@@ -106,7 +108,7 @@ class _ProfileState extends State<Profile> {
               Stack(
                 children: [
                   Center(
-                    child: user['imageUrl'] == null
+                    child: user == null || user['imageUrl'] == null || user['imageUrl'] == ''
                         ? Container(
                             width: 86,
                             height: 86,

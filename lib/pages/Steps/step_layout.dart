@@ -75,18 +75,20 @@ class _StepLayoutState extends State<StepLayout> {
   }
 
   getStep() async {
-    final response = await get('/services/mobile/api/step-category/${category['id']}');
+    final response = await guestGet('/services/mobile/api/step-category/${category['id']}');
     //await getOptions();
-    setState(() {
-      stepOrder['categoryId'] = category['id'].toString();
-      item = response;
-      items = response['optionList'] ?? [];
-      shimmerLoading = false;
-    });
+    if (response != null) {
+      setState(() {
+        stepOrder['categoryId'] = category['id'].toString();
+        item = response;
+        items = response['optionList'] ?? [];
+        shimmerLoading = false;
+      });
+    }
   }
 
   getOptions() async {
-    await get('/services/admin/api/option-type-helper');
+    await guestGet('/services/admin/api/option-type-helper');
   }
 
   checkOption(i) {
@@ -366,7 +368,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + items[index]['nextStepId'].toString());
     if (response != null) {
       setState(() {
         stepHistory.add({
@@ -505,7 +507,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + checkBoxList[0]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + checkBoxList[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
         'checkBoxList': checkBoxList,
@@ -656,7 +658,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
         'position': position,
@@ -748,7 +750,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
         'days': days,
@@ -848,7 +850,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     if (response != null) {
       setState(() {
         stepHistory.add({
@@ -955,7 +957,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + inputValues[0]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + inputValues[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
         'inputValues': inputValues,
@@ -1056,7 +1058,7 @@ class _StepLayoutState extends State<StepLayout> {
     if (result) {
       return;
     }
-    final response = await get('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
+    final response = await guestGet('/services/mobile/api/step/' + items[0]['nextStepId'].toString());
     setState(() {
       stepHistory.add({
         'files': imageUrlList,

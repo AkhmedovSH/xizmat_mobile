@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:xizmat/helpers/api.dart';
 
 import '../../helpers/globals.dart';
@@ -27,13 +30,16 @@ class _SelectCityState extends State<SelectCity> {
   }
 
   getCities() async {
-    final response = await get('/services/mobile/api/city-helper/${Get.arguments['id']}');
+    final response = await guestGet('/services/mobile/api/city-helper/${Get.arguments['id']}');
     if (response != null) {
       setState(() {
         cities = response;
         selectedButton = response[0]['id'];
       });
-      getUser();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.getString('user') != null) {
+        getUser();
+      }
     }
   }
 

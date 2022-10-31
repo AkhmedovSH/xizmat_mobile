@@ -17,7 +17,7 @@ class _CategoriesState extends State<Categories> {
   dynamic categories = [];
 
   getCategories() async {
-    final response = await get('/services/mobile/api/category-list');
+    final response = await guestGet('/services/mobile/api/category-list');
     if (response != null) {
       print(response);
       setState(() {
@@ -53,7 +53,9 @@ class _CategoriesState extends State<Categories> {
                     height: 140,
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed('/categories-childs', arguments: categories[i]);
+                        if (categories[i]['activated']) {
+                          Get.toNamed('/categories-childs', arguments: categories[i]);
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),
@@ -66,11 +68,11 @@ class _CategoriesState extends State<Categories> {
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: categories[i]['imageUrl'] != null
+                              child: categories[i]['mainImageUrl'] != null
                                   ? ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
                                       child: Image.network(
-                                        mainUrl + categories[i]['imageUrl'],
+                                        mainUrl + categories[i]['mainImageUrl'],
                                         height: 130,
                                         width: MediaQuery.of(context).size.width * 0.46,
                                         fit: BoxFit.fill,

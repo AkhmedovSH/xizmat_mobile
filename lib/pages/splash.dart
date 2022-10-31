@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'package:xizmat/helpers/api.dart';
 import 'package:xizmat/helpers/globals.dart';
@@ -75,7 +76,7 @@ class _SplashState extends State<Splash> {
   }
 
   void navigate() async {
-    Get.offAllNamed('/login');
+    Get.offAllNamed('/');
   }
 
   @override
@@ -156,28 +157,30 @@ class _SplashState extends State<Splash> {
                                     onPressed: () {
                                       Get.back();
                                     },
-                                    style: TextButton.styleFrom(backgroundColor: const Color(0xFF00865F)),
+                                    style: TextButton.styleFrom(backgroundColor: red),
                                     child: Text(
                                       'no_thanks'.tr,
-                                      style: const TextStyle(fontWeight: FontWeight.w500),
+                                      style: TextStyle(fontWeight: FontWeight.w500, color: white),
                                     ),
                                   ),
                                 ),
                           ElevatedButton(
                             onPressed: () {
                               if (ios) {
-                              final uri = Uri.parse(
-                                  'https://apps.apple.com/app/id6443604263');
-                              launchUrl(uri);
-                            } else {
-                              final uri = Uri.parse(
-                                  'https://play.google.com/store/apps/details?id=uz.redeem.client');
-                              launchUrl(uri);
-                              // StoreRedirect.redirect(
-                              //   androidAppId: "uz.redeem.client",
-                              //   iOSAppId: "6443604263",
-                              // );
-                            }
+                                final uri = Uri.parse('https://apps.apple.com/app/id6443604263');
+                                launchUrl(uri);
+                              } else {
+                                // final uri = Uri(
+                                //   scheme: 'https',
+                                //   host: 'play.google.com',
+                                //   path: '/store/apps/details?id=uz.xizmat24.client',
+                                // );
+                                // launchUrl(uri);
+                                StoreRedirect.redirect(
+                                  androidAppId: "uz.xizmat24.client",
+                                  // iOSAppId: "6443604263",
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF00865F),

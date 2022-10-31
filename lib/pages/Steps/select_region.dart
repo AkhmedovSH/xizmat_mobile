@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xizmat/helpers/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../helpers/globals.dart';
 
@@ -28,12 +29,15 @@ class _SelectRegionState extends State<SelectRegion> {
   }
 
   getRegions() async {
-    final response = await get('/services/mobile/api/region-helper');
+    final response = await guestGet('/services/mobile/api/region-helper');
     setState(() {
       regions = response;
       selectedButton = regions[0]['id'];
     });
-    getUser();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user') != null) {
+      getUser();
+    }
   }
 
   getUser() async {

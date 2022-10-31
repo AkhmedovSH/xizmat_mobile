@@ -143,27 +143,29 @@ class _ProfileSettingState extends State<ProfileSetting> {
 
   getUser() async {
     final response = await get('/services/mobile/api/get-info');
-    if (response['regionId'] != null && response['regionId'] != '0' && response['regionId'] != 0) {
-      getRegions(id: response['regionId']);
-    } else {
-      getRegions();
+    if (response != null) {
+      if (response['regionId'] != null && response['regionId'] != '0' && response['regionId'] != 0) {
+        getRegions(id: response['regionId']);
+      } else {
+        getRegions();
+      }
+      if (response['cityId'] != null && response['cityId'] != '0' && response['cityId'] != 0) {
+        getCities(response['regionId'], cityid: response['cityId']);
+      }
+      setState(() {
+        data['nameController'].text = response['name'].toString() != 'null' ? response['name'].toString() : '';
+        data['phoneController'].text =
+            response['phone'].toString() != 'null' ? maskFormatter.maskText(response['phone'].substring(3, response['phone'].length)) : '';
+        data['birthDateController'].text = response['birthDate'].toString() != 'null' ? response['birthDate'].toString() : '';
+        data['genderController'].text = response['gender'].toString() != 'null'
+            ? response['gender'].toString() == '0'
+                ? 'male'.tr
+                : 'female'.tr
+            : '';
+        sendData = response;
+        selectedButton = response['gender'].toString();
+      });
     }
-    if (response['cityId'] != null && response['cityId'] != '0' && response['cityId'] != 0) {
-      getCities(response['regionId'], cityid: response['cityId']);
-    }
-    setState(() {
-      data['nameController'].text = response['name'].toString() != 'null' ? response['name'].toString() : '';
-      data['phoneController'].text =
-          response['phone'].toString() != 'null' ? maskFormatter.maskText(response['phone'].substring(3, response['phone'].length)) : '';
-      data['birthDateController'].text = response['birthDate'].toString() != 'null' ? response['birthDate'].toString() : '';
-      data['genderController'].text = response['gender'].toString() != 'null'
-          ? response['gender'].toString() == '0'
-              ? 'male'.tr
-              : 'female'.tr
-          : '';
-      sendData = response;
-      selectedButton = response['gender'].toString();
-    });
   }
 
   getData() async {
