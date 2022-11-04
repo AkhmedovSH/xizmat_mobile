@@ -50,7 +50,6 @@ class _CategoriesState extends State<Categories> {
                 for (var i = 0; i < categories.length; i++)
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
-                    height: 140,
                     child: GestureDetector(
                       onTap: () {
                         if (categories[i]['activated']) {
@@ -58,49 +57,45 @@ class _CategoriesState extends State<Categories> {
                         }
                       },
                       child: Container(
-                        margin: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 10),
+                        width: MediaQuery.of(context).size.width * 0.42,
+                        height: 200,
+                        margin: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 16),
                         decoration: BoxDecoration(
-                          color: Color(0xFFF4F7FA),
-                          borderRadius: BorderRadius.circular(20),
+                          color: const Color(0xFFF4F7FA),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Stack(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
+                            Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              height: 116,
                               child: categories[i]['mainImageUrl'] != null
                                   ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(12),
                                       child: Image.network(
                                         mainUrl + categories[i]['mainImageUrl'],
-                                        height: 130,
-                                        width: MediaQuery.of(context).size.width * 0.46,
+                                        height: 105,
+                                        width: MediaQuery.of(context).size.width,
                                         fit: BoxFit.fill,
-                                        // fit: BoxFit.fill,
                                       ),
                                     )
-                                  : Container(
-                                      // child: Image.asset(
-                                      //   'images/build-logo.png',
-                                      //   height: 80,
-                                      //   width: 100,
-                                      //   fit: BoxFit.cover,
-                                      // ),
-                                      ),
+                                  : SizedBox(
+                                      height: 105,
+                                      width: MediaQuery.of(context).size.width * 0.42,
+                                    ),
                             ),
-                            Positioned(
-                              top: 8,
-                              left: 8,
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                child: Text(
-                                  '${categories[i]['name'] ?? ''} ',
-                                  style: TextStyle(fontWeight: FontWeight.w700, color: black),
-                                  overflow: TextOverflow.ellipsis,
+                            Container(
+                              margin: EdgeInsets.only(left: 12),
+                              child: Text(
+                                '${categories[i]['name'] ?? ''}',
+                                style: TextStyle(
+                                  color: Color(0xFF40484E),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),
-                            Padding(padding: EdgeInsets.only(top: 10)),
                           ],
                         ),
                       ),
