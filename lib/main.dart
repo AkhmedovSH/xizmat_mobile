@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/globals.dart';
 
@@ -54,8 +55,34 @@ void main() async {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  dynamic locale = const Locale('uz', 'UZ');
+
+  getLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      if (prefs.getInt('locale') != null) {
+        Get.updateLocale(Locale('${prefs.getInt('locale')}'));
+        setState(() {
+          locale = Locale('${prefs.getInt('locale')}');
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLocale();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

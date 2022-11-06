@@ -159,11 +159,9 @@ class _OrderInsideState extends State<OrderInside> {
                           // margin: EdgeInsets.only(right: 10),
                           child: ElevatedButton(
                             onPressed: () async {
-                              print(order);
                               final category = await get(
                                 '/services/mobile/api/category-child-list/${order['categoryId']}',
                               );
-                              print(category);
                               Get.toNamed('/step-layout', arguments: {
                                 'category': category[0],
                                 'value': 1,

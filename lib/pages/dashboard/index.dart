@@ -74,7 +74,6 @@ class _IndexState extends State<Index> {
   getTopCategories() async {
     final response = await guestGet('/services/mobile/api/category-top-list', payload: filter);
     if (response != null) {
-      print(response);
       setState(() {
         topCategories = response;
       });
@@ -84,7 +83,6 @@ class _IndexState extends State<Index> {
   getCategories() async {
     final response = await guestGet('/services/mobile/api/category-list', payload: filter);
     if (response != null) {
-      print(response);
       setState(() {
         categories = response;
       });
@@ -192,18 +190,34 @@ class _IndexState extends State<Index> {
                           },
                           decoration: InputDecoration(
                             prefixIcon: Container(
+                              margin: EdgeInsets.only(left: 12),
                               width: 19,
                               height: 19,
-                              child: SvgPicture.asset(
-                                'images/icons/search.svg',
-                                width: 19,
-                                height: 19,
-                                fit: BoxFit.fitWidth,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'images/icons/search.svg',
+                                    width: 19,
+                                    height: 19,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ],
                               ),
                             ),
-                            suffixIcon: Icon(
-                              Icons.sort,
-                              color: lightGrey,
+                            suffixIcon: Container(
+                              margin: EdgeInsets.only(right: 12),
+                              width: 19,
+                              height: 19,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'images/icons/filter.svg',
+                                    width: 19,
+                                    height: 19,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ],
+                              ),
                             ),
                             contentPadding: const EdgeInsets.all(18.0),
                             enabledBorder: OutlineInputBorder(

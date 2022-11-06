@@ -38,7 +38,6 @@ class _OrdersState extends State<Orders> {
 
   getOtklick() async {
     final response = await get('/services/mobile/api/order-list/1');
-    print(response);
     setState(() {
       orders = response;
     });
@@ -52,14 +51,12 @@ class _OrdersState extends State<Orders> {
   }
 
   setComplete(item) async {
-    print(item);
     final response = await post('/services/mobile/api/order-completed', {
       "id": item['id'],
       "executorId": item['executorId'],
       "rating": 4.5,
       "rating_text": "buladi",
     });
-    print(response);
     getCompleted();
   }
 

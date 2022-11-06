@@ -21,6 +21,7 @@ class _SupportState extends State<Support> {
         title: 'support'.tr,
         appBar: AppBar(),
         leading: false,
+        style: false,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -102,9 +102,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
     setState(() {
       sendData['phone'] = '998' + maskFormatter.getUnmaskedText();
     });
-    print(sendData);
     final response = await put('/services/mobile/api/update-client', sendData);
-    print(response);
     if (response != null) {
       if (response['success']) {
         Get.back();
@@ -117,7 +115,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
     if (id == null || id == 'null' || id == '0' || id == 0) {
       await getCities(response[0]['id']);
     }
-    print(id != null || id != 'null' || id != '0' || id != 0);
     setState(() {
       if (id != null && id != 'null' && id != '0' && id != 0) {
         sendData['regionId'] = id.toString();

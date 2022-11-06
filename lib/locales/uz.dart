@@ -105,4 +105,7 @@ final uz = {
   'write': 'Yozing',
   'soon': 'Tez kunda',
   'new_2': 'Yangi',
+  'delete_account': 'Profilni o\'chirish',
+  'language': 'Til',
+  'select_language': 'Tilni tanlang',
 };

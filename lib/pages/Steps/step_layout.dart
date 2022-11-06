@@ -159,7 +159,6 @@ class _StepLayoutState extends State<StepLayout> {
     setState(() {
       loading = true;
     });
-    print(items[index]);
     if (items[index]['nextStepId'] == 0) {
       setState(() {
         currentStep = currentStep - 1;
@@ -740,10 +739,8 @@ class _StepLayoutState extends State<StepLayout> {
         'optionType': 6,
       });
     });
-    print(days.toString().replaceAll('[', '').replaceAll(']', ''));
     dynamic optionList = [];
     for (var i = 0; i < optionList.length; i++) {
-      print(DateFormat('yyyy-MM-dd').format(optionList[i]));
     }
     // return;
     final result = await checkNextStepId(0);

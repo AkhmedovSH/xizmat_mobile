@@ -23,7 +23,6 @@ final Controller controller = getx.Get.put(Controller());
 
 Future get(String url, {payload, guest = false}) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(url);
   if (!guest) {
     if (prefs.getString('user') == null) {
       getx.Get.toNamed('/login');
@@ -31,7 +30,6 @@ Future get(String url, {payload, guest = false}) async {
     }
   }
   try {
-    print(getx.Get.locale.toString());
     final response = await dio.get(
       hostUrl + url,
       queryParameters: payload,
@@ -46,7 +44,7 @@ Future get(String url, {payload, guest = false}) async {
     // log(response.data.toString());
     return response.data;
   } on DioError catch (e) {
-    statuscheker(e);
+    statuscheker(e, prefs: prefs);
   }
 }
 
@@ -59,7 +57,6 @@ Future post(String url, dynamic payload, {guest = false}) async {
     }
   }
   try {
-    print(getx.Get.locale.toString());
     final response = await dio.post(hostUrl + url,
         data: payload,
         options: Options(headers: {
@@ -69,8 +66,7 @@ Future post(String url, dynamic payload, {guest = false}) async {
         }));
     return response.data;
   } on DioError catch (e) {
-    print(e.response?.data);
-    statuscheker(e);
+    statuscheker(e, prefs: prefs);
   }
 }
 
@@ -137,7 +133,6 @@ Future delete(String url) async {
         }));
     return response.data;
   } on DioError catch (e) {
-    print(e.response?.statusCode);
     statuscheker(e);
   }
 }
@@ -163,19 +158,25 @@ uploadImage(url, File file) async {
     );
     return response.data;
   } on DioError catch (e) {
-    print(e.response?.statusCode);
     statuscheker(e);
   }
 }
 
-statuscheker(e) async {
-  print(e.response?.statusCode);
+statuscheker(e, {prefs}) async {
   String jsonsDataString = e.response.toString();
   final jsonData = jsonDecode(jsonsDataString);
   if (e.response?.statusCode == 400) {
     showErrorToast(jsonData['message'].toString().tr);
   }
   if (e.response?.statusCode == 401) {
+    if (prefs != null) {
+      if (prefs.getString('user') != null) {
+        if (getx.Get.currentRoute != '/login') {
+          getx.Get.offAllNamed('/login');
+        }
+        return;
+      }
+    }
     showErrorToast('incorrect_login_or_password'.tr);
   }
   if (e.response?.statusCode == 403) {}

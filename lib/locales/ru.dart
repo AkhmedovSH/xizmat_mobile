@@ -106,4 +106,7 @@ final ru = {
   'write': 'Написать',
   'soon': 'Cкоро',
   'new_2': 'Новый',
+  'delete_account': 'Удалить аккаунт',
+  'language': 'Язык',
+  'select_language': 'Выберите язык',
 };

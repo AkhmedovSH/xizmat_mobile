@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,22 +25,27 @@ class _ProfileState extends State<Profile> {
   dynamic profile = [
     {
       'name': 'notifications'.tr,
-      'icon': Icon(Icons.notifications),
+      'icon': 'images/icons/notification.svg',
       'function': () {},
     },
     {
       'name': 'settings'.tr,
-      'icon': Icon(Icons.settings),
+      'icon': 'images/icons/setting.svg',
       'function': () {},
     },
     {
       'name': 'language'.tr,
-      'icon': Icon(Icons.settings),
+      'icon': 'images/icons/language.svg',
+      'function': () {},
+    },
+    {
+      'name': 'delete_account'.tr,
+      'icon': 'images/icons/trash.svg',
       'function': () {},
     },
     {
       'name': 'go_out'.tr,
-      'icon': Icon(Icons.logout),
+      'icon': 'images/icons/logout.svg',
     },
   ];
   dynamic sendData = {'imageUrl': ''};
@@ -80,16 +85,50 @@ class _ProfileState extends State<Profile> {
   getUser() async {
     final response = await get('/services/mobile/api/get-info');
     if (response != null) {
-      print(response);
       setState(() {
         user = response;
       });
     }
   }
 
+  changeLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    Get.updateLocale(Locale(groupValue));
+    prefs.setString('locale', groupValue);
+    setState(() {
+      profile = [
+        {
+          'name': 'notifications'.tr,
+          'icon': 'images/icons/notification.svg',
+          'function': () {},
+        },
+        {
+          'name': 'settings'.tr,
+          'icon': 'images/icons/setting.svg',
+          'function': () {},
+        },
+        {
+          'name': 'language'.tr,
+          'icon': 'images/icons/language.svg',
+          'function': () {},
+        },
+        {
+          'name': 'delete_account'.tr,
+          'icon': 'images/icons/trash.svg',
+          'function': () {},
+        },
+        {
+          'name': 'go_out'.tr,
+          'icon': 'images/icons/logout.svg',
+        },
+      ];
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    groupValue = Get.locale.toString();
     getUser();
   }
 
@@ -100,6 +139,7 @@ class _ProfileState extends State<Profile> {
         title: 'support'.tr,
         appBar: AppBar(),
         leading: false,
+        style: false,
       ),
       body: Stack(
         children: [
@@ -204,7 +244,10 @@ class _ProfileState extends State<Profile> {
                               profile[i]['name'],
                               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17, color: black),
                             ),
-                            profile[i]['icon']
+                            SvgPicture.asset(
+                              profile[i]['icon'],
+                              color: Color(0xFF9C9C9C),
+                            ),
                           ],
                         ),
                       ),
@@ -218,25 +261,140 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+  String groupValue = 'ru';
+
   openLanguageDialog() async {
     return showDialog(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      // barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-              child: Row(
-            children: [],
-          )),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: const Text('Approve'),
-          //     onPressed: () {
-          //       Navigator.of(context).pop();
-          //     },
-          //   ),
-          // ],
+        return StatefulBuilder(
+          builder: (context, languageSetState) {
+            return AlertDialog(
+              title: Text('select_language'.tr),
+              content: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          languageSetState(() {
+                            groupValue = 'ru';
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              child: Text(
+                                'Русский',
+                                style: TextStyle(
+                                  color: black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              child: Radio(
+                                value: 'ru',
+                                groupValue: groupValue,
+                                activeColor: red,
+                                onChanged: (String? value) {
+                                  languageSetState(() {
+                                    groupValue = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          languageSetState(() {
+                            groupValue = 'uz-Latn-UZ';
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              child: Text(
+                                'Ozbekcha',
+                                style: TextStyle(
+                                  color: black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              child: Radio(
+                                value: 'uz-Latn-UZ',
+                                groupValue: groupValue,
+                                activeColor: red,
+                                onChanged: (String? value) {
+                                  languageSetState(() {
+                                    groupValue = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // actions: <Widget>[
+              //   TextButton(
+              //     child: const Text('Approve'),
+              //     onPressed: () {
+              //       Navigator.of(context).pop();
+              //     },
+              //   ),
+              // ],
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: red,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: Text(
+                          'cancel'.tr,
+                          style: TextStyle(color: white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                          changeLocale();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: Text('proceed'.tr),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            );
+          },
         );
       },
     );

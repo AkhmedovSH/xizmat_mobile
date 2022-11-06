@@ -44,17 +44,13 @@ class _SplashState extends State<Splash> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String localVersion = packageInfo.version;
     var playMarketVersion = await guestGet('/services/admin/api/get-version?name=uz.xizmat24.client');
-    print(playMarketVersion);
     if (playMarketVersion == null) {
       startTimer();
       return;
     }
-    print(localVersion);
 
     if (playMarketVersion['version'] != localVersion) {
       if (playMarketVersion['required']) {
-        print('req');
-        print(playMarketVersion);
         setState(() {
           isRequired = true;
         });

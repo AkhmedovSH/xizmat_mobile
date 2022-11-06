@@ -39,7 +39,6 @@ class _CalendarState extends State<Calendar> {
       Get.arguments['stepOrder']['orderAmount'] = 1000;
       Get.arguments['stepOrder']['note'] = "pulini kelishamiz";
     });
-    print(Get.arguments['stepOrder']);
     final responseOrder = await post('/services/mobile/api/order', Get.arguments['stepOrder']);
     if (responseOrder != null) {
       Get.offAllNamed('/success');
