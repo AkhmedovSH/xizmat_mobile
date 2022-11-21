@@ -1,0 +1,4 @@
+NSCameraUsageDescription = "Сделайте снимок для фотографии профиля";
+NSPhotoLibraryUsageDescription = "Выберите снимок для фотографии профиля";
+NSLocationAlwaysUsageDescription = "Ваше местоположение нужно для определения специалистов рядом с вами";
+NSLocationWhenInUseUsageDescription = "Ваше местоположение нужно для определения специалистов рядом с вами";

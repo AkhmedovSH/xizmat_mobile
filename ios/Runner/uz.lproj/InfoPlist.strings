@@ -1,0 +1,4 @@
+NSCameraUsageDescription = "Profil rasmingiz uchun rasm oling";
+NSPhotoLibraryUsageDescription = "Profil rasmingiz uchun suratni tanlang";
+NSLocationAlwaysUsageDescription = "Sizning joylashuvingiz sizga yaqin bo'lgan mutaxassislarni aniqlash uchun kerak";
+NSLocationWhenInUseUsageDescription = "Sizning joylashuvingiz sizga yaqin bo'lgan mutaxassislarni aniqlash uchun kerak";

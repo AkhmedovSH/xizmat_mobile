@@ -1,0 +1,4 @@
+NSCameraUsageDescription = "Take a picture for your profile photo";
+NSPhotoLibraryUsageDescription = "Select a picture for your profile picture";
+NSLocationAlwaysUsageDescription = "Your location is needed to identify specialists near you";
+NSLocationWhenInUseUsageDescription = "Your location is needed to identify specialists near you";
