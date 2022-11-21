@@ -28,6 +28,14 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a picture for your profile photo</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location is needed to identify stores near you</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is needed to identify stores near you</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select a picture for your profile picture</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
