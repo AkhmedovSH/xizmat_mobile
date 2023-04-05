@@ -99,7 +99,9 @@ class _OrdersState extends State<Orders> {
   @override
   void dispose() {
     super.dispose();
-    socket!.disconnect();
+    if (socket != null) {
+      socket!.disconnect();
+    }
   }
 
   @override

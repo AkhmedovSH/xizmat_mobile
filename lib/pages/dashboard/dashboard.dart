@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../helpers/globals.dart';
 
@@ -165,6 +168,20 @@ class _DashboardState extends State<Dashboard> {
               ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final Uri launchUri = Uri(
+            scheme: 'tel',
+            path: '+998555000089',
+          );
+          await launchUrl(launchUri);
+        },
+        backgroundColor: red,
+        child: Icon(
+          Icons.phone,
+          size: 28,
         ),
       ),
     );

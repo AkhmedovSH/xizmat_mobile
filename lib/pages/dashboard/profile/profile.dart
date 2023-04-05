@@ -100,22 +100,18 @@ class _ProfileState extends State<Profile> {
         {
           'name': 'notifications'.tr,
           'icon': 'images/icons/notification.svg',
-          'function': () {},
         },
         {
           'name': 'settings'.tr,
           'icon': 'images/icons/setting.svg',
-          'function': () {},
         },
         {
           'name': 'language'.tr,
           'icon': 'images/icons/language.svg',
-          'function': () {},
         },
         {
           'name': 'delete_account'.tr,
           'icon': 'images/icons/trash.svg',
-          'function': () {},
         },
         {
           'name': 'go_out'.tr,
@@ -229,7 +225,7 @@ class _ProfileState extends State<Profile> {
                         if (i == 2) {
                           openLanguageDialog();
                         }
-                        if (i == 3) {
+                        if (i == 4) {
                           logout();
                         }
                       },

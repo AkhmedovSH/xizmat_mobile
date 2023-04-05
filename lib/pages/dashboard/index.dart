@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../helpers/globals.dart';
 import '../../helpers/api.dart';
@@ -18,6 +20,10 @@ class Index extends StatefulWidget {
 
 class _IndexState extends State<Index> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  CarouselController buttonCarouselController = CarouselController();
+
+  dynamic currentIndex = 0;
+  dynamic carouselItems = [{}, {}, {}];
 
   dynamic topCategories = [];
   dynamic categories = [];
@@ -43,6 +49,17 @@ class _IndexState extends State<Index> {
   };
 
   final focusNode = FocusNode();
+
+  changePage(index) {
+    setState(() {
+      currentIndex = index;
+      buttonCarouselController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.linear,
+      );
+    });
+  }
 
   search(value) async {
     if (value.isNotEmpty) {
@@ -134,108 +151,111 @@ class _IndexState extends State<Index> {
                     'images/appBar.png',
                     width: double.infinity,
                     fit: BoxFit.fill,
-                    height: 250,
-                  ),
-                  Positioned(
-                    left: MediaQuery.of(context).size.width * 0.35,
-                    bottom: 150,
-                    child: SafeArea(
-                      child: Image.asset(
-                        'images/logo.png',
-                      ),
-                    ),
+                    height: 300,
                   ),
                   Positioned(
                     bottom: 120,
                     child: user['name'] != null
                         ? Text(
                             'hello'.tr + ', ${user['name'] ?? ''}',
-                            style: TextStyle(color: grey, fontWeight: FontWeight.w500),
+                            style: TextStyle(
+                              color: grey,
+                              fontWeight: FontWeight.w500,
+                            ),
                           )
                         : Text(''),
                   ),
                   Positioned(
-                      bottom: 80,
-                      child: Text(
-                        'what_service_are_you_looking_for'.tr + '?',
-                        style: TextStyle(color: grey, fontWeight: FontWeight.bold, fontSize: 24),
-                      )),
-                  Positioned(
-                      bottom: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(0),
-                        width: 330,
-                        child: TextField(
-                          onTap: () async {
-                            // focusNode.unfocus();
-                            // Future.delayed(Duration(milliseconds: 500), () {
-
-                            // });
-                            // final selected = await showSearch(
-                            //   context: context,
-                            //   delegate: delegate,
-                            // );
-                            // if (selected != null) {
-                            //   if (selected != 0 && selected != _lastIntegerSelected) {
-                            //     setState(() {
-                            //       _lastIntegerSelected = selected;
-                            //     });
-                            //   }
-                            // }
-                          },
-                          scrollPadding: EdgeInsets.only(bottom: 100),
-                          focusNode: focusNode,
-                          onChanged: (value) {
-                            search(value);
-                          },
-                          decoration: InputDecoration(
-                            prefixIcon: Container(
-                              margin: EdgeInsets.only(left: 12),
-                              width: 19,
-                              height: 19,
-                              child: Row(
+                    bottom: 80,
+                    child: Text(
+                      'what_service_are_you_looking_for'.tr + '?',
+                      style: TextStyle(
+                        color: grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      CarouselSlider(
+                        carouselController: buttonCarouselController,
+                        items: [
+                          for (var item in carouselItems)
+                            Container(
+                              height: 140,
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Stack(
                                 children: [
-                                  SvgPicture.asset(
-                                    'images/icons/search.svg',
-                                    width: 19,
-                                    height: 19,
-                                    fit: BoxFit.fitWidth,
+                                  Positioned(
+                                    right: 0,
+                                    top: 10,
+                                    child: Image.asset(
+                                      'images/presents.png',
+                                      height: 140,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.6,
+                                    padding: EdgeInsets.symmetric(horizontal: 16),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            'Весна с Xizmat - приз 10 000 000 сум!',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 8),
+                                          child: Text(
+                                            'Пользуйтесь услугами и увеличивайте свои шансы выиграть',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                            suffixIcon: Container(
-                              margin: EdgeInsets.only(right: 12),
-                              width: 19,
-                              height: 19,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'images/icons/filter.svg',
-                                    width: 19,
-                                    height: 19,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            contentPadding: const EdgeInsets.all(18.0),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              borderSide: const BorderSide(color: Color(0xFFECECEC), width: 0.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              borderSide: const BorderSide(color: Color(0xFFECECEC), width: 0.0),
-                            ),
-                            filled: true,
-                            fillColor: inputColor,
-                            hintText: 'specialist_or_service'.tr,
-                            hintStyle: const TextStyle(color: Color(0xFF9C9C9C)),
-                          ),
-                          style: TextStyle(color: lightGrey),
+                            )
+                        ],
+                        options: CarouselOptions(
+                          height: 150,
+                          viewportFraction: 0.8,
+                          initialPage: 0,
+                          enableInfiniteScroll: false,
+                          reverse: false,
+                          autoPlay: false,
+                          enlargeCenterPage: true,
+                          enlargeFactor: 0.2,
+                          onPageChanged: (value, value2) {
+                            setState(() {
+                              currentIndex = value;
+                            });
+                          },
+                          scrollDirection: Axis.horizontal,
                         ),
-                      ))
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 12),
+                        child: Row(
+                          children: [],
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
               Container(
@@ -291,7 +311,7 @@ class _IndexState extends State<Index> {
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.42,
-                                height: 200,
+                                height: MediaQuery.of(context).size.height * 0.18,
                                 margin: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 20),
                                 decoration: BoxDecoration(
                                   color: const Color(0xFFF4F7FA),
@@ -302,19 +322,19 @@ class _IndexState extends State<Index> {
                                   children: [
                                     Container(
                                       margin: EdgeInsets.only(bottom: 8),
-                                      height: 105,
+                                      height: MediaQuery.of(context).size.height * 0.10,
                                       child: topCategories[i]['mainImageUrl'] != null
                                           ? ClipRRect(
                                               borderRadius: BorderRadius.circular(12),
                                               child: Image.network(
                                                 mainUrl + topCategories[i]['mainImageUrl'],
-                                                height: 105,
+                                                height: MediaQuery.of(context).size.height * 0.15,
                                                 width: MediaQuery.of(context).size.width * 0.42,
                                                 fit: BoxFit.fill,
                                               ),
                                             )
                                           : SizedBox(
-                                              height: 105,
+                                              height: MediaQuery.of(context).size.height * 0.15,
                                               width: MediaQuery.of(context).size.width * 0.42,
                                             ),
                                     ),
@@ -345,208 +365,197 @@ class _IndexState extends State<Index> {
                         style: TextStyle(color: black, fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    GridView.count(
-                      childAspectRatio: 0.80,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      primary: false,
-                      padding: const EdgeInsets.only(right: 16),
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                      crossAxisCount: 2,
-                      children: [
-                        for (int i = 0; i < categories.length; i++)
-                          GestureDetector(
-                            onTap: () {
-                              if (categories[i]['activated']) {
-                                Get.toNamed('/categories-childs', arguments: categories[i]);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: inputColor,
-                                borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(0),
-                                            child: categories[i]['mainImageUrl'] != null
-                                                ? Image.network(
-                                                    mainUrl + categories[i]['mainImageUrl'],
-                                                    height: 105,
-                                                    width: double.infinity,
-                                                    fit: BoxFit.fill,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Wrap(
+                        spacing: 10.0,
+                        runSpacing: 15.0,
+                        alignment: WrapAlignment.center,
+                        runAlignment: WrapAlignment.center,
+                        children: [
+                          for (int i = 0; i < categories.length; i++)
+                            GestureDetector(
+                              onTap: () {
+                                if (categories[i]['activated']) {
+                                  Get.toNamed('/categories-childs', arguments: categories[i]);
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: inputColor,
+                                  borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.46,
+                                child: Stack(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(0),
+                                              color: white,
+                                              child: categories[i]['mainImageUrl'] != null
+                                                  ? Image.network(
+                                                      mainUrl + categories[i]['mainImageUrl'],
+                                                      height: MediaQuery.of(context).size.height * 0.15,
+                                                      width: double.infinity,
+                                                      fit: BoxFit.fill,
+                                                    )
+                                                  : SizedBox(
+                                                      height: MediaQuery.of(context).size.height * 0.15,
+                                                      width: double.infinity,
+                                                    ),
+                                              // child: Image.asset('images/p$i.png', height: 105, width: double.infinity, fit: BoxFit.fill),
+                                            ),
+                                            !categories[i]['activated']
+                                                ? Positioned.fill(
+                                                    child: Align(
+                                                      alignment: Alignment.center,
+                                                      child: Container(
+                                                        color: lightGrey.withOpacity(0.5),
+                                                      ),
+                                                    ),
                                                   )
-                                                : SizedBox(
-                                                    height: 105,
-                                                    width: double.infinity,
-                                                  ),
-                                            // child: Image.asset('images/p$i.png', height: 105, width: double.infinity, fit: BoxFit.fill),
-                                          ),
-                                          !categories[i]['activated']
-                                              ? Positioned.fill(
-                                                  child: Align(
-                                                    alignment: Alignment.center,
-                                                    child: Container(
-                                                      color: lightGrey.withOpacity(0.5),
-                                                    ),
-                                                  ),
-                                                )
-                                              : Container(),
-                                          !categories[i]['activated']
-                                              ? Positioned.fill(
-                                                  child: Align(
-                                                    alignment: Alignment.center,
-                                                    child: Container(
-                                                      padding: EdgeInsets.symmetric(
-                                                        horizontal: 6,
-                                                        vertical: 6,
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                        color: white.withOpacity(0.5),
-                                                        border: Border.all(
+                                                : Container(),
+                                            !categories[i]['activated']
+                                                ? Positioned.fill(
+                                                    child: Align(
+                                                      alignment: Alignment.center,
+                                                      child: Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                          horizontal: 6,
+                                                          vertical: 6,
+                                                        ),
+                                                        decoration: BoxDecoration(
                                                           color: white.withOpacity(0.5),
+                                                          border: Border.all(
+                                                            color: white.withOpacity(0.5),
+                                                          ),
+                                                          borderRadius: BorderRadius.circular(50),
                                                         ),
-                                                        borderRadius: BorderRadius.circular(50),
-                                                      ),
-                                                      child: Text(
-                                                        'soon'.tr,
-                                                        style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontWeight: FontWeight.w600,
+                                                        child: Text(
+                                                          'soon'.tr,
+                                                          style: TextStyle(
+                                                            color: Colors.black54,
+                                                            fontWeight: FontWeight.w600,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                )
-                                              : Container(),
-                                          // Positioned.fill(
-                                          //   right: 0,
-                                          //   top: 0,
-                                          //   child: RotationTransition(
-                                          //     turns: AlwaysStoppedAnimation(10 / 360),
-                                          //     child: Align(
-                                          //       alignment: Alignment.topRight,
-                                          //       child: Container(
-                                          //         padding: EdgeInsets.all(6),
-                                          //         color: red,
-                                          //         child: Text('data',),
-                                          //       ),
-                                          //     ),
-                                          //   ),
-                                          // )
-                                        ],
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        margin: const EdgeInsets.only(top: 30, bottom: 10, right: 11, left: 11),
-                                        padding: const EdgeInsets.symmetric(horizontal: 11),
-                                        child: Text(
-                                          '${categories[i]['name'] ?? ''}',
-                                          style: TextStyle(
-                                            fontFamily: 'ProDisplay',
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          textAlign: TextAlign.center,
+                                                  )
+                                                : Container(),
+                                            // Positioned.fill(
+                                            //   right: 0,
+                                            //   top: 0,
+                                            //   child: RotationTransition(
+                                            //     turns: AlwaysStoppedAnimation(10 / 360),
+                                            //     child: Align(
+                                            //       alignment: Alignment.topRight,
+                                            //       child: Container(
+                                            //         padding: EdgeInsets.all(6),
+                                            //         color: red,
+                                            //         child: Text('data',),
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // )
+                                          ],
                                         ),
-                                      ),
-                                      // const SizedBox(
-                                      //   width: double.infinity,
-                                      //   child: Text(
-                                      //     '123 44 +',
-                                      //     style: TextStyle(
-                                      //       color: Color(0xFF9C9C9C),
-                                      //       fontFamily: 'ProDisplay',
-                                      //       fontSize: 14,
-                                      //       fontWeight: FontWeight.bold,
-                                      //     ),
-                                      //     textAlign: TextAlign.center,
-                                      //   ),
-                                      // ),
-                                    ],
-                                  ),
-                                  categories[i]['iconCode'] != null && categories[i]['iconCode'] != ''
-                                      ? Positioned.fill(
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: white,
-                                                borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                                              ),
-                                              padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+                                        Container(
+                                          width: double.infinity,
+                                          margin: const EdgeInsets.only(top: 30, bottom: 10, right: 11, left: 11),
+                                          padding: const EdgeInsets.symmetric(horizontal: 11),
+                                          height: MediaQuery.of(context).size.height * 0.05,
+                                          child: Text(
+                                            '${categories[i]['name'] ?? ''}',
+                                            style: TextStyle(
+                                              fontFamily: 'ProDisplay',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        // const SizedBox(
+                                        //   width: double.infinity,
+                                        //   child: Text(
+                                        //     '123 44 +',
+                                        //     style: TextStyle(
+                                        //       color: Color(0xFF9C9C9C),
+                                        //       fontFamily: 'ProDisplay',
+                                        //       fontSize: 14,
+                                        //       fontWeight: FontWeight.bold,
+                                        //     ),
+                                        //     textAlign: TextAlign.center,
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                    categories[i]['iconCode'] != null && categories[i]['iconCode'] != ''
+                                        ? Positioned.fill(
+                                            child: Align(
+                                              alignment: Alignment.center,
                                               child: Container(
-                                                child: Image.network(
-                                                  mainUrl + categories[i]['iconCode'],
-                                                  width: 24,
-                                                  height: 24,
-                                                  fit: BoxFit.fill,
+                                                margin: EdgeInsets.only(
+                                                  top: MediaQuery.of(context).size.height * 0.5,
                                                 ),
-                                              ),
-                                              // child: IconTheme(
-                                              //   data: IconThemeData(
-                                              //     color: Color(0xFF9C9C9C),
-                                              //   ),
-                                              //   child: Icon(
-                                              //     IconData(
-                                              //       int.parse(categories[i]['iconCode'] ?? 0xe156),
-                                              //       fontFamily: 'MaterialIcons',
-                                              //     ),
-                                              //   ),
-                                              // ),
-
-                                              // child: const Icon(
-                                              //   Icons.check,
-                                              //   color: Color(0xFF9C9C9C),
-                                              // ),
-                                            ),
-                                          ),
-                                        )
-                                      : Container(),
-                                  categories[i]['newIcon'] != null && categories[i]['newIcon']
-                                      ? Positioned.fill(
-                                          child: Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Container(
-                                              // width: double.infinity,
-                                              margin: const EdgeInsets.only(
-                                                bottom: 15,
-                                                right: 11,
-                                                left: 11,
-                                              ),
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 12,
-                                                vertical: 6,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: red,
-                                                borderRadius: BorderRadius.circular(50),
-                                              ),
-                                              child: Text(
-                                                'new_2'.tr,
-                                                style: TextStyle(
-                                                  fontFamily: 'ProDisplay',
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
+                                                decoration: BoxDecoration(
                                                   color: white,
+                                                  borderRadius: const BorderRadius.all(Radius.circular(7.0)),
                                                 ),
-                                                textAlign: TextAlign.center,
+                                                padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+                                                child: Container(
+                                                  child: Image.network(
+                                                    mainUrl + categories[i]['iconCode'],
+                                                    width: 24,
+                                                    height: 24,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        )
-                                      : Container(),
-                                ],
+                                          )
+                                        : Container(),
+                                    categories[i]['newIcon'] != null && categories[i]['newIcon']
+                                        ? Positioned.fill(
+                                            child: Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                // width: double.infinity,
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 15,
+                                                  right: 11,
+                                                  left: 11,
+                                                ),
+                                                padding: const EdgeInsets.symmetric(
+                                                  horizontal: 12,
+                                                  vertical: 6,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: red,
+                                                  borderRadius: BorderRadius.circular(50),
+                                                ),
+                                                child: Text(
+                                                  'new_2'.tr,
+                                                  style: TextStyle(
+                                                    fontFamily: 'ProDisplay',
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: white,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                     Container(
                       height: 30,

@@ -42,10 +42,13 @@ import 'pages/steps/select_city.dart';
 import 'pages/steps/calendar.dart';
 
 import './helpers/firebase_options.dart';
-
+  
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+    name: 'xizmat',
+  );
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -134,8 +137,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/splash', page: () => const Splash()),
         GetPage(name: '/', page: () => const Dashboard()),
         GetPage(name: '/categories', page: () => const Categories()),
-        GetPage(
-            name: '/categories-childs', page: () => const CategoriesChilds()),
+        GetPage(name: '/categories-childs', page: () => const CategoriesChilds()),
         GetPage(name: '/fast-search', page: () => const FastSearch()),
         GetPage(name: '/tutor', page: () => const Tutor()),
         GetPage(name: '/support', page: () => const Support()),
@@ -147,22 +149,15 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/registration', page: () => const Register()),
         GetPage(name: '/confirmation', page: () => const Confirmation()),
         GetPage(name: '/login', page: () => const Login()),
-        GetPage(
-            name: '/reset-password-init',
-            page: () => const ResetPasswordInit()),
-        GetPage(
-            name: '/reset-password-finish',
-            page: () => const ResetPasswordFinish()),
+        GetPage(name: '/reset-password-init', page: () => const ResetPasswordInit()),
+        GetPage(name: '/reset-password-finish', page: () => const ResetPasswordFinish()),
         // Order
-        GetPage(
-            name: '/specialist-inside', page: () => const SpecialistInside()),
+        GetPage(name: '/specialist-inside', page: () => const SpecialistInside()),
         GetPage(name: '/orders', page: () => const Orders()),
         GetPage(name: '/order-inside', page: () => const OrderInside()),
         GetPage(name: '/order-detail', page: () => const OrderDetail()),
         GetPage(name: '/order-by-manager', page: () => const OrderByManager()),
-        GetPage(
-            name: '/order-by-manager-success',
-            page: () => const OrderByManagerSuccess()),
+        GetPage(name: '/order-by-manager-success', page: () => const OrderByManagerSuccess()),
         GetPage(name: '/order-review', page: () => const OrderReview()),
         // Steps
         GetPage(name: '/step-layout', page: () => StepLayout()),

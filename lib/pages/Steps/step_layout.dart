@@ -53,11 +53,12 @@ class _StepLayoutState extends State<StepLayout> {
     'stepList': [],
   };
 
-  decrementStep() async {
+  decrementStep({index}) async {
     if (currentStep == 0) {
       Get.back();
       return true;
     } else {
+      if (index != null) {}
       dynamic stepInfo = stepHistory[stepHistory.length - 1];
       setState(() {
         currentStep = currentStep - 1;
@@ -69,6 +70,7 @@ class _StepLayoutState extends State<StepLayout> {
         items = stepInfo['items'];
         item = stepInfo['item'];
         stepHistory.removeAt(stepHistory.length - 1);
+        stepOrder['stepList'].removeAt(stepOrder['stepList'].length - 1);
       });
       return false;
     }
@@ -284,10 +286,42 @@ class _StepLayoutState extends State<StepLayout> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: EdgeInsets.only(bottom: 5),
                           child: Text(
                             item['description'] ?? '',
-                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18, color: black),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: black,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                for (var i = 0; i < stepOrder['stepList'].length; i++)
+                                  GestureDetector(
+                                    onTap: () {
+                                      decrementStep();
+                                      print(stepOrder['stepList'][i]);
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: Text(
+                                        '${stepOrder['stepList'][i]['optionName']} / ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                          color: darkGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
                         for (var i = 0; i < items.length; i++) checkOption(i),
@@ -358,6 +392,7 @@ class _StepLayoutState extends State<StepLayout> {
       stepOrder['stepList'].add({
         'main': item['main'],
         'stepId': item['id'],
+        'optionName': items[index]['optionName'],
         'optionList': [
           {'optionId': items[int.parse(radioId)]['id'], 'optionType': items[int.parse(radioId)]['optionType']},
         ],
@@ -499,6 +534,7 @@ class _StepLayoutState extends State<StepLayout> {
       stepOrder['stepList'].add({
         'main': item['main'],
         'stepId': item['id'],
+        'optionName': items[0]['optionName'],
         'optionList': optionList,
       });
     });
@@ -732,6 +768,7 @@ class _StepLayoutState extends State<StepLayout> {
       stepOrder['stepList'].add({
         'main': item['main'],
         'stepId': item['id'],
+        'optionName': items[0]['optionName'],
         'optionList': {
           'optionId': items[0]['id'],
           'optionType': items[0]['optionType'],
@@ -740,8 +777,7 @@ class _StepLayoutState extends State<StepLayout> {
       });
     });
     dynamic optionList = [];
-    for (var i = 0; i < optionList.length; i++) {
-    }
+    for (var i = 0; i < optionList.length; i++) {}
     // return;
     final result = await checkNextStepId(0);
     if (result) {
@@ -837,6 +873,7 @@ class _StepLayoutState extends State<StepLayout> {
       stepOrder['stepList'].add({
         'main': item['main'],
         'stepId': item['id'],
+        'optionName': items[0]['optionName'],
         'optionList': {
           'optionId': items[0]['id'],
           'optionType': items[0]['optionType'],
@@ -933,6 +970,7 @@ class _StepLayoutState extends State<StepLayout> {
   dynamic inputValues = [];
 
   nextStepInput() async {
+    print(item);
     dynamic optionList = [];
     for (var i = 0; i < inputValues.length; i++) {
       if (inputValues[i]['optionValue1'] != null) {
@@ -947,6 +985,7 @@ class _StepLayoutState extends State<StepLayout> {
       stepOrder['stepList'].add({
         'main': item['main'],
         'stepId': item['id'],
+        'optionName': item['title'],
         'optionList': optionList,
       });
     });
@@ -1042,6 +1081,7 @@ class _StepLayoutState extends State<StepLayout> {
       stepOrder['stepList'].add({
         'main': item['main'],
         'stepId': item['id'],
+        'optionName': items[0]['optionName'],
         'optionList': [
           {
             'optionValue1': imageUrlList,

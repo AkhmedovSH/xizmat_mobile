@@ -7,7 +7,7 @@ dynamic mainUrl = 'https://xizmat24.uz';
 
 dynamic imageUrl = 'https://xizmat24.uz';
 
-Color black = Color(0xFF40484E);
+Color black = Color(0xFF2E2E2E);
 Color darkGrey = Color(0xFF727272);
 Color grey = Color(0xFFF1F1F1);
 Color lightGrey = Color(0xFF9C9C9C);
